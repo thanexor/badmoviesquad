@@ -15,7 +15,7 @@ const propTypes = {
   onSubmit: PropTypes.func.isRequired,
 }
 
-export default function Home(props) {
+export default function Search(props) {
   const [ search, setSearch ] = useState("")
 
   return (
@@ -35,4 +35,4 @@ export default function Home(props) {
   )
 }
 
-Home.propTypes = propTypes
+Search.propTypes = propTypes

@@ -5,12 +5,13 @@ import styled from 'styled-components'
 const Container = styled.div``
 
 const propTypes = {
+  className: PropTypes.string,
   name: PropTypes.string.isRequired,
 }
 
 export default function Run(props) {
   return (
-    <Container>
+    <Container className={props.className}>
       { props.name }
     </Container>
   )
