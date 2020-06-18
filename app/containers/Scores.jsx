@@ -4,14 +4,14 @@ import styled from 'styled-components'
 
 import { getScores } from '../services/firebase'
 
-import Search from '../components/Search'
-import Image from '../components/Image'
+import Scorecard from '../components/Scorecard'
 
 const Container = styled.div``
 
-const StyledImage = styled(Image)`
+const StyledScorecard = styled(Scorecard)`
   width: 400px;
-  height: 400px;
+  margin-top: 4px;
+  margin-bottom: 4px;
 `
 
 const propTypes = {
@@ -24,6 +24,7 @@ export default function Scores(props) {
   useEffect(() => {
     const fetchData = async () => {
       const scores = await getScores()
+      console.log(scores)
       setUserScores(scores)    
     }
     fetchData()
@@ -31,15 +32,19 @@ export default function Scores(props) {
 
   const Scores = userScores.map(score => {
     return (
-      <div>
-
-      </div>
+      <StyledScorecard
+        key={score.uid}
+        name={score.displayName}
+        score={score.total_points}
+      />
     )
   })
 
   return (
     <Container>
       <h1>Scores</h1>
+
+      { Scores }
 
     </Container>
   )
