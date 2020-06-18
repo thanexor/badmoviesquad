@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
@@ -24,8 +24,6 @@ const propTypes = {
 }
 
 export default function Scorecard(props) {
-  const [ userScores, setUserScores ] = useState([])
-
   return (
     <Container className={props.className}>
       <Name>{props.name}</Name>
