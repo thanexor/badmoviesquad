@@ -2,11 +2,16 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { getBacklog } from '../services/firebase'
+import { getMovies } from '../services/firebase'
 
 import MovieCard from '../components/MovieCard'
 
 const Container = styled.div``
+
+const Movies = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+`
 
 const propTypes = {
   className: PropTypes.string,
@@ -17,7 +22,7 @@ function Backlog(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getBacklog()
+      const data = await getMovies()
       setBacklog(data)
     }
     fetchData()
@@ -27,6 +32,8 @@ function Backlog(props) {
     return (
       <MovieCard
         name={movie.title}
+        posterURL={movie.poster_path}
+        backgroundURL={movie.backdrop_path}
       />
     )
   })
@@ -34,7 +41,9 @@ function Backlog(props) {
   return (
     <Container className={props.className}>
       <h1>Backlog</h1>
-      {Backlog}
+      <Movies>
+        {Backlog}
+      </Movies>
     </Container>
   )
 }

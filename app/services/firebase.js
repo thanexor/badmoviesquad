@@ -54,3 +54,21 @@ export async function getUpcoming() {
 export async function getBacklog() {
   return []
 }
+
+export async function getMovies() {
+  const movies = await db.collection('Movies')
+    .get()
+
+  const data = extractData(movies)
+
+  const movieDB_URL = "https://image.tmdb.org/t/p/w300"
+  const repairedData = data.map(movie => {
+    return {
+      ...movie,
+      backdrop_path: `${movieDB_URL}${movie.backdrop_path}`,
+      poster_path: `${movieDB_URL}${movie.poster_path}`,
+    }
+  })
+  console.log(repairedData)
+  return repairedData
+}
