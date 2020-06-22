@@ -12,13 +12,13 @@ firebase.initializeApp({
 const db = firebase.firestore()
 
 // there's gotta be a better way to do this
-async function extractData(queryResult) {
+function extractData(queryResult) {
   const data = []
 
   queryResult.forEach(item => {
     data.push(item.data())
   })
-  return Promise.all(data)
+  return data
 }
 
 export async function getScores() {
