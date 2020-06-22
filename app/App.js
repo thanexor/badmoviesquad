@@ -13,6 +13,7 @@ import NavItem from './components/NavItem'
 import Home from './containers/Home'
 import Scores from './containers/Scores'
 import Upcoming from './containers/Upcoming'
+import Backlog from './containers/Backlog'
 
 const Container = styled.div`
   font-family: 'Nunito Sans';
@@ -36,10 +37,16 @@ function App() {
               <NavItem>
                 <Link to="/upcoming">Upcoming</Link>
               </NavItem>
+              <NavItem>
+                <Link to="/backlog">Backlog</Link>
+              </NavItem>
             </Nav>
           </nav>
 
           <Switch>
+            <Route path="/backlog">
+              <Backlog />
+            </Route>
             <Route path="/upcoming">
               <Upcoming />
             </Route>
