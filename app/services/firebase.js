@@ -69,6 +69,5 @@ export async function getMovies() {
       poster_path: `${movieDB_URL}${movie.poster_path}`,
     }
   })
-  console.log(repairedData)
   return repairedData
 }

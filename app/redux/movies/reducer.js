@@ -11,7 +11,7 @@ export default (state = initialState, action) => {
         ...state,
         loading: true,
       }
-    case "MOVIES_RESPONSE":
+    case "MOVIES_SUCCESS":
       return {
         ...state,
         movies: action.data,
