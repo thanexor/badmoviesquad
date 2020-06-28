@@ -60,64 +60,56 @@ exports.getAttendance = functions.https
 
   });
 
+async function makePick({ movieId, email, points }) {
+  const pickRef = await admin.firestore()
+    .collection('Picks')
+    .add({
+      movie: admin.firestore().collection('Movies').doc(movieId),
+      picker: admin.firestore().collection('Users').doc(email),
+      state: "active",
+      total_points: points
+    })
+
+  await movie.update({
+    picks: firebase.firestore.FieldValue.arrayUnion(pickRef)
+  })
+
+  return pickRef
+}
+
 exports.makePick = functions.https
   .onCall(async (data, context) => {
     const email = context.auth.token.email
-    console.log('Auth', email);
-
     const movieId = data.movieId
 
-    var movie = admin.firestore()
-      .collection('Movies')
-      .doc(movieId)
-
-    await admin.firestore()
-      .collection('Picks')
-      .add({
-        movie: admin.firestore().collection('Movies').doc(movieId),
-        picker: admin.firestore().collection('Users').doc(email),
-        state: "active",
-        total_points: 3
-      })
-
-    await admin.firestore()
-      .collection('Picks')
-      .add({
-        movie: admin.firestore().collection('Movies').doc(movieId),
-        picker: admin.firestore().collection('Users').doc(email),
-        state: "active",
-        total_points: 3
-      })
-
-    return { test: true }
+    return makePick({
+      movieId,
+      email,
+      points: 3,
+    })
   });
 
 exports.outbid = functions.https
   .onCall(async (data, context) => {
     const email = context.auth.token.email
-    console.log('Auth', email);
-
     const { movieId, pickId } = data
-    const movieRef = admin.firestore()
-      .collection('Movies')
-      .doc(movieId)
 
     const pickRef = admin.firestore()
       .collection('Picks')
       .doc(pickId)
 
-    const p = await pick.get()
+    const p = await pickRef.get()
     const pickData = p.data()
     console.log('pickData', pickData)
+    const outbidPoints = pickData.total_points + 1
 
     await pickRef.update({
       status: 'outbid'
     })
 
-    return admin.firestore().collection('Picks').add({
-      movie: admin.firestore().collection('Movies').doc(movieId),
-      picker: admin.firestore().collection('Users').doc(email),
-      state: "active",
-      total_points: pickData.total_points + 1
+    return makePick({
+      movieId,
+      email,
+      points: outbidPoints,
     })
   });
