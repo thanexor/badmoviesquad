@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
-//import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { getUpcoming } from '../services/firebase'
-
 import Upcoming from '../components/Upcoming'
 
 const Container = styled.div``
@@ -12,7 +10,7 @@ const propTypes = {
 
 }
 
-export default function Scores(props) {
+export default function UpcomingPage(props) {
   const [ upcoming, setUpcoming ] = useState([])
 
   useEffect(() => {
@@ -41,4 +39,4 @@ export default function Scores(props) {
   )
 }
 
-Scores.propTypes = propTypes
+UpcomingPage.propTypes = propTypes

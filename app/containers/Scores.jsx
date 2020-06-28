@@ -24,8 +24,7 @@ export default function Scores(props) {
   useEffect(() => {
     const fetchData = async () => {
       const scores = await getScores()
-      console.log(scores)
-      setUserScores(scores)    
+      setUserScores(scores)
     }
     fetchData()
   }, [])
