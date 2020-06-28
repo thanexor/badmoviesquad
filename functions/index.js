@@ -61,19 +61,63 @@ exports.getAttendance = functions.https
   });
 
 exports.makePick = functions.https
-  .onCall((data, context) => {
-    const email = context.auth.token.email,
-      movieId = data.movieId
+  .onCall(async (data, context) => {
+    const email = context.auth.token.email
+    console.log('Auth', email);
 
-    var movie = admin.firestore().collection('Movies').doc(movieId)
+    const movieId = data.movieId
 
-    console.log('Auth', context.auth.token.email);
+    var movie = admin.firestore()
+      .collection('Movies')
+      .doc(movieId)
+
+    await admin.firestore()
+      .collection('Picks')
+      .add({
+        movie: admin.firestore().collection('Movies').doc(movieId),
+        picker: admin.firestore().collection('Users').doc(email),
+        state: "active",
+        total_points: 3
+      })
+
+    await admin.firestore()
+      .collection('Picks')
+      .add({
+        movie: admin.firestore().collection('Movies').doc(movieId),
+        picker: admin.firestore().collection('Users').doc(email),
+        state: "active",
+        total_points: 3
+      })
+
+    return { test: true }
+  });
+
+exports.outbid = functions.https
+  .onCall(async (data, context) => {
+    const email = context.auth.token.email
+    console.log('Auth', email);
+
+    const { movieId, pickId } = data
+    const movieRef = admin.firestore()
+      .collection('Movies')
+      .doc(movieId)
+
+    const pickRef = admin.firestore()
+      .collection('Picks')
+      .doc(pickId)
+
+    const p = await pick.get()
+    const pickData = p.data()
+    console.log('pickData', pickData)
+
+    await pickRef.update({
+      status: 'outbid'
+    })
+
     return admin.firestore().collection('Picks').add({
       movie: admin.firestore().collection('Movies').doc(movieId),
       picker: admin.firestore().collection('Users').doc(email),
       state: "active",
-      total_points: 3
-    }).then(() => {
-      return { test: true }
-    });
+      total_points: pickData.total_points + 1
+    })
   });
