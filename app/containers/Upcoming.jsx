@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-
 import styled from 'styled-components'
 
+import { getUpcoming } from '../services/firebase'
 import Upcoming from '../components/Upcoming'
-import {
-  getUpcoming,
- } from '../redux/selectors'
 
 const Container = styled.div``
 
 const propTypes = {
-  upcoming: PropTypes.array.isRequired,
+
 }
 
-function UpcomingPage(props) {
+export default function UpcomingPage(props) {
+  const [ upcoming, setUpcoming ] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getUpcoming()
+      setUpcoming(data)
+    }
+    fetchData()
+  }, [])
+
   const UpcomingPicks = upcoming.map(({movie, picker}) => {
     return (
       <Upcoming
@@ -35,10 +40,3 @@ function UpcomingPage(props) {
 }
 
 UpcomingPage.propTypes = propTypes
-
-export default connect(
-  (state) => ({
-    upcoming: getUpcoming(state)
-  }),
-  null
-)(UpcomingPage)
