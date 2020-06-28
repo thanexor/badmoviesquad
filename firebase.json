@@ -4,7 +4,7 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "public": "dist",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -13,7 +13,7 @@
     "rewrites": [
       {
         "source": "**",
-        "destination": "/dist/index.html"
+        "destination": "/index.html"
       }
     ]
   },
@@ -21,5 +21,19 @@
     "predeploy": [
       "npm --prefix \"$RESOURCE_DIR\" run lint"
     ]
+  },
+  "emulators": {
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "ui": {
+      "enabled": true
+    }
   }
 }

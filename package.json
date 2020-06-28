@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel app/index.html"
+    "start": "parcel app/index.html",
+    "firebase-repair": "node firebaseRunner.js"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,7 @@
     "@babel/core": "^7.10.2",
     "@babel/preset-react": "^7.10.1",
     "dotenv": "^8.2.0",
+    "firebase-tools": "^8.4.3",
     "parcel": "^1.12.4"
   }
 }
