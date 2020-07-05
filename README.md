@@ -11,3 +11,8 @@ yarn start
 ```
 nvm install node --latest-npm --reinstall-packages-from=node
 ```
+
+### installing node 10
+```
+nvm install 10.15.3
+```
