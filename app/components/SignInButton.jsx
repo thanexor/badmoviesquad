@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { signIn } from '../services/auth'
+import { signIn } from 'services/auth'
 
 const Button = styled.button``
 

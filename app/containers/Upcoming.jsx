@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
-import { getUpcoming } from '../services/actions'
-import Upcoming from '../components/Upcoming'
+import { getUpcoming } from 'services/actions'
+import Upcoming from 'components/Upcoming'
 
 const Container = styled.div``
 

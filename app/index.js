@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import 'regenerator-runtime/runtime'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -8,7 +7,7 @@ import { ThemeProvider } from 'styled-components'
 import App from './App'
 
 import theme from './theme'
-import store from './store'
+import store from 'reduxState/store'
 import init from './init'
 
 init()

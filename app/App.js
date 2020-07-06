@@ -11,17 +11,17 @@ import { connect } from 'react-redux'
 import {
   isLoggedIn,
   getUsername,
-} from './redux/selectors'
+} from 'reduxState/selectors'
 
-import Nav from './components/Nav'
-import NavItem from './components/NavItem'
-import SignInButton from './components/SignInButton'
-import Profile from './components/Profile'
+import Nav from 'components/Nav'
+import NavItem from 'components/NavItem'
+import SignInButton from 'components/SignInButton'
+import Profile from 'components/Profile'
 
-import Home from './containers/Home'
-import Scores from './containers/Scores'
-import Upcoming from './containers/Upcoming'
-import Backlog from './containers/Backlog'
+import Home from 'containers/Home'
+import Scores from 'containers/Scores'
+import Upcoming from 'containers/Upcoming'
+import Backlog from 'containers/Backlog'
 
 const Container = styled.div`
   font-family: 'Nunito Sans';
