@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { getUserBacklog } from '../services/actions'
+import { getMovies, getUserBacklog } from 'services/actions'
 
-import MovieCard from '../components/MovieCard'
+import MovieCard from 'components/MovieCard'
 
 const Container = styled.div``
 

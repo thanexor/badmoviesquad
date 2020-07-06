@@ -1,9 +1,9 @@
 import firebase from './firebase'
-import store from '../store'
+import store from 'reduxState/store'
 import {
   loginAs,
   logout,
-} from '../redux/actions'
+} from 'reduxState/actions'
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
