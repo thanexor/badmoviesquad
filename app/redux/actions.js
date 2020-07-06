@@ -1,12 +1,13 @@
-const LOGIN = "LOGIN"
-export function loginAs(user) {
+export const LOGIN = "LOGIN"
+export function loginAs({displayName, email}) {
   return {
     type: LOGIN,
-    user,
+    displayName,
+    email,
   }
 }
 
-const LOGOUT = "LOGOUT"
+export const LOGOUT = "LOGOUT"
 export function logout() {
   return {
     type: LOGOUT,

@@ -4,7 +4,8 @@ import {
 } from './actions'
 
 const initialState = {
-  loggedInAs: null
+  username: null,
+  loggedInEmail: null,
 };
 
 export default (state = initialState, action) => {
@@ -12,12 +13,14 @@ export default (state = initialState, action) => {
     case LOGIN:
       return {
         ...state,
-        loggedInAs: action.user,
+        username: action.displayName,
+        loggedInEmail: action.email,
       }
     case LOGOUT:
       return {
         ...state,
-        loggedInAs: null,
+        username: null,
+        loggedInEmail: null,
       }
     default:
       return state;
