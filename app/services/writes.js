@@ -1,19 +1,18 @@
 import firebase from './firebase'
-import admin from 'firebase-admin'
 
-import store from '../store'
-import { getUserEmail } from '../redux/selectors'
+import store from 'reduxState/store'
+import { getUserEmail } from 'reduxState/selectors'
 
-admin.initializeApp();
+const db = firebase.firestore()
 
 export async function makePick(firebase_id) {
   const email = getUserEmail(store.getState())
 
-  const pickRef = await admin.firestore()
+  const pickRef = await firebase.firestore()
     .collection('Picks')
     .add({
-      movie: admin.firestore().collection('Movies').doc(movieId),
-      picker: admin.firestore().collection('Users').doc(email),
+      movie: db.collection('Movies').doc(movieId),
+      picker: db.collection('Users').doc(email),
       state: "active",
       total_points: 3
     })

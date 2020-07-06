@@ -20,7 +20,6 @@
   "homepage": "https://github.com/thanexor/badmoviesquad#readme",
   "dependencies": {
     "firebase": "^7.15.1",
-    "firebase-admin": "^8.13.0",
     "react": ">= 16.8",
     "react-dom": ">= 16.8.0",
     "react-dropzone": "^11.0.1",
