@@ -1,4 +1,6 @@
 const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+admin.initializeApp();
 
 exports.completeNight = functions.firestore
   .document('Nights/{nightId}')
@@ -24,6 +26,10 @@ exports.completeNight = functions.firestore
         title: "TBD",
       })
       // deduct 3 points from the pickers
+    }
+
+    return {
+      success: true
     }
   });
 
@@ -60,20 +66,56 @@ exports.getAttendance = functions.https
 
   });
 
-exports.makePick = functions.https
-  .onCall((data, context) => {
-    const email = context.auth.token.email,
-      movieId = data.movieId
-
-    var movie = admin.firestore().collection('Movies').doc(movieId)
-
-    console.log('Auth', context.auth.token.email);
-    return admin.firestore().collection('Picks').add({
+async function makePick({ movieId, email, points }) {
+  const pickRef = await admin.firestore()
+    .collection('Picks')
+    .add({
       movie: admin.firestore().collection('Movies').doc(movieId),
       picker: admin.firestore().collection('Users').doc(email),
       state: "active",
-      total_points: 3
-    }).then(() => {
-      return { test: true }
-    });
+      total_points: points
+    })
+
+  await movie.update({
+    picks: firebase.firestore.FieldValue.arrayUnion(pickRef)
+  })
+
+  return pickRef
+}
+
+exports.makePick = functions.https
+  .onCall(async (data, context) => {
+    const email = context.auth.token.email
+    const movieId = data.movieId
+
+    return makePick({
+      movieId,
+      email,
+      points: 3,
+    })
+  });
+
+exports.outbid = functions.https
+  .onCall(async (data, context) => {
+    const email = context.auth.token.email
+    const { movieId, pickId } = data
+
+    const pickRef = admin.firestore()
+      .collection('Picks')
+      .doc(pickId)
+
+    const p = await pickRef.get()
+    const pickData = p.data()
+    console.log('pickData', pickData)
+    const outbidPoints = pickData.total_points + 1
+
+    await pickRef.update({
+      status: 'outbid'
+    })
+
+    return makePick({
+      movieId,
+      email,
+      points: outbidPoints,
+    })
   });

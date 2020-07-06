@@ -6,9 +6,17 @@ import {
   Route,
   Link
 } from "react-router-dom"
+import { connect } from 'react-redux'
+
+import {
+  isLoggedIn,
+  getUsername,
+} from './redux/selectors'
 
 import Nav from './components/Nav'
 import NavItem from './components/NavItem'
+import SignInButton from './components/SignInButton'
+import Profile from './components/Profile'
 
 import Home from './containers/Home'
 import Scores from './containers/Scores'
@@ -21,7 +29,7 @@ const Container = styled.div`
   min-height: 100vh;
 `
 
-function App() {
+function App(props) {
   return (
     <Container>
       <Router>
@@ -39,6 +47,13 @@ function App() {
               </NavItem>
               <NavItem>
                 <Link to="/backlog">Backlog</Link>
+              </NavItem>
+              <NavItem>
+                {props.isLoggedIn ?
+                  <Profile username={props.username} />
+                  :
+                  <SignInButton />
+                }
               </NavItem>
             </Nav>
           </nav>
@@ -63,4 +78,9 @@ function App() {
   )
 }
 
-export default App
+export default connect(
+  (state) => ({
+    isLoggedIn: isLoggedIn(state),
+    username: getUsername(state),
+  })
+)(App)

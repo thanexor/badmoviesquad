@@ -1,6 +1,5 @@
-import store from './store'
-import { fetchMovies } from './redux/movies/actions'
+// import store from './store'
 
 export default function init() {
-  store.dispatch(fetchMovies())
+
 }
