@@ -7,7 +7,12 @@ function extractData(queryResult) {
   const data = []
 
   queryResult.forEach(item => {
-    data.push(item.data())
+    const itemData = item.data()
+
+    data.push({
+      ...itemData,
+      firebase_ref: item.ref.path,
+    })
   })
   return data
 }
@@ -42,8 +47,23 @@ export async function getUpcoming() {
   )
 }
 
-export async function getBacklog() {
-  return []
+function fixPosterURLs(movie) {
+  const movieDB_URL = "https://image.tmdb.org/t/p/w300"
+  return {
+    ...movie,
+    backdrop_path: `${movieDB_URL}${movie.backdrop_path}`,
+    poster_path: `${movieDB_URL}${movie.poster_path}`,
+  }
+}
+
+export async function getUserBacklog(email) {
+  const movies = await db.collection('Movies')
+    .where('added_by', '==', email)
+    .get()
+
+  const data = extractData(movies)
+  const repairedData = data.map(movie => fixPosterURLs(movie))
+  return repairedData
 }
 
 export async function getMovies() {
@@ -51,14 +71,6 @@ export async function getMovies() {
     .get()
 
   const data = extractData(movies)
-
-  const movieDB_URL = "https://image.tmdb.org/t/p/w300"
-  const repairedData = data.map(movie => {
-    return {
-      ...movie,
-      backdrop_path: `${movieDB_URL}${movie.backdrop_path}`,
-      poster_path: `${movieDB_URL}${movie.poster_path}`,
-    }
-  })
+  const repairedData = data.map(movie => fixPosterURLs(movie))
   return repairedData
 }
