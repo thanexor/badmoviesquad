@@ -38,9 +38,10 @@ module.exports = {
   resolve: {
     extensions: ['*', '.js', '.jsx', 'html', 'ts', 'json'],
     alias: {
-      lib: path.resolve(__dirname, 'app/scripts/lib/'),
-      plugins: path.resolve(__dirname, 'app/scripts/plugins/'),
-      devices: path.resolve(__dirname, 'app/scripts/src/devices/'),
+      components: path.resolve(__dirname, 'app/components/'),
+      containers: path.resolve(__dirname, 'app/containers/'),
+      reduxState: path.resolve(__dirname, 'app/reduxState/'),
+      services: path.resolve(__dirname, 'app/services/'),
     }
   }
 };

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 //import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { getScores } from '../services/actions'
+import { getScores } from 'services/actions'
 
-import Scorecard from '../components/Scorecard'
+import Scorecard from 'components/Scorecard'
 
 const Container = styled.div``
 

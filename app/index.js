@@ -7,7 +7,7 @@ import { ThemeProvider } from 'styled-components'
 import App from './App'
 
 import theme from './theme'
-import store from './store'
+import store from 'reduxState/store'
 import init from './init'
 
 init()
