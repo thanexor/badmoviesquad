@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import 'regenerator-runtime/runtime'
 import React from 'react'
 import ReactDOM from 'react-dom'
