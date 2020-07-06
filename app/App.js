@@ -9,6 +9,7 @@ import {
 
 import Nav from './components/Nav'
 import NavItem from './components/NavItem'
+import SignInButton from './components/SignInButton'
 
 import Home from './containers/Home'
 import Scores from './containers/Scores'
@@ -39,6 +40,9 @@ function App() {
               </NavItem>
               <NavItem>
                 <Link to="/backlog">Backlog</Link>
+              </NavItem>
+              <NavItem>
+                <SignInButton />
               </NavItem>
             </Nav>
           </nav>

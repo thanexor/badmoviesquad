@@ -1,4 +1,6 @@
 const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+admin.initializeApp();
 
 exports.completeNight = functions.firestore
   .document('Nights/{nightId}')
@@ -24,6 +26,10 @@ exports.completeNight = functions.firestore
         title: "TBD",
       })
       // deduct 3 points from the pickers
+    }
+
+    return {
+      success: true
     }
   });
 

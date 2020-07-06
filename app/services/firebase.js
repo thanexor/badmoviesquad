@@ -10,7 +10,23 @@ firebase.initializeApp({
   appId: "1:304211569129:web:d7b896eedf7e95831ec378"
 })
 
+let currentUser = null
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    currentUser = user
+    console.log(user)
+  } else {
+    currentUser = null
+    console.log('no user logged in!')
+  }
+});
+
 const db = firebase.firestore()
+
+export function signIn() {
+  const provider = new firebase.auth.GoogleAuthProvider()
+  firebase.auth().signInWithRedirect(provider)
+}
 
 // there's gotta be a better way to do this
 function extractData(queryResult) {
