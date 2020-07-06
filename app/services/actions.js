@@ -11,6 +11,7 @@ function extractData(queryResult) {
 
     data.push({
       ...itemData,
+      firebase_id: item.ref.id,
       firebase_ref: item.ref.path,
     })
   })
