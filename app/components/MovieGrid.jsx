@@ -4,10 +4,12 @@ import styled from 'styled-components'
 
 import MovieCard from './MovieCard'
 
-const Container = styled.div``
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+`
 
 const Movie = styled(MovieCard)`
-  display: grid;
 `
 
 const propTypes = {
