@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { getMovies } from 'services/actions'
+import { getMovies, getUserBacklog } from 'services/actions'
 
 import MovieCard from 'components/MovieCard'
 
@@ -22,7 +22,7 @@ function Backlog(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getMovies()
+      const data = await getUserBacklog('nathanemyers@gmail.com')
       setBacklog(data)
     }
     fetchData()
@@ -31,6 +31,7 @@ function Backlog(props) {
   const Backlog = backlog.map(movie => {
     return (
       <MovieCard
+        id={movie.firebase_id}
         name={movie.title}
         posterURL={movie.poster_path}
         backgroundURL={movie.backdrop_path}

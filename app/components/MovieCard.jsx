@@ -1,8 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import { connect } from 'react-redux'
+import { makePick } from '../services/writes'
 
 const Container = styled.div``
+
+const MakePickButton = styled.button`
+`
 
 const Poster = styled.img`
   width: 150px;
@@ -21,9 +26,11 @@ const Name = styled.div``
 
 const propTypes = {
   className: PropTypes.string,
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   backgroundURL: PropTypes.string,
   posterURL: PropTypes.string,
+  makePick: PropTypes.func.isRequired,
 }
 
 function MovieCard(props) {
@@ -56,9 +63,18 @@ function MovieCard(props) {
       <Name>
         {props.name}
       </Name>
+      <MakePickButton
+        onClick={() => props.makePick(props.id)}
+      >Pick
+      </MakePickButton>
     </Container>
   )
 }
 
 MovieCard.propTypes = propTypes
-export default React.memo(MovieCard)
+export default connect(
+  null,
+  (dispatch) => ({
+    makePick: (firebase_id) => { return makePick(firebase_id)}
+  })
+)(MovieCard)
