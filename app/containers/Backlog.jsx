@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+
+import { fetchData } from 'app/hooks'
 
 import { getMovies, getUserBacklog } from 'services/actions'
 
@@ -18,15 +20,7 @@ const propTypes = {
 }
 
 function Backlog(props) {
-  const [ backlog, setBacklog ] = useState([])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getUserBacklog('nathanemyers@gmail.com')
-      setBacklog(data)
-    }
-    fetchData()
-  }, [])
+  const backlog = fetchData(getUserBacklog, 'nathanemyers')
 
   const Backlog = backlog.map(movie => {
     return (
