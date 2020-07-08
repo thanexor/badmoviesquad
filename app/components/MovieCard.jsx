@@ -64,7 +64,7 @@ function MovieCard(props) {
         {props.name}
       </Name>
       <MakePickButton
-        onClick={() => props.makePick()}
+        onClick={() => props.makePick(props.id)}
       >Pick
       </MakePickButton>
     </Container>
