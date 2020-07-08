@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 import { getUpcoming } from 'services/actions'
+import { fetchData } from 'app/hooks'
+
 import Upcoming from 'components/Upcoming'
 
 const Container = styled.div``
@@ -11,15 +13,7 @@ const propTypes = {
 }
 
 export default function UpcomingPage(props) {
-  const [ upcoming, setUpcoming ] = useState([])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getUpcoming()
-      setUpcoming(data)
-    }
-    fetchData()
-  }, [])
+  const upcoming = fetchData(getUpcoming)
 
   const UpcomingPicks = upcoming.map(({movie, picker}) => {
     return (

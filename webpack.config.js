@@ -26,7 +26,16 @@ module.exports = {
           { loader: 'babel-loader' },
         ]
       },
-    ]
+      // {
+      //   test: /\.sass$/,
+      //   use: [
+      //     { loader: MiniCssExtractPlugin.loader, },
+      //     "style-loader",
+      //     "css-loader",
+      //     "sass-loader",
+      //   ]
+      // },
+    ],
   },
   plugins: [
     // new CleanWebpackPlugin(),
@@ -38,6 +47,7 @@ module.exports = {
   resolve: {
     extensions: ['*', '.js', '.jsx', 'html', 'ts', 'json'],
     alias: {
+      app: path.resolve(__dirname, 'app/'),
       components: path.resolve(__dirname, 'app/components/'),
       containers: path.resolve(__dirname, 'app/containers/'),
       reduxState: path.resolve(__dirname, 'app/reduxState/'),

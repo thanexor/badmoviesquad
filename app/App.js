@@ -7,7 +7,11 @@ import {
   Link
 } from "react-router-dom"
 import { connect } from 'react-redux'
-import { isLoggedIn, getUsername } from "reduxState/selectors";
+import {
+  isLoggedIn,
+  getUsername,
+  getUserEmail,
+} from 'reduxState/selectors'
 
 import Nav from 'components/Nav'
 
@@ -62,5 +66,6 @@ export default connect(
   (state) => ({
     isLoggedIn: isLoggedIn(state),
     username: getUsername(state),
+    userEmail: getUserEmail(state),
   })
 )(App)
