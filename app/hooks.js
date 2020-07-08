@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-export function fetchData(fetchDataFunction, params) {
+export function useFetchedData(fetchDataFunction, params) {
   const [data, setData] = useState([])
 
   useEffect(() => {

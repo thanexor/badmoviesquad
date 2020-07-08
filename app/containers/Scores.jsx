@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { getScores } from 'services/actions'
-import { fetchData } from 'app/hooks'
+import { useFetchedData } from 'app/hooks'
 
 import Scorecard from 'components/Scorecard'
 
@@ -20,7 +20,7 @@ const propTypes = {
 }
 
 export default function Scores(props) {
-  const userScores = fetchData(getScores)
+  const userScores = useFetchedData(getScores)
 
   const Scores = userScores.map(score => {
     return (

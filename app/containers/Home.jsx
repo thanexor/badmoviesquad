@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { fetchData } from 'app/hooks'
+import { useFetchedData } from 'app/hooks'
 import { 
   getUserBacklog, 
   getUpcoming,
@@ -23,8 +23,10 @@ const propTypes = {
 }
 
 export default function Home(props) {
-  const backlog = fetchData(getUserBacklog, props.user)
-  const picks = fetchData(getUpcoming)
+  const [ isSearchOpen, setIsSearchOpen ] = useState(false)
+
+  const backlog = useFetchedData(getUserBacklog, props.user)
+  const picks = useFetchedData(getUpcoming)
 
   const displayPicks = picks.map(({movie, picker}) => (
      <Pick

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { fetchData } from 'app/hooks'
+import { useFetchedData } from 'app/hooks'
 import { getUserBacklog } from 'services/actions'
 
 import MovieCard from 'components/MovieCard'
@@ -19,7 +19,7 @@ const propTypes = {
 }
 
 function Backlog(props) {
-  const backlog = fetchData(getUserBacklog, 'nathanemyers')
+  const backlog = useFetchedData(getUserBacklog, 'nathanemyers')
 
   const Backlog = backlog.map(movie => {
     return (
