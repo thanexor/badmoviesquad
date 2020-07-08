@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 //import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { getScores } from 'services/actions'
+import { fetchData } from 'app/hooks'
 
 import Scorecard from 'components/Scorecard'
 
@@ -19,15 +20,7 @@ const propTypes = {
 }
 
 export default function Scores(props) {
-  const [ userScores, setUserScores ] = useState([])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const scores = await getScores()
-      setUserScores(scores)
-    }
-    fetchData()
-  }, [])
+  const userScores = fetchData(getScores)
 
   const Scores = userScores.map(score => {
     return (

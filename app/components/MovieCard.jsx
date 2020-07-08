@@ -2,11 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
+
 import { makePick } from '../services/writes'
 
-const Container = styled.div``
+import Button from 'components/Button'
 
-const MakePickButton = styled.button`
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+const MakePickButton = styled(Button)`
 `
 
 const Poster = styled.img`
