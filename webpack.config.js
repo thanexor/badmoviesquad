@@ -26,7 +26,16 @@ module.exports = {
           { loader: 'babel-loader' },
         ]
       },
-    ]
+      // {
+      //   test: /\.sass$/,
+      //   use: [
+      //     { loader: MiniCssExtractPlugin.loader, },
+      //     "style-loader",
+      //     "css-loader",
+      //     "sass-loader",
+      //   ]
+      // },
+    ],
   },
   plugins: [
     // new CleanWebpackPlugin(),

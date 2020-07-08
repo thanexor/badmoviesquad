@@ -11,6 +11,7 @@ import { connect } from 'react-redux'
 import {
   isLoggedIn,
   getUsername,
+  getUserEmail,
 } from 'reduxState/selectors'
 
 import Nav from 'components/Nav'
@@ -69,7 +70,9 @@ function App(props) {
               <Scores />
             </Route>
             <Route path="/">
-              <Home />
+              <Home 
+                user={props.userEmail}
+              />
             </Route>
           </Switch>
         </div>
@@ -82,5 +85,6 @@ export default connect(
   (state) => ({
     isLoggedIn: isLoggedIn(state),
     username: getUsername(state),
+    userEmail: getUserEmail(state),
   })
 )(App)

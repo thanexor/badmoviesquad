@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { fetchData } from 'app/hooks'
-
-import { getMovies, getUserBacklog } from 'services/actions'
+import { getUserBacklog } from 'services/actions'
 
 import MovieCard from 'components/MovieCard'
 

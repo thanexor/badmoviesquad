@@ -9,7 +9,7 @@ export function fetchData(fetchDataFunction, params) {
       setData(d)
     }
     getData()
-  }, [])
+  }, [params])
 
   return data
 }
