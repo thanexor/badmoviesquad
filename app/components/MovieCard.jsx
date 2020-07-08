@@ -32,42 +32,21 @@ const Name = styled.div``
 
 const propTypes = {
   className: PropTypes.string,
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  backgroundURL: PropTypes.string,
-  posterURL: PropTypes.string,
+  movie: PropTypes.object.isRequired,
   makePick: PropTypes.func.isRequired,
 }
 
 function MovieCard(props) {
-  let content = null
-  if (props.posterURL) {
-    content = (
-      <Poster
-        src={props.posterURL}
-        alt={props.name}
-      />
-    )
-  } else if (props.backgroundURL) {
-    content = (
-      <Background
-        src={props.backgroundURL}
-        alt={props.name}
-      />
-    )
-  } else {
-    content = (
-      <NoData>
-        NO DATA
-      </NoData>
-    )
-  }
+  const { movie } = props
 
   return (
     <Container className={props.className}>
-      { content }
+      <Poster
+        src={movie.poster_path}
+        alt={movie.name}
+      />
       <Name>
-        {props.name}
+        {movie.name}
       </Name>
       <MakePickButton
         onClick={() => props.makePick(props.id)}

@@ -5,8 +5,9 @@ import styled from 'styled-components'
 import MovieCard from './MovieCard'
 
 const Container = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 `
 
 const Movie = styled(MovieCard)`
@@ -19,12 +20,7 @@ const propTypes = {
 
 function MovieGrid(props) {
   const movies = props.movies.map(movie => (
-    <Movie
-      id={movie.firebase_id}
-      name={movie.title}
-      posterURL={movie.poster_path}
-      backgroundURL={movie.backdrop_path}
-    />
+    <Movie key={movie.id} movie={movie} />
   ))
   return (
     <Container className={props.className}>

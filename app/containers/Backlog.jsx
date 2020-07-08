@@ -10,8 +10,8 @@ import MovieCard from 'components/MovieCard'
 const Container = styled.div``
 
 const Movies = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  display: flex;
+  flex-direction: row;
 `
 
 const propTypes = {
@@ -24,10 +24,8 @@ function Backlog(props) {
   const Backlog = backlog.map(movie => {
     return (
       <MovieCard
-        id={movie.firebase_id}
-        name={movie.title}
-        posterURL={movie.poster_path}
-        backgroundURL={movie.backdrop_path}
+        key={movie.id}
+        movie={movie}
       />
     )
   })

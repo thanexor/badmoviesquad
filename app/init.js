@@ -6,5 +6,5 @@ import {
 
 
 export default function init() {
-  store.dispatch(fetchMovies())
+  // store.dispatch(fetchMovies())
 }
