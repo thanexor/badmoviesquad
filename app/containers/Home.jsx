@@ -3,11 +3,20 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { fetchData } from 'app/hooks'
-import { getUserBacklog } from 'services/actions'
+import { 
+  getUserBacklog, 
+  getUpcoming,
+} from 'services/actions'
 
 import MovieGrid from 'components/MovieGrid'
+import Pick from 'components/Pick'
 
 const Container = styled.div``
+
+const Picks = styled.div`
+  display: flex;
+  flex-direction: row;
+`
 
 const propTypes = {
   user: PropTypes.string.isRequired,
@@ -15,15 +24,30 @@ const propTypes = {
 
 export default function Home(props) {
   const backlog = fetchData(getUserBacklog, props.user)
+  const picks = fetchData(getUpcoming)
+
+  const displayPicks = picks.map(({movie, picker}) => (
+     <Pick
+      movie={movie}
+      pickedBy={picker}
+      onOutbid={() => {}}
+    />
+  ))
 
   return (
     <Container>
       <h1>Home</h1>
 
+      <Picks>
+        {displayPicks}
+      </Picks>
+
       <h3>Your Backlog</h3>
       <MovieGrid
         movies={backlog}
       />
+
+
 
     </Container>
   )
