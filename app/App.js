@@ -61,7 +61,9 @@ function App(props) {
 
           <Switch>
             <Route path="/backlog">
-              <Backlog />
+              <Backlog 
+                backlog={[]}
+              />
             </Route>
             <Route path="/upcoming">
               <Upcoming />

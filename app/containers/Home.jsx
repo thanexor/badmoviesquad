@@ -9,9 +9,10 @@ import {
 } from 'services/actions'
 
 import { MOVIE_URL } from 'app/constants'
-import MovieGrid from 'components/MovieGrid'
 import MovieCard from 'components/MovieCard'
 import Pick from 'components/Pick'
+
+import MovieSearchModal from 'components/MovieSearchModal'
 
 const Movies = styled.div`
   display: flex;
@@ -38,6 +39,7 @@ export default function Home(props) {
 
   const displayPicks = picks.map(({movie, picker}) => (
      <Pick
+      key={movie.id}
       movie={movie}
       pickedBy={picker}
       onOutbid={() => {}}
@@ -52,10 +54,10 @@ export default function Home(props) {
     />
   ))
 
-
   return (
     <Container>
       <h1>Home</h1>
+      <button onClick={() => setIsSearchOpen(true)}>SEARCH</button>
 
       <Picks>
         {displayPicks}
@@ -66,6 +68,10 @@ export default function Home(props) {
       <Movies>
         {movies}
       </Movies>
+      <MovieSearchModal 
+        isOpen={isSearchOpen}
+        onRequestClose={() => setIsSearchOpen(false)}
+      />
     </Container>
   )
 }

@@ -1,28 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import MovieCard from 'components/MovieCard'
 
 const Container = styled.div``
 const SearchBox = styled.input`
 `
 
-const SearchResults = styled.div``
+const SearchResults = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`
 
 const propTypes = {
   className: PropTypes.string,
-  searchMovies: PropTypes.func.isRequired,
+  allMovies: PropTypes.array.isRequired,
 }
 
 function MovieSearch(props) {
   const [ searchTerm, setSearchTerm ] = useState("")
   const [ searchResults, setSearchResults ] = useState([])
 
-  const onSearch = () => {
-    setSearchResults(props.searchMovies(searchTerm))
-  }
+  const movies = props.allMovies.filter(movie => movie.title.includes(searchTerm))
 
-  const movies = searchResults.map(movie => (
-    <div>{movie.title}</div>
+  const movieCards = searchResults.map(movie => (
+    <MovieCard  movie={movie}/>
   ))
 
   return (
@@ -33,7 +36,7 @@ function MovieSearch(props) {
       />
 
       <SearchResults>
-        {movies}
+        {movieCards}
       </SearchResults>
     </Container>
   )

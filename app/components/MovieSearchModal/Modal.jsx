@@ -13,6 +13,7 @@ const propTypes = {
   className: PropTypes.string,
   isOpen: PropTypes.bool.isRequired,
   onRequestClose: PropTypes.func.isRequired,
+  allMovies: PropTypes.array.isRequired,
 }
 
 function Modal(props) {
@@ -21,7 +22,7 @@ function Modal(props) {
       isOpen={props.isOpen}
       onRequestClose={props.onRequestClose}
     >
-      <MovieSearch
+      <MovieSearch allMovies={props.allMovies}
 
       />
     </ReactModal>

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { useFetchedData } from 'app/hooks'
-import { getBacklog } from 'services/actions'
 import { MOVIE_URL } from 'app/constants'
 
 import MovieCard from 'components/MovieCard'
@@ -17,12 +16,11 @@ const Movies = styled.div`
 
 const propTypes = {
   className: PropTypes.string,
+  backlog: PropTypes.array.isRequired,
 }
 
 function Backlog(props) {
-  const backlog = useFetchedData(getBacklog)
-
-  const Backlog = backlog.map(movie => {
+  const Backlog = props.backlog.map(movie => {
     return (
       <MovieCard
         key={movie.id}
