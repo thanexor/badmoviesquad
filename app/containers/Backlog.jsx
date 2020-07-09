@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { useFetchedData } from 'app/hooks'
-import { getUserBacklog } from 'services/actions'
+import { getBacklog } from 'services/actions'
+import { MOVIE_URL } from 'app/constants'
 
 import MovieCard from 'components/MovieCard'
 
@@ -19,13 +20,17 @@ const propTypes = {
 }
 
 function Backlog(props) {
-  const backlog = useFetchedData(getUserBacklog, 'nathanemyers')
+  const backlog = useFetchedData(getBacklog)
 
   const Backlog = backlog.map(movie => {
     return (
       <MovieCard
         key={movie.id}
         movie={movie}
+        onClick={() => {
+          console.log('click!')
+          window.open(`${MOVIE_URL}/${props.movie.id}`, '_blank')
+        }}
       />
     )
   })

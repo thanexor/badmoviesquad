@@ -10,6 +10,7 @@ import Button from 'components/Button'
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 `
 
 const MakePickButton = styled(Button)`
@@ -34,24 +35,20 @@ const propTypes = {
   className: PropTypes.string,
   movie: PropTypes.object.isRequired,
   makePick: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 }
 
 function MovieCard(props) {
-  const { movie } = props
-
+  const { movie } = props 
   return (
-    <Container className={props.className}>
+    <Container 
+      className={props.className}
+      onClick={props.onClick}
+    >
       <Poster
         src={movie.poster_path}
         alt={movie.name}
-      />
-      <Name>
-        {movie.name}
-      </Name>
-      <MakePickButton
-        onClick={() => props.makePick(props.id)}
-      >Pick
-      </MakePickButton>
+        />
     </Container>
   )
 }
