@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { getUpcoming } from 'services/actions'
-import { fetchData } from 'app/hooks'
+import { useFetchedData } from 'app/hooks'
 
 import Upcoming from 'components/Upcoming'
 
@@ -13,7 +13,7 @@ const propTypes = {
 }
 
 export default function UpcomingPage(props) {
-  const upcoming = fetchData(getUpcoming)
+  const upcoming = useFetchedData(getUpcoming)
 
   const UpcomingPicks = upcoming.map(({movie, picker}) => {
     return (

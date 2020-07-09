@@ -39,11 +39,13 @@ function App(props) {
     <Body>
       <Router>
         <div>
-          <Nav username={ props.username } isLoggedIn={ props.isLoggedIn } />
+          <Nav username={props.username} isLoggedIn={props.isLoggedIn} />
           <Container>
             <Switch>
               <Route path="/backlog">
-                <Backlog />
+                <Backlog
+                  backlog={[]}
+                />
               </Route>
               <Route path="/upcoming">
                 <Upcoming />
@@ -52,13 +54,15 @@ function App(props) {
                 <Scores />
               </Route>
               <Route path="/">
-                <Home />
+                <Home
+                  user={props.userEmail}
+                />
               </Route>
             </Switch>
           </Container>
         </div>
       </Router>
-    </Body>
+    </Body >
   );
 }
 

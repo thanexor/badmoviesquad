@@ -14,8 +14,8 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
+    hot: false, // you can really blow through firebase with hot reloading on
     port: 9001,
-    hot: true,
   },
   module: {
     rules: [

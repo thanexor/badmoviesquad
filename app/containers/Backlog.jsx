@@ -2,32 +2,33 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { fetchData } from 'app/hooks'
-import { getUserBacklog } from 'services/actions'
+import { useFetchedData } from 'app/hooks'
+import { MOVIE_URL } from 'app/constants'
 
 import MovieCard from 'components/MovieCard'
 
 const Container = styled.div``
 
 const Movies = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  display: flex;
+  flex-direction: row;
 `
 
 const propTypes = {
   className: PropTypes.string,
+  backlog: PropTypes.array.isRequired,
 }
 
 function Backlog(props) {
-  const backlog = fetchData(getUserBacklog, 'nathanemyers')
-
-  const Backlog = backlog.map(movie => {
+  const Backlog = props.backlog.map(movie => {
     return (
       <MovieCard
-        id={movie.firebase_id}
-        name={movie.title}
-        posterURL={movie.poster_path}
-        backgroundURL={movie.backdrop_path}
+        key={movie.id}
+        movie={movie}
+        onClick={() => {
+          console.log('click!')
+          window.open(`${MOVIE_URL}/${props.movie.id}`, '_blank')
+        }}
       />
     )
   })
