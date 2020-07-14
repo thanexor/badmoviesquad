@@ -2,6 +2,7 @@ import firebase from './firebase'
 
 import store from 'reduxState/store'
 import { getUserEmail } from 'reduxState/selectors'
+import { get } from 'lodash'
 
 const db = firebase.firestore()
 
@@ -28,27 +29,48 @@ export async function makePick(movieId) {
 }
 
 export async function completeNight() {
-  const nightRef = await firebase.firestore()
-    .collection('Nights')
-    .where('state', '==', 'pending')
+  try {
+    console.log('complete night start')
+    const nightRefs = await firebase.firestore()
+      .collection('Nights')
+      .where('state', '==', 'pending')
+      .get()
 
-  const pickRefs = await db.collection('Picks')
-    .where("state", "==", "active")
+    const nightRef = nightRefs[0]
+    console.log('night', nightRef)
 
-  await nightRef.update({
-    completedAt: Date.now(),
-    state: 'completed',
-  })
+    const pickRefs = await db.collection('Picks')
+      .where("state", "==", "active")
+      .get()
 
-  const promises = []
-  pickRefs.forEach(ref => promises.push(ref.update({
-    night: nightRef,
-    state: 'completed',
-  })))
+    console.log('picks', pickRefs)
 
-  await Promise.all(promises)
+    const promises = []
 
-  return {
-    success: true
+    nightRef.update({
+      completedAt: Date.now(),
+      state: 'completed',
+    })
+
+    console.log('night updated')
+
+    pickRefs.forEach(ref => promises.push(ref.update({
+      night: nightRef,
+      state: 'completed',
+    })))
+
+    await Promise.all(promises)
+
+    console.log('picks updated')
+
+    return {
+      success: true
+    }
+  }
+  catch (e) {
+    return {
+      success: false,
+      error: e.message,
+    }
   }
 }

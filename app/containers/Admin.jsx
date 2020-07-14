@@ -1,6 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import Button from 'components/Button'
+
+import {
+  completeNight
+} from 'services/writes'
 
 const Container = styled.div``
 
@@ -9,9 +14,28 @@ const propTypes = {
 }
 
 function Admin(props) {
+  const [ completingNight, setCompletingNight ] = useState(false)
+  const [ completeNightError, setCompletingNightError ] = useState(null)
+
+  const onCompleteNight = async () => {
+    setCompletingNight(true)
+    const results = await completeNight()
+    setCompletingNight(false)
+    if (!results.success) {
+      setCompletingNightError(results.error)
+    }
+  }
   return (
     <Container className={props.className}>
       <h1>Admin Controls</h1>
+      <Button onClick={onCompleteNight}>
+        {completingNight ?
+          "Working..." : "Complete Night"
+        }
+      </Button>
+      {completeNightError ?
+        <h3>{completeNightError}</h3> : null
+      }
     </Container>
   )
 }
