@@ -26,3 +26,29 @@ export async function makePick(movieId) {
 
   return pickRef
 }
+
+export async function completeNight() {
+  const nightRef = await firebase.firestore()
+    .collection('Nights')
+    .where('state', '==', 'pending')
+
+  const pickRefs = await db.collection('Picks')
+    .where("state", "==", "active")
+
+  await nightRef.update({
+    completedAt: Date.now(),
+    state: 'completed',
+  })
+
+  const promises = []
+  pickRefs.forEach(ref => promises.push(ref.update({
+    night: nightRef,
+    state: 'completed',
+  })))
+
+  await Promise.all(promises)
+
+  return {
+    success: true
+  }
+}
