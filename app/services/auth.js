@@ -5,12 +5,26 @@ import {
   logout,
 } from 'reduxState/actions'
 
-firebase.auth().onAuthStateChanged(function(user) {
+const db = firebase.firestore()
+
+firebase.auth().onAuthStateChanged(async function(user) {
   if (user) {
+    const userRef = await db.collection('Users').doc(user.email)
+    const userDetails = await userRef.get()
+    const { admin, total_points, lastLogin } = userDetails.data()
+
     store.dispatch(loginAs({
+      admin,
+      points: total_points,
+      lastLogin: lastLogin ? lastLogin : Date.now(),
+      avatarURL: user.photoURL,
       email: user.email,
       displayName: user.displayName,
     }))
+
+    await userRef.update({
+      lastLogin: Date.now()
+    })
   } else {
     store.dispatch(logout())
   }

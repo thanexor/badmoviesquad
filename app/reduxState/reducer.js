@@ -8,6 +8,10 @@ import {
 const initialState = {
   username: null,
   loggedInEmail: null,
+  avatarURL: null,
+  lastLogin: null,
+  points: 0,
+  isAdmin: false,
   movies: [],
   error: null,
 };
@@ -17,8 +21,12 @@ export default (state = initialState, action) => {
     case LOGIN:
       return {
         ...state,
+        isAdmin: action.admin,
+        lastLogin: action.lastLogin,
+        points: action.points,
         username: action.displayName,
         loggedInEmail: action.email,
+        avatarURL: action.avatarURL,
       }
     case LOGOUT:
       return {

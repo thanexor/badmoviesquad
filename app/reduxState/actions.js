@@ -1,9 +1,13 @@
 import { getMovies } from 'services/actions'
 
 export const LOGIN = "LOGIN"
-export function loginAs({displayName, email}) {
+export function loginAs({displayName, email, avatarURL, admin, points, lastLogin}) {
   return {
     type: LOGIN,
+    admin,
+    points,
+    lastLogin,
+    avatarURL,
     displayName,
     email,
   }
@@ -18,7 +22,7 @@ export function logout() {
 
 export const FETCH_MOVIES_SUCCESS = "FETCH_MOVIES_SUCCESS"
 function fetchMoviesSuccess(data) {
-  return { 
+  return {
     type: FETCH_MOVIES_SUCCESS,
     data,
   }
@@ -26,7 +30,7 @@ function fetchMoviesSuccess(data) {
 
 export const FETCH_MOVIES_FAILURE = "FETCH_MOVIES_FAILURE"
 function fetchMoviesFailure(error) {
-  return { 
+  return {
     type: FETCH_MOVIES_FAILURE,
     error,
   }
