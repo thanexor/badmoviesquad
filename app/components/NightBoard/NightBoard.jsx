@@ -19,14 +19,14 @@ const propTypes = {
 }
 
 function NightBoard(props) {
-  const picks = useFetchedData(getScores)
+  const picks = useFetchedData(getActivePicks)
 
   const slots = picks.map(pick => (
-    <Slot movie={pick.movie} />
+    <Slot key={pick.id} movie={pick.movie} />
   ))
 
   while ( slots.length < props.slots ) {
-    slots.push(<EmptySlot />)
+    slots.push(<EmptySlot key={slots.length} />)
   }
 
   return (

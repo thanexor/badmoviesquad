@@ -5,7 +5,7 @@ import { getUserEmail } from 'reduxState/selectors'
 
 const db = firebase.firestore()
 
-export async function makePick(movieId) {
+export async function makePick({movieId, points}) {
   const email = getUserEmail(store.getState())
 
   const movieRef = db.collection('Movies').doc(movieId)
@@ -17,7 +17,7 @@ export async function makePick(movieId) {
       movie: movieRef,
       picker: userRef,
       state: "active",
-      total_points: 3
+      total_points: points,
     })
 
   await movieRef.update({
