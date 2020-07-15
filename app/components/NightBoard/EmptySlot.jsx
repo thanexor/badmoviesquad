@@ -32,7 +32,7 @@ function EmptySlot(props) {
         isOpen={pickerOpen}
         onRequestClose={() => setPickerOpen(false)}
         onClick={movie => makePick({
-          movieId: movie.id,
+          movieId: movie.firebase_id,
           points: 3
         })}
       />

@@ -58,7 +58,7 @@ function MovieSearch(props) {
     movieCards = randomSample(allMovies, 15).map(movie => (
       <MovieCard 
         key={movie.id}
-        onClick={() => { }}
+        onClick={props.onClick}
         movie={movie}
       />
     ))
