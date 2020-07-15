@@ -26,7 +26,7 @@ export async function getScores() {
   return extractData(users)
 }
 
-export async function getUpcoming() {
+export async function getActivePicks() {
   const activePicks = await db.collection('Picks')
     .where("state", "==", "active")
     .get()
@@ -34,13 +34,15 @@ export async function getUpcoming() {
   const extractedData = await extractData(activePicks)
 
   return Promise.all(
-    extractedData.map(async ({movie, picker}) => {
+    extractedData.map(async (pick) => {
+      const { movie, picker } = pick
       const data = await Promise.all([
         movie.get(),
         picker.get(),
       ])
       const [fetchedMovie, fetchedPicker] = data
       return {
+        ...pick,
         movie: fetchedMovie.data(),
         picker: fetchedPicker.data(),
       }

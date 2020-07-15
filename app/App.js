@@ -19,7 +19,6 @@ import Nav from 'components/Nav'
 import Home from 'containers/Home'
 import Admin from 'containers/Admin'
 import Scores from 'containers/Scores'
-import Upcoming from 'containers/Upcoming'
 import Backlog from 'containers/Backlog'
 
 const Body = styled.div`
@@ -54,9 +53,6 @@ function App(props) {
                 <Backlog
                   backlog={[]}
                 />
-              </Route>
-              <Route path="/upcoming">
-                <Upcoming />
               </Route>
               <Route path="/scores">
                 <Scores />

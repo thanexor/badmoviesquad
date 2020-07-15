@@ -71,9 +71,6 @@ export default function Nav(props) {
             <Link to="/scores">Scores</Link>
           </NavItem>
           <NavItem>
-            <Link to="/upcoming">Upcoming</Link>
-          </NavItem>
-          <NavItem>
             <Link to="/backlog">Backlog</Link>
           </NavItem>
           { props.isAdmin ?
