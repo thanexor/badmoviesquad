@@ -11,21 +11,21 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  height: 12vw;
+  overflow: hidden;
 `
 
 const MakePickButton = styled(Button)`
 `
 
 const Poster = styled.img`
-  width: 150px;
-`
-
-const Background = styled.img`
-  width: 150px;
+  display: block;
+  width: auto;
+  height: 100%;
+  margin: 0 auto;
 `
 
 const NoData = styled.div`
-  width: 150px;
   height: 400px;
 `
 
