@@ -2,7 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-const Container = styled.div``
+const Container = styled.div`
+  display: flex;
+  
+  .upcoming {
+    padding: 
+  }
+`
+
+
 
 const propTypes = {
   className: PropTypes.string,
@@ -13,11 +21,11 @@ const propTypes = {
 function Upcoming(props) {
   return (
     <Container className={props.className}>
-      <div>
-        Movie: {props.movieName}
-      </div>
-      <div>
-        Picked By: {props.pickedBy}
+      <div class="upcoming">
+        <h2>{props.movieName}</h2>
+        <div>
+          <p>Picked By: {props.pickedBy}</p>
+        </div>
       </div>
     </Container>
   )
