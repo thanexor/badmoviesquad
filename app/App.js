@@ -53,9 +53,6 @@ function App(props) {
                   backlog={[]}
                 />
               </Route>
-              <Route path="/upcoming">
-                <Upcoming />
-              </Route>
               <Route path="/scores">
                 <Scores />
               </Route>

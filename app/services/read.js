@@ -26,7 +26,7 @@ export async function getScores() {
   return extractData(users)
 }
 
-export async function getUpcoming() {
+export async function getActivePicks() {
   const activePicks = await db.collection('Picks')
     .where("state", "==", "active")
     .get()

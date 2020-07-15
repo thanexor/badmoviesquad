@@ -7,12 +7,11 @@ import Button from 'components/Button'
 import { useFetchedData } from 'app/hooks'
 import {
   getUserBacklog,
-  getUpcoming,
 } from 'services/read'
 
 import { MOVIE_URL } from 'app/constants'
 import MovieCard from 'components/MovieCard'
-import Pick from 'components/Pick'
+import NightBoard from 'components/NightBoard'
 
 import MovieSearchModal from 'components/MovieSearchModal'
 
@@ -37,16 +36,6 @@ export default function Home(props) {
   const [ isSearchOpen, setIsSearchOpen ] = useState(false)
 
   const backlog = useFetchedData(getUserBacklog, props.user)
-  const picks = useFetchedData(getUpcoming)
-
-  const displayPicks = picks.map(({movie, picker}) => (
-     <Pick
-      key={movie.id}
-      movie={movie}
-      pickedBy={picker}
-      onOutbid={() => {}}
-    />
-  ))
 
   const movies = backlog.map(movie => (
     <MovieCard
@@ -61,9 +50,7 @@ export default function Home(props) {
       <h1>Home</h1>
       <Button onClick={() => setIsSearchOpen(true)}>SEARCH</Button>
 
-      <Picks>
-        {displayPicks}
-      </Picks>
+      <NightBoard slots={2} />
 
       <h3>Your Backlog</h3>
 
