@@ -68,3 +68,12 @@ export async function completeNight() {
     }
   }
 }
+
+export async function createNight({ title, location, slots }) {
+  return db.collection('Nights').add({
+    location,
+    slots,
+    title,
+    state: "pending",
+  })
+}

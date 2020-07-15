@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Button from 'components/Button'
 
+import CreateNightModal from 'components/CreateNightModal'
+
 import {
   completeNight
 } from 'services/writes'
@@ -16,6 +18,8 @@ const propTypes = {
 function Admin(props) {
   const [ completingNight, setCompletingNight ] = useState(false)
   const [ completeNightError, setCompletingNightError ] = useState(null)
+
+  const [ isCreateNightOpen, setIsCreateNightOpen ] = useState(false)
 
   const onCompleteNight = async () => {
     setCompletingNight(true)
@@ -36,6 +40,13 @@ function Admin(props) {
       {completeNightError ?
         <h3>{completeNightError}</h3> : null
       }
+
+      <Button onClick={() => setIsCreateNightOpen(true)}>Create Night</Button>
+
+      <CreateNightModal
+        isOpen={isCreateNightOpen}
+        onRequestClose={() => setIsCreateNightOpen(false)}
+      />
     </Container>
   )
 }
