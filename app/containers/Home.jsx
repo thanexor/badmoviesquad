@@ -6,7 +6,7 @@ import { useFetchedData } from 'app/hooks'
 import { 
   getUserBacklog, 
   getUpcoming,
-} from 'services/actions'
+} from 'services/read'
 
 import { MOVIE_URL } from 'app/constants'
 import MovieCard from 'components/MovieCard'

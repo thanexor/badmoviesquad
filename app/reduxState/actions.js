@@ -1,4 +1,4 @@
-import { getMovies } from 'services/actions'
+import { getMovies } from 'services/read'
 
 export const LOGIN = "LOGIN"
 export function loginAs({displayName, email}) {
