@@ -37,6 +37,7 @@ const NavContainer = styled.div`
 const propTypes = {
   username: PropTypes.string,
   isLoggedIn: PropTypes.bool.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
 }
 
 // template
@@ -62,6 +63,12 @@ export default function Nav(props) {
           <NavItem>
             <Link to="/backlog">Backlog</Link>
           </NavItem>
+          { props.isAdmin ?
+            <NavItem>
+              <Link to="/admin">Admin</Link>
+            </NavItem>
+            : null
+          }
         </NavList>
         <span className="user">
           <div>

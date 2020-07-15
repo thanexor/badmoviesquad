@@ -75,3 +75,13 @@ export async function getMovies() {
   const repairedData = data.map(movie => fixPosterURLs(movie))
   return repairedData
 }
+
+export async function getPrevNight() {
+  const nights = await db.collection('Nights')
+    .orderBy('completedAt', 'desc')
+    .limit(1)
+    .get()
+
+  const nightRef = nights[0]
+  return nightRef.data()
+}
