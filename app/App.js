@@ -21,8 +21,10 @@ import Upcoming from 'containers/Upcoming'
 import Backlog from 'containers/Backlog'
 
 const Body = styled.div`
-  font-family: 'Nunito Sans';
-  background-color: ${({ theme }) => theme.neutral};
+  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  background-color: ${({ theme }) => theme.purpleSuperdark};
+  color: #fff;
   min-height: 100vh;
 `
 
