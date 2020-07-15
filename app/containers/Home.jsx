@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
+import Button from 'components/Button'
+
 import { useFetchedData } from 'app/hooks'
-import { 
-  getUserBacklog, 
+import {
+  getUserBacklog,
   getUpcoming,
 } from 'services/actions'
 
@@ -49,7 +51,7 @@ export default function Home(props) {
   const movies = backlog.map(movie => (
     <MovieCard
       key={movie.id}
-      movie={movie} 
+      movie={movie}
       onClick={() => window.open(`${MOVIE_URL}/${movie.id}`, '_blank')}
     />
   ))
@@ -57,7 +59,7 @@ export default function Home(props) {
   return (
     <Container>
       <h1>Home</h1>
-      <button onClick={() => setIsSearchOpen(true)}>SEARCH</button>
+      <Button onClick={() => setIsSearchOpen(true)}>SEARCH</Button>
 
       <Picks>
         {displayPicks}
@@ -68,7 +70,7 @@ export default function Home(props) {
       <Movies>
         {movies}
       </Movies>
-      <MovieSearchModal 
+      <MovieSearchModal
         isOpen={isSearchOpen}
         onRequestClose={() => setIsSearchOpen(false)}
       />

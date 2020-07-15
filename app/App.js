@@ -42,9 +42,9 @@ function App(props) {
       <Router>
         <div>
           <Nav
-          username={props.username}
-          isLoggedIn={props.isLoggedIn}
-          isAdmin={props.isAdmin}
+            username={props.username}
+            isLoggedIn={props.isLoggedIn}
+            isAdmin={props.isAdmin}
           />
           <Container>
             <Switch>
