@@ -6,6 +6,11 @@ const theme = {
   secondaryDark: '#40A819',
 
   neutral: '#6BB251',
+
+  purpleDark: '#260850',
+  purpleSuperdark: '#120425',
+
+  pinkHot: '#f0407b',
 }
 
 export default theme

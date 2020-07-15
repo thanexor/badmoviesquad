@@ -10,16 +10,17 @@ import Profile from "components/Profile";
 
 // styled components
 const NavTheme = styled.nav`
-  background-color: ${({ theme }) => theme.primary};
-  color: ${({ theme }) => theme.priaryDark};
+  background-color: ${({ theme }) => theme.purpleDark};
 
   svg {
-    width: 1em;
+    width: 2em;
+    fill: ${({ theme }) => theme.pinkHot}
   }
 `
 
 const NavContainer = styled.div`
   display: flex;
+  align-items: center;
 
   margin-right: auto;
   margin-left: auto;
@@ -30,7 +31,19 @@ const NavContainer = styled.div`
   .logo,
   .user,
   ${NavList} {
-    flex: 0 0 33%;
+    flex: 0 0 25%;
+  }
+
+  .logo {
+    padding: 1em 0;
+  }
+
+  ${NavList} {
+    flex: 0 0 50%;
+  }
+
+  .user-info {
+    text-align: right;
   }
 `
 
@@ -71,7 +84,7 @@ export default function Nav(props) {
           }
         </NavList>
         <span className="user">
-          <div>
+          <div className="user-info">
             {props.isLoggedIn ? (
               <Profile username={props.username} />
             ) : (
