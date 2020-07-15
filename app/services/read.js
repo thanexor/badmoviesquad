@@ -34,13 +34,15 @@ export async function getActivePicks() {
   const extractedData = await extractData(activePicks)
 
   return Promise.all(
-    extractedData.map(async ({movie, picker}) => {
+    extractedData.map(async (pick) => {
+      const { movie, picker } = pick
       const data = await Promise.all([
         movie.get(),
         picker.get(),
       ])
       const [fetchedMovie, fetchedPicker] = data
       return {
+        ...pick,
         movie: fetchedMovie.data(),
         picker: fetchedPicker.data(),
       }

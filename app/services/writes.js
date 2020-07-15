@@ -35,7 +35,7 @@ export async function outbidPick({ movieId, points, outbidPickId }) {
   const outbid = await outbidRef.get()
   const { tax } = outbid.data()
 
-  await outbid.update({ state: "outbid" })
+  await outbid.ref.update({ state: "outbid" })
 
   const movieRef = db.collection('Movies').doc(movieId)
   const userRef = db.collection('Users').doc(email)
