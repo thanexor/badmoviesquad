@@ -2,9 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { getActivePicks } from 'services/read'
-import { useFetchedData } from 'app/hooks'
-
 import Slot from './Slot'
 import EmptySlot from './EmptySlot'
 
@@ -16,17 +13,25 @@ const Container = styled.div`
 const propTypes = {
   className: PropTypes.string,
   slots: PropTypes.number.isRequired,
+  activePicks: PropTypes.array.isRequired,
+  fetchActivePicks: PropTypes.func.isRequired,
 }
 
 function NightBoard(props) {
-  const picks = useFetchedData(getActivePicks)
 
-  const slots = picks.map(pick => (
-    <Slot key={pick.id} pick={pick} />
+  const slots = props.activePicks.map(pick => (
+    <Slot
+      key={pick.firestore_id}
+      pick={pick}
+      fetchActivePicks={props.fetchActivePicks}
+    />
   ))
 
   while ( slots.length < props.slots ) {
-    slots.push(<EmptySlot key={slots.length} />)
+    slots.push(<EmptySlot
+      key={slots.length}
+      fetchActivePicks={props.fetchActivePicks}
+    />)
   }
 
   return (

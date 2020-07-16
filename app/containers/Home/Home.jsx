@@ -30,6 +30,8 @@ const Picks = styled.div`
 
 const propTypes = {
   user: PropTypes.string.isRequired,
+  fetchActivePicks: PropTypes.func.isRequired,
+  activePicks: PropTypes.array.isRequired,
 }
 
 export default function Home(props) {
@@ -50,7 +52,11 @@ export default function Home(props) {
       <h1>Home</h1>
       <Button onClick={() => setIsSearchOpen(true)}>SEARCH</Button>
 
-      <NightBoard slots={2} />
+      <NightBoard
+        slots={2}
+        activePicks={props.activePicks}
+        fetchActivePicks={props.fetchActivePicks}
+      />
 
       <h3>Your Backlog</h3>
 

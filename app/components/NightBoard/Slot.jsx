@@ -23,6 +23,7 @@ const Text = styled.div`
 const propTypes = {
   className: PropTypes.string,
   pick: PropTypes.object.isRequired,
+  fetchActivePicks: PropTypes.func.isRequired,
 }
 
 function Slot(props) {
@@ -35,11 +36,15 @@ function Slot(props) {
       <MovieSearchModal 
         isOpen={pickerOpen}
         onRequestClose={() => setPickerOpen(false)}
-        onClick={movie => outbidPick({
-          movieId: movie.firebase_id,
-          points: 3,
-          outbidPickId: props.pick.firebase_id,
-        })}
+        onClick={async movie => {
+          await outbidPick({
+            movieId: movie.firebase_id,
+            points: 3,
+            outbidPickId: props.pick.firebase_id,
+          })
+          setPickerOpen(false)
+          props.fetchActivePicks()
+        }}
       />
     </Container>
   )

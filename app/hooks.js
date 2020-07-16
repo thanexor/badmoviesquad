@@ -5,7 +5,7 @@ export function useFetchedData(fetchDataFunction, params) {
 
   useEffect(() => {
     const getData = async () => {
-      const d= await fetchDataFunction(params)
+      const d = await fetchDataFunction(params)
       setData(d)
     }
     getData()
