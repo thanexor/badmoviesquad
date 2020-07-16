@@ -61,9 +61,7 @@ function App(props) {
                 <Admin />
               </Route>
               <Route path="/">
-                <Home
-                  user={props.userEmail}
-                />
+                <Home />
               </Route>
             </Switch>
           </Container>
@@ -77,7 +75,6 @@ export default connect(
   (state) => ({
     isLoggedIn: isLoggedIn(state),
     username: getUsername(state),
-    userEmail: getUserEmail(state),
     isAdmin: getIsAdmin(state),
   })
 )(App)

@@ -20,10 +20,12 @@ const Text = styled.div``
 
 const propTypes = {
   className: PropTypes.string,
+  fetchActivePicks: PropTypes.func.isRequired,
 }
 
 function EmptySlot(props) {
   const [ pickerOpen, setPickerOpen ] = useState(false)
+
   return (
     <Container className={props.className}>
       <Text>Empty Slot</Text>
@@ -31,10 +33,14 @@ function EmptySlot(props) {
       <MovieSearchModal 
         isOpen={pickerOpen}
         onRequestClose={() => setPickerOpen(false)}
-        onClick={movie => makePick({
-          movieId: movie.firebase_id,
-          points: 3
-        })}
+        onClick={async movie => {
+          await makePick({
+            movieId: movie.firebase_id,
+            points: 3
+          })
+          setPickerOpen(false)
+          props.fetchActivePicks()
+        }}
       />
     </Container>
   )
