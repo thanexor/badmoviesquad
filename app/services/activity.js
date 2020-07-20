@@ -17,6 +17,7 @@ export async function recordPick({ movieId, movieName }) {
       movieName: movieName,
       userId: email,
       username: username,
+      timestamp: Date.now()
     })
 
   return ref

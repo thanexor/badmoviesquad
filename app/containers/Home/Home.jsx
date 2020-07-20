@@ -5,13 +5,12 @@ import styled from 'styled-components'
 import Button from 'components/Button'
 
 import { useFetchedData } from 'app/hooks'
-import {
-  getUserBacklog,
-} from 'services/read'
+import { getUserBacklog } from 'services/read'
 
 import { MOVIE_URL } from 'app/constants'
 import MovieCard from 'components/MovieCard'
 import NightBoard from 'components/NightBoard'
+import ActivityFeed from 'components/ActivityFeed'
 
 import MovieSearchModal from 'components/MovieSearchModal'
 
@@ -57,6 +56,9 @@ export default function Home(props) {
         activePicks={props.activePicks}
         fetchActivePicks={props.fetchActivePicks}
       />
+
+      <h3>Activity Feed</h3>
+      <ActivityFeed />
 
       <h3>Your Backlog</h3>
 
