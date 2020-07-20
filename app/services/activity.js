@@ -1,19 +1,22 @@
 import firebase from './firebase'
 
 import store from 'reduxState/store'
-import { getUserEmail } from 'reduxState/selectors'
+import { getUserEmail, getUsername } from 'reduxState/selectors'
 
 const db = firebase.firestore()
 
-export async function recordPick({ movieId }) {
+export async function recordPick({ movieId, movieName }) {
   const email = getUserEmail(store.getState())
+  const username = getUsername(store.getState())
 
   const ref = await firebase.firestore()
     .collection('Activity')
     .add({
       type: 'pick',
-      movie: movieId,
-      picker: email,
+      movieId: movieId,
+      movieName: movieName,
+      userId: email,
+      username: username,
     })
 
   return ref
