@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { outbidPick } from 'services/writes'
+import { recordOutbid } from 'services/activity'
 
 import Button from 'components/Button'
 import MovieSearchModal from 'components/MovieSearchModal'
@@ -33,13 +34,18 @@ function Slot(props) {
     <Container className={props.className}>
       <Text>{movie.title}</Text>
       <Button onClick={() => setPickerOpen(true)}>Outbid</Button>
-      <MovieSearchModal 
+      <MovieSearchModal
         isOpen={pickerOpen}
         onRequestClose={() => setPickerOpen(false)}
         onClick={async movie => {
           await outbidPick({
             movieId: movie.firebase_id,
             points: 3,
+            outbidPickId: props.pick.firebase_id,
+          })
+          await recordOutbid({
+            movieId: movie.firebase_id,
+            movieName: movie.title,
             outbidPickId: props.pick.firebase_id,
           })
           setPickerOpen(false)

@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { useFetchedData } from 'app/hooks'
 import { getActivity } from 'services/read'
 import Pick from './Pick'
+import Outbid from './Outbid'
 
 const Container = styled.div`
   display: flex;
@@ -17,7 +18,6 @@ const propTypes = {
 
 function ActivityFeed(props) {
   const activity = useFetchedData(getActivity, 10)
-  console.log('activity', activity)
 
   const renderedActivity = activity.map(action => {
     switch (action.type) {
@@ -25,6 +25,19 @@ function ActivityFeed(props) {
         return (
           <Pick
             key={action.firebase_id}
+            movieName={action.movieName}
+            movieId={action.movieId}
+            userId={action.userId}
+            username={action.username}
+            timestamp={action.timestamp}
+          />
+        )
+      case 'outbid':
+        return (
+          <Outbid
+            key={action.firebase_id}
+            outbidName={action.outbidName}
+            outbidId={action.outbidId}
             movieName={action.movieName}
             movieId={action.movieId}
             userId={action.userId}

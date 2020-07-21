@@ -12,6 +12,8 @@ const propTypes = {
   timestamp: PropTypes.number.isRequired,
   movieId: PropTypes.string.isRequired,
   movieName: PropTypes.string.isRequired,
+  outbidId: PropTypes.string.isRequired,
+  outbidName: PropTypes.string.isRequired,
   userId: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
 }
@@ -19,7 +21,7 @@ const propTypes = {
 function Pick(props) {
   return (
     <Container className={props.className}>
-      <Name>{ props.username }</Name> picked <Movie>{ props.movieName}</Movie>
+      <Name>{ props.username }</Name> outbid <Movie>{ props.outbidName}</Movie> with <Movie>{ props.movieName}</Movie>
     </Container>
   )
 }
