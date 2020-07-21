@@ -11,7 +11,7 @@ const Container = styled.div``
 
 const Label = styled.label``
 
-const Input = styled.input
+const Input = styled.input``
 
 const propTypes = {
   className: PropTypes.string,
@@ -54,7 +54,7 @@ function CreateNightModal(props) {
         <Button
           onClick={onCreateNight}
         >
-          {/* {working ? "Creating..." : "Create Night"} */}
+          {working ? "Creating..." : "Create Night"}
         </Button>
       </Container>
     </ReactModal>

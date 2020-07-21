@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { makePick } from 'services/writes'
+import { recordPick } from 'services/activity'
 
 import Button from 'components/Button'
 import MovieSearchModal from 'components/MovieSearchModal'
@@ -30,13 +31,17 @@ function EmptySlot(props) {
     <Container className={props.className}>
       <Text>Empty Slot</Text>
       <Button onClick={() => setPickerOpen(true)}>Make Pick</Button>
-      <MovieSearchModal 
+      <MovieSearchModal
         isOpen={pickerOpen}
         onRequestClose={() => setPickerOpen(false)}
         onClick={async movie => {
           await makePick({
             movieId: movie.firebase_id,
             points: 3
+          })
+          await recordPick({
+            movieId: movie.firebase_id,
+            movieName: movie.title,
           })
           setPickerOpen(false)
           props.fetchActivePicks()
