@@ -41,12 +41,12 @@ const theme = {
 
   // BREAKPOINTS
   mediaBreakpoint: {
-    xs: '(min-width: 0)',
-    sm: '(min-width: 768px)',
-    md: '(min-width: 992px)',
-    lg: '(min-width: 1200px)',
-    xl: '(min-width: 1600px)',
-    uw: '(min-width: 2000px)',
+    xs: '@media screen and (min-width: 0)',
+    sm: '@media screen and (min-width: 768px)',
+    md: '@media screen and (min-width: 992px)',
+    lg: '@media screen and (min-width: 1200px)',
+    xl: '@media screen and (min-width: 1600px)',
+    uw: '@media screen and (min-width: 2000px)',
   },
 }
 

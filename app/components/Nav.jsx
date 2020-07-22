@@ -50,7 +50,7 @@ const NavContainer = styled.div`
     flex: 0 0 100%;
     ${({ theme }) => theme.textAlign.textCenter}
 
-    @media screen and ${({ theme }) => theme.mediaBreakpoint.md} {
+    ${({ theme }) => theme.mediaBreakpoint.md} {
       flex: 0 0 33.33%;
     }
   }

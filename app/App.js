@@ -43,17 +43,17 @@ const Body = styled.div`
   h1,
   .h--100 {
     font-size: 3.6rem;
-    @media screen and ${({ theme }) => theme.mediaBreakpoint.lg} { font-size: 4.4rem; }
+    ${({ theme }) => theme.mediaBreakpoint.lg} { font-size: 4.4rem; }
   }
   h2,
   .h--200 {
     font-size: 2.8rem;
-    @media screen and ${({ theme }) => theme.mediaBreakpoint.lg} { font-size: 3.6rem; }
+    ${({ theme }) => theme.mediaBreakpoint.lg} { font-size: 3.6rem; }
   }
   h3,
   .h--300 {
     font-size: 2.4rem;
-    @media screen and ${({ theme }) => theme.mediaBreakpoint.lg} { font-size: 2.8rem; }
+    ${({ theme }) => theme.mediaBreakpoint.lg} { font-size: 2.8rem; }
   }
   h4,
   .h--400 {
