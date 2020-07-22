@@ -22,6 +22,7 @@ const Text = styled.div``
 const propTypes = {
   className: PropTypes.string,
   fetchActivePicks: PropTypes.func.isRequired,
+  refreshActivity: PropTypes.func.isRequired,
 }
 
 function EmptySlot(props) {
@@ -45,6 +46,7 @@ function EmptySlot(props) {
           })
           setPickerOpen(false)
           props.fetchActivePicks()
+          props.refreshActivity()
         }}
       />
     </Container>

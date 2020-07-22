@@ -17,6 +17,7 @@ const propTypes = {
   className: PropTypes.string,
   isOpen: PropTypes.bool.isRequired,
   onRequestClose: PropTypes.func.isRequired,
+  refreshActiveNights: PropTypes.func.isRequired,
 }
 
 function CreateNightModal(props) {
@@ -34,6 +35,8 @@ function CreateNightModal(props) {
       setError(results.error)
     }
     setWorking(false)
+    props.refreshActiveNights()
+    props.onRequestClose()
   }
 
   return (

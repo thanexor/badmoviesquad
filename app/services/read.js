@@ -88,12 +88,21 @@ export async function getPrevNight() {
   return nightRef.data()
 }
 
+export async function getActiveNights() {
+  const nights = await db.collection('Nights')
+    .where('state', '==',  'pending')
+    .get()
+
+  return extractData(nights)
+}
+
+
 export async function getActivity(limit) {
-  const nights = await db.collection('Activity')
+  const activity = await db.collection('Activity')
     .orderBy('timestamp', 'desc')
     .limit(limit)
     .get()
 
-  const extractedData = await extractData(nights)
+  const extractedData = await extractData(activity)
   return extractedData
 }

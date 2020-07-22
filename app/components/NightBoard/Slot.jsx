@@ -25,6 +25,7 @@ const propTypes = {
   className: PropTypes.string,
   pick: PropTypes.object.isRequired,
   fetchActivePicks: PropTypes.func.isRequired,
+  refreshActivity: PropTypes.func.isRequired,
 }
 
 function Slot(props) {
@@ -50,6 +51,7 @@ function Slot(props) {
           })
           setPickerOpen(false)
           props.fetchActivePicks()
+          props.refreshActivity()
         }}
       />
     </Container>
