@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import Button from 'components/Button'
 
-import { useFetchedData } from 'app/hooks'
+import { useFetchedData, useForceUpdate } from 'app/hooks'
 import { getUserBacklog, getActiveNights } from 'services/read'
 
 import { MOVIE_URL } from 'app/constants'
@@ -20,7 +20,8 @@ const Movies = styled.div`
   flex-wrap: wrap;
 `
 
-const Container = styled.div``
+const Container = styled.div`
+`
 
 const Picks = styled.div`
   display: flex;
@@ -40,8 +41,10 @@ const propTypes = {
 export default function Home(props) {
   const [ isSearchOpen, setIsSearchOpen ] = useState(false)
 
-  const backlog = useFetchedData(getUserBacklog, props.user)
-  const nights = useFetchedData(getActiveNights)
+  const [ backlog ] = useFetchedData(getUserBacklog, props.user)
+  const [ nights ] = useFetchedData(getActiveNights)
+
+  const forceUpdate = useForceUpdate()
 
   const night = nights[0]
 
@@ -64,6 +67,7 @@ export default function Home(props) {
             slots={2}
             activePicks={props.activePicks}
             fetchActivePicks={props.fetchActivePicks}
+            refreshActivity={forceUpdate}
           />
           : 
           <NoNight>No Night Created Yet</NoNight>

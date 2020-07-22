@@ -20,7 +20,7 @@ const propTypes = {
 }
 
 export default function Scores(props) {
-  const userScores = useFetchedData(getScores)
+  const [ userScores ] = useFetchedData(getScores)
 
   const Scores = userScores.map(score => {
     return (

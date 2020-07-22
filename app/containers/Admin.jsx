@@ -28,7 +28,7 @@ function Admin(props) {
 
   const [ isCreateNightOpen, setIsCreateNightOpen ] = useState(false)
 
-  const activeNights = useFetchedData(getActiveNights)
+  const [ activeNights ] = useFetchedData(getActiveNights)
 
   const renderedNights = activeNights.map(night => (
     <h4 key={night.firebase_id}>{night.title} @ {night.location}</h4>

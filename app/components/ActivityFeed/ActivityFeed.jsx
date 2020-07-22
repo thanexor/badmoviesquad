@@ -16,8 +16,10 @@ const propTypes = {
   className: PropTypes.string,
 }
 
-function ActivityFeed(props) {
-  const activity = useFetchedData(getActivity, 10)
+export default function ActivityFeed(props) {
+  console.log('refresh activity')
+  const [ activity ] = useFetchedData(getActivity, 10)
+  console.log('activity', activity)
 
   const renderedActivity = activity.map(action => {
     switch (action.type) {
@@ -58,4 +60,3 @@ function ActivityFeed(props) {
 }
 
 ActivityFeed.propTypes = propTypes
-export default React.memo(ActivityFeed)

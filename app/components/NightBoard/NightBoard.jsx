@@ -16,6 +16,7 @@ const propTypes = {
   activePicks: PropTypes.array.isRequired,
   fetchActivePicks: PropTypes.func.isRequired,
   night: PropTypes.object.isRequired,
+  refreshActivity: PropTypes.func.isRequired,
 }
 
 function NightBoard(props) {
@@ -25,6 +26,7 @@ function NightBoard(props) {
       key={pick.firestore_id}
       pick={pick}
       fetchActivePicks={props.fetchActivePicks}
+      refreshActivity={props.refreshActivity}
     />
   ))
 
@@ -32,6 +34,7 @@ function NightBoard(props) {
     slots.push(<EmptySlot
       key={slots.length}
       fetchActivePicks={props.fetchActivePicks}
+      refreshActivity={props.refreshActivity}
     />)
   }
 
