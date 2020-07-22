@@ -10,24 +10,57 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  font-family: sans-serif;
 `
 const SearchBox = styled.input`
-  font-size: 1.1em;
-  padding: 0.3em;
-  width: 330px;
-  margin-bottom: 3em;
+  position: absolute;
+  top: 1em;
+  box-sizing: border-box;
+  font-size: 1.5rem;
+  font-weight: normal;
+  padding: 1em;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 2em;
 
   &::placeholder {
-    text-align: center;
   }
 `
 
 const SearchResults = styled.div`
-  display: flex;
+  // display: flex;
+  margin-top: 7em;
   align-items: center;
   justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
+  width: 100%;
+  max-width: 600px;
+  max-height: 55vh;
+  overflow: auto;
+`
+
+const SearchResult = styled.div`
+  display: flex;
+  align-items: top;
+  justify-content: left;
+  flex-direction: row;
+  padding: .25em 0;
+`
+
+const SearchResultPoster = styled.img`
+  width: 35px;
+  margin-right: .5em;
+`
+
+const SearchResultTitle = styled.h3`
+  margin: 0 0 1rem;
+  font-size: 14px;
+  font-weight: normal;
+
+  small {
+    font-size: 85%;
+  }
 `
 
 function randomSample(array, size) {
@@ -89,7 +122,7 @@ function MovieSearch(props) {
   let movieDBCards = React.createElement();
   if (movieDB.length === 0 ) {
     movieDBCards = (
-      <h4>No Movies srry</h4>
+      <h4>Search for a movie</h4>
     )
   } else {
     movieDBCards = movieDB.map(movie => {
@@ -97,11 +130,15 @@ function MovieSearch(props) {
 
       console.log('movie', movie);
       return (
-        <MovieCard
-          key={movie.id}
-          onClick={() => { }}
-          movie={movie}
-        />
+        <SearchResult
+          onClick={props.onClick}
+        >
+          <SearchResultPoster
+            src={movie.poster_path}
+            alt={movie.title}
+          />
+          <SearchResultTitle>{movie.title} <small>({ movie.release_date.substr(0, 4) })</small></SearchResultTitle>
+        </SearchResult>
       )
     })
   }
@@ -109,18 +146,16 @@ function MovieSearch(props) {
   return (
     <Container className={props.className}>
       <SearchBox
-        placeholder={"CHOOSE YOUR WEAPON"}
+        placeholder={"Search"}
         value={searchTerm}
         onChange={e => setSearchTerm(e.target.value)}
       />
       <SearchResults>
-        {movieCards}
-      </SearchResults>
-      <hr/>
-      <h3>From the cybernet</h3>
-      <SearchResults>
         {movieDBCards}
       </SearchResults>
+      {/*<SearchResults>
+        {movieCards}
+      </SearchResults>*/}
 
     </Container>
   )
