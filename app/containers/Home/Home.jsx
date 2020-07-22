@@ -5,7 +5,11 @@ import styled from 'styled-components'
 import Button from 'components/Button'
 
 import { useFetchedData, useForceUpdate } from 'app/hooks'
-import { getUserBacklog, getActiveNights } from 'services/read'
+import { 
+  getUserBacklog, 
+  getActiveNights,
+  getActivity,
+} from 'services/read'
 
 import { MOVIE_URL } from 'app/constants'
 import MovieCard from 'components/MovieCard'
@@ -43,6 +47,7 @@ export default function Home(props) {
 
   const [ backlog ] = useFetchedData(getUserBacklog, props.user)
   const [ nights ] = useFetchedData(getActiveNights)
+  const [ activity, refreshActivity ] = useFetchedData(getActivity, 10)
 
   const forceUpdate = useForceUpdate()
 
@@ -67,7 +72,7 @@ export default function Home(props) {
             slots={2}
             activePicks={props.activePicks}
             fetchActivePicks={props.fetchActivePicks}
-            refreshActivity={forceUpdate}
+            refreshActivity={refreshActivity}
           />
           : 
           <NoNight>No Night Created Yet</NoNight>
@@ -75,7 +80,9 @@ export default function Home(props) {
 
 
       <h3>Activity Feed</h3>
-      <ActivityFeed />
+      <ActivityFeed 
+        activity={activity}
+      />
 
       <h3>Your Backlog</h3>
 
