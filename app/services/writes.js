@@ -89,8 +89,8 @@ export async function completeNight() {
 
       const cost = pickData.tax + pickData.total_points
 
-      promises.push(pickData.picker.ref.update({ 
-        total_points: firebase.firestore.FieldValue.decrement(cost)
+      promises.push(pickData.picker.update({ 
+        total_points: firebase.firestore.FieldValue.increment(-cost)
       }))
 
     })
