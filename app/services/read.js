@@ -74,7 +74,8 @@ export async function getMovies() {
     .get()
 
   const data = extractData(movies)
-  return data
+  const repairedData = data.map(movie => fixPosterURLs(movie))
+  return repairedData
 }
 
 export async function getPrevNight() {
