@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import MovieCard from 'components/MovieCard'
 
-import { shuffle } from 'lodash'
+import { shuffle, isLength } from 'lodash'
 
 const Container = styled.div`
   display: flex;
@@ -47,15 +47,29 @@ function MovieSearch(props) {
   const { allMovies } = props
   const [ searchTerm, setSearchTerm ] = useState("")
   const [ searchResults, setSearchResults ] = useState([])
+  const [ movieDB, setMovieDB ] = useState([])
 
   useEffect(() => {
     setSearchResults(searchMovies(allMovies, searchTerm))
   }, [searchTerm, allMovies])
 
+  useEffect(() => {
+    const fetchMovieDB = async () => {
+      if (searchTerm.length > 0) {
+        let response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=fba97c7e6c8f93d931fe92ce8c7ac282&language=en-US&query=${searchTerm}&page=1&include_adult=false`)
+        response = await response.json()
+        console.log('res', response.results)
+        setMovieDB(response.results);
+      }
+    }
+
+    fetchMovieDB()
+  }, [searchTerm])
+
   let movieCards = []
   if (searchTerm.length === 0) {
     movieCards = randomSample(allMovies, 15).map(movie => (
-      <MovieCard 
+      <MovieCard
         key={movie.id}
         onClick={() => { }}
         movie={movie}
@@ -71,6 +85,26 @@ function MovieSearch(props) {
     ))
   }
 
+  let movieDBCards = React.createElement();
+  if (movieDB.length === 0 ) {
+    movieDBCards = (
+      <h4>No Movies srry</h4>
+    )
+  } else {
+    movieDBCards = movieDB.map(movie => {
+      movie.poster_path = `https://image.tmdb.org/t/p/w300${movie.poster_path}`
+
+      console.log('movie', movie);
+      return (
+        <MovieCard
+          key={movie.id}
+          onClick={() => { }}
+          movie={movie}
+        />
+      )
+    })
+  }
+
   return (
     <Container className={props.className}>
       <SearchBox
@@ -78,10 +112,15 @@ function MovieSearch(props) {
         value={searchTerm}
         onChange={e => setSearchTerm(e.target.value)}
       />
-
       <SearchResults>
         {movieCards}
       </SearchResults>
+      <hr/>
+      <h3>From the cybernet</h3>
+      <SearchResults>
+        {movieDBCards}
+      </SearchResults>
+
     </Container>
   )
 }
