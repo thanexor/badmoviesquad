@@ -43,7 +43,7 @@ function MovieCard(props) {
   return (
     <Container 
       className={props.className}
-      onClick={props.onClick}
+      onClick={() => props.onClick(movie)}
     >
       <Poster
         src={movie.poster_path}

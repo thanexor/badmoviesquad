@@ -5,14 +5,12 @@ import styled from 'styled-components'
 import Button from 'components/Button'
 
 import { useFetchedData } from 'app/hooks'
-import {
-  getUserBacklog,
-  getUpcoming,
-} from 'services/actions'
+import { getUserBacklog } from 'services/read'
 
 import { MOVIE_URL } from 'app/constants'
 import MovieCard from 'components/MovieCard'
-import Pick from 'components/Pick'
+import NightBoard from 'components/NightBoard'
+import ActivityFeed from 'components/ActivityFeed'
 
 import MovieSearchModal from 'components/MovieSearchModal'
 
@@ -31,22 +29,14 @@ const Picks = styled.div`
 
 const propTypes = {
   user: PropTypes.string.isRequired,
+  fetchActivePicks: PropTypes.func.isRequired,
+  activePicks: PropTypes.array.isRequired,
 }
 
 export default function Home(props) {
   const [ isSearchOpen, setIsSearchOpen ] = useState(false)
 
   const backlog = useFetchedData(getUserBacklog, props.user)
-  const picks = useFetchedData(getUpcoming)
-
-  const displayPicks = picks.map(({movie, picker}) => (
-     <Pick
-      key={movie.id}
-      movie={movie}
-      pickedBy={picker}
-      onOutbid={() => {}}
-    />
-  ))
 
   const movies = backlog.map(movie => (
     <MovieCard
@@ -61,9 +51,14 @@ export default function Home(props) {
       <h1>Home</h1>
       <Button onClick={() => setIsSearchOpen(true)}>SEARCH</Button>
 
-      <Picks>
-        {displayPicks}
-      </Picks>
+      <NightBoard
+        slots={2}
+        activePicks={props.activePicks}
+        fetchActivePicks={props.fetchActivePicks}
+      />
+
+      <h3>Activity Feed</h3>
+      <ActivityFeed />
 
       <h3>Your Backlog</h3>
 

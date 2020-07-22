@@ -41,6 +41,7 @@ function searchMovies(movies, term) {
 const propTypes = {
   className: PropTypes.string,
   allMovies: PropTypes.array.isRequired,
+  onClick: PropTypes.func.isRequired,
 }
 
 function MovieSearch(props) {
@@ -71,7 +72,7 @@ function MovieSearch(props) {
     movieCards = randomSample(allMovies, 15).map(movie => (
       <MovieCard
         key={movie.id}
-        onClick={() => { }}
+        onClick={props.onClick}
         movie={movie}
       />
     ))
@@ -79,7 +80,7 @@ function MovieSearch(props) {
     movieCards = searchResults.map(movie => (
       <MovieCard
         key={movie.id}
-        onClick={() => { }}
+        onClick={props.onClick}
         movie={movie}
       />
     ))

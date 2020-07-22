@@ -2,7 +2,7 @@ import React from 'react'
 //import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { getScores } from 'services/actions'
+import { getScores } from 'services/read'
 import { useFetchedData } from 'app/hooks'
 
 import Scorecard from 'components/Scorecard'
