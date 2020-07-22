@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Button from 'components/Button'
 
 import { useFetchedData } from 'app/hooks'
-import { getUserBacklog } from 'services/read'
+import { getUserBacklog, getActiveNights } from 'services/read'
 
 import { MOVIE_URL } from 'app/constants'
 import MovieCard from 'components/MovieCard'
@@ -27,6 +27,10 @@ const Picks = styled.div`
   flex-direction: row;
 `
 
+const NoNight = styled.h3`
+
+`
+
 const propTypes = {
   user: PropTypes.string.isRequired,
   fetchActivePicks: PropTypes.func.isRequired,
@@ -37,6 +41,9 @@ export default function Home(props) {
   const [ isSearchOpen, setIsSearchOpen ] = useState(false)
 
   const backlog = useFetchedData(getUserBacklog, props.user)
+  const nights = useFetchedData(getActiveNights)
+
+  const night = nights[0]
 
   const movies = backlog.map(movie => (
     <MovieCard
@@ -50,12 +57,18 @@ export default function Home(props) {
     <Container>
       <h1>Home</h1>
       <Button onClick={() => setIsSearchOpen(true)}>SEARCH</Button>
+      
+      {
+        night
+          ? <NightBoard
+            slots={2}
+            activePicks={props.activePicks}
+            fetchActivePicks={props.fetchActivePicks}
+          />
+          : 
+          <NoNight>No Night Created Yet</NoNight>
+      }
 
-      <NightBoard
-        slots={2}
-        activePicks={props.activePicks}
-        fetchActivePicks={props.fetchActivePicks}
-      />
 
       <h3>Activity Feed</h3>
       <ActivityFeed />

@@ -15,6 +15,7 @@ const propTypes = {
   slots: PropTypes.number.isRequired,
   activePicks: PropTypes.array.isRequired,
   fetchActivePicks: PropTypes.func.isRequired,
+  night: PropTypes.object.isRequired,
 }
 
 function NightBoard(props) {
