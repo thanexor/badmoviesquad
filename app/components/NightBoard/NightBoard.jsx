@@ -10,6 +10,20 @@ const Container = styled.div`
   flex-direction: row;
 `
 
+const Title = styled.div`
+`
+
+const Location = styled.div`
+`
+
+const Header = styled.div`
+`
+
+const Slots = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+
 const propTypes = {
   className: PropTypes.string,
   slots: PropTypes.number.isRequired,
@@ -20,6 +34,7 @@ const propTypes = {
 }
 
 function NightBoard(props) {
+  const { title, location } = props.night
 
   const slots = props.activePicks.map(pick => (
     <Slot
@@ -40,7 +55,14 @@ function NightBoard(props) {
 
   return (
     <Container className={props.className}>
-      { slots }
+      <Header>
+        <Title>{title}</Title>
+        <Location>{location}</Location>
+      </Header>
+
+      <Slots>
+        {slots}
+      </Slots>
     </Container>
   )
 }

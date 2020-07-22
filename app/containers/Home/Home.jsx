@@ -73,6 +73,7 @@ export default function Home(props) {
             activePicks={props.activePicks}
             fetchActivePicks={props.fetchActivePicks}
             refreshActivity={refreshActivity}
+            night={night}
           />
           : 
           <NoNight>No Night Created Yet</NoNight>
