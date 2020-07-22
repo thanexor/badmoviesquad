@@ -80,10 +80,20 @@ export async function completeNight() {
       .get()
 
     const promises = []
-    pickRefs.forEach(pick => promises.push(pick.ref.update({
-      night: nightRef,
-      state: 'completed',
-    })))
+    pickRefs.forEach(pick => {
+      const pickData = pick.data()
+      promises.push(pick.ref.update({
+        night: nightRef,
+        state: 'completed',
+      }))
+
+      const cost = pickData.tax + pickData.total_points
+
+      promises.push(pickData.picker.ref.update({ 
+        total_points: firebase.firestore.FieldValue.decrement(cost)
+      }))
+
+    })
 
     await Promise.all(promises)
 

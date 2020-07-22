@@ -28,7 +28,7 @@ function Admin(props) {
 
   const [ isCreateNightOpen, setIsCreateNightOpen ] = useState(false)
 
-  const [ activeNights ] = useFetchedData(getActiveNights)
+  const [ activeNights, refreshActiveNights ] = useFetchedData(getActiveNights)
 
   const renderedNights = activeNights.map(night => (
     <h4 key={night.firebase_id}>{night.title} @ {night.location}</h4>
@@ -39,6 +39,7 @@ function Admin(props) {
     setCompletingNight(true)
     const results = await completeNight()
     setCompletingNight(false)
+    refreshActiveNights()
     if (!results.success) {
       setCompletingNightError(results.error)
     }
@@ -69,6 +70,7 @@ function Admin(props) {
       <CreateNightModal
         isOpen={isCreateNightOpen}
         onRequestClose={() => setIsCreateNightOpen(false)}
+        refreshActiveNights={refreshActiveNights}
       />
     </Container>
   )
