@@ -33,6 +33,7 @@ const Text = styled.div`
   color: papayawhip;
   font-size: 1.4em;
   margin: 0.2em;
+  text-shadow: 1px 1px black;
 `
 
 const OutbidButton = styled(Button)`
