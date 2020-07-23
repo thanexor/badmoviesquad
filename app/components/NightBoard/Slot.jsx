@@ -11,14 +11,32 @@ import MovieSearchModal from 'components/MovieSearchModal'
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
+  justify-content: flex-end;
   width: 300px;
   height: 200px;
+  background: no-repeat linear-gradient(transparent 70%, black), url(${props => props.backdrop_path});
+  background-size: cover;
+  background-position: center;
+  border: 1px solid ${({ theme }) => theme.primary};
+`
+
+const Content = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
 `
 
 const Text = styled.div`
   color: papayawhip;
+  font-size: 1.4em;
+  margin: 0.2em;
+`
+
+const OutbidButton = styled(Button)`
+  margin-right: 1em;
 `
 
 const propTypes = {
@@ -32,9 +50,11 @@ function Slot(props) {
   const [ pickerOpen, setPickerOpen ] = useState(false)
   const { movie } = props.pick
   return (
-    <Container className={props.className}>
-      <Text>{movie.title}</Text>
-      <Button onClick={() => setPickerOpen(true)}>Outbid</Button>
+    <Container className={props.className} backdrop_path={movie.backdrop_path} >
+      <Content>
+        <Text>{movie.title}</Text>
+        <OutbidButton onClick={() => setPickerOpen(true)}>Outbid</OutbidButton>
+      </Content>
       <MovieSearchModal
         isOpen={pickerOpen}
         onRequestClose={() => setPickerOpen(false)}

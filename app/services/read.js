@@ -2,6 +2,15 @@ import firebase from './firebase'
 
 const db = firebase.firestore()
 
+function fixPosterURLs(movie) {
+  const movieDB_URL = "https://image.tmdb.org/t/p/w300"
+  return {
+    ...movie,
+    backdrop_path: `${movieDB_URL}${movie.backdrop_path}`,
+    poster_path: `${movieDB_URL}${movie.poster_path}`,
+  }
+}
+
 // there's gotta be a better way to do this
 function extractData(queryResult) {
   const data = []
@@ -40,23 +49,15 @@ export async function getActivePicks() {
         movie.get(),
         picker.get(),
       ])
+
       const [fetchedMovie, fetchedPicker] = data
       return {
         ...pick,
-        movie: fetchedMovie.data(),
+        movie: fixPosterURLs(fetchedMovie.data()),
         picker: fetchedPicker.data(),
       }
     })
   )
-}
-
-function fixPosterURLs(movie) {
-  const movieDB_URL = "https://image.tmdb.org/t/p/w300"
-  return {
-    ...movie,
-    backdrop_path: `${movieDB_URL}${movie.backdrop_path}`,
-    poster_path: `${movieDB_URL}${movie.poster_path}`,
-  }
 }
 
 export async function getUserBacklog(email) {
