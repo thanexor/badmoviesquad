@@ -5,8 +5,8 @@ import styled from 'styled-components'
 import Button from 'components/Button'
 
 import { useFetchedData, useForceUpdate } from 'app/hooks'
-import { 
-  getUserBacklog, 
+import {
+  getUserBacklog,
   getActiveNights,
   getActivity,
 } from 'services/read'
@@ -65,7 +65,7 @@ export default function Home(props) {
     <Container>
       <h1>Home</h1>
       <Button onClick={() => setIsSearchOpen(true)}>SEARCH</Button>
-      
+
       {
         night
           ? <NightBoard
@@ -75,13 +75,13 @@ export default function Home(props) {
             refreshActivity={refreshActivity}
             night={night}
           />
-          : 
+          :
           <NoNight>No Night Created Yet</NoNight>
       }
 
 
       <h3>Activity Feed</h3>
-      <ActivityFeed 
+      <ActivityFeed
         activity={activity}
       />
 
