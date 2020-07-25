@@ -1,22 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import Button from 'components/Button'
-
+// i think this kinda looks like garbage
+// maybe we do something like a sticker on the poster
+// like: $3 to pick
 const HoverCard = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background: black;
+  
   grid-area: main;
-  visibility: hidden;
+  opacity: 0;
   width: 100%;
   border: 1px solid black;
+`
 
-  :hover {
-    display: block;
-  }
+const HoverText = styled.div`
+  display: flex;
+  align-items: baseline;
+  flex-direction: row;
 `
 
 const Points = styled.div`
   font-size: 1.2em;
+  margin-right: 0.2em;
 `
 
 const PointText = styled.div``
@@ -36,12 +46,8 @@ const Container = styled.div`
   grid-template-areas: "main";
   cursor: pointer;
 
-  &:hover ${Poster} {
-    visibility: hidden;
-  }
-
   &:hover ${HoverCard} {
-    visibility: visible;
+    opacity: 0.7;
   }
 `
 
@@ -53,11 +59,17 @@ const propTypes = {
 }
 
 export default function HoverableMovieCard(props) {
+  const [ makingPick, setMakingPick ] = useState(false)
   const { movie } = props
   return (
     <Container
       className={props.className}
-      onClick={() => props.onClick(movie)}
+      onClick={() => {
+        setMakingPick(true)
+        if(!makingPick) {
+          props.onClick(movie)
+        }
+      }}
     >
       <Poster
         src={movie.poster_path}
@@ -65,10 +77,18 @@ export default function HoverableMovieCard(props) {
       />
 
       <HoverCard>
-        <Name>{movie.title}</Name>
-        <Points>{props.pointCost}</Points>
-        <PointText>to pick</PointText>
-
+        <HoverText>
+          { makingPick 
+          ? 
+            "making pick..."
+          : (
+            <>
+              <Points>{props.pointCost}</Points>
+              <PointText>points</PointText>
+            </>
+          )
+          }
+        </HoverText>
       </HoverCard>
     </Container>
   )
