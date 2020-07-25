@@ -3,11 +3,13 @@ import firebase from './firebase'
 const db = firebase.firestore()
 
 function fixPosterURLs(movie) {
-  const movieDB_URL = "https://image.tmdb.org/t/p/w300"
+  const IMAGE_URL = "https://image.tmdb.org/t/p/w300"
+  const SITE_URL = "https://www.themoviedb.org/movie/"
   return {
     ...movie,
-    backdrop_path: `${movieDB_URL}${movie.backdrop_path}`,
-    poster_path: `${movieDB_URL}${movie.poster_path}`,
+    backdrop_path: `${IMAGE_URL}${movie.backdrop_path}`,
+    poster_path: `${IMAGE_URL}${movie.poster_path}`,
+    info_url: `${SITE_URL}${movie.id}`
   }
 }
 

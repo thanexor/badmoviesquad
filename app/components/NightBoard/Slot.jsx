@@ -29,11 +29,13 @@ const Content = styled.div`
   justify-content: space-between;
 `
 
-const Text = styled.div`
+const Text = styled.a`
   color: papayawhip;
   font-size: 1.4em;
   margin: 0.2em;
   text-shadow: 1px 1px black;
+
+  text-decoration: none;
 `
 
 const OutbidButton = styled(Button)`
@@ -53,9 +55,13 @@ function Slot(props) {
   return (
     <Container className={props.className} backdrop_path={movie.backdrop_path} >
       <Content>
-        <Text>{movie.title}</Text>
+        <Text
+          target="_blank"
+          href={movie.info_url}
+        >{movie.title}</Text>
         <OutbidButton onClick={() => setPickerOpen(true)}>Outbid</OutbidButton>
       </Content>
+
       <MovieSearchModal
         isOpen={pickerOpen}
         onRequestClose={() => setPickerOpen(false)}
