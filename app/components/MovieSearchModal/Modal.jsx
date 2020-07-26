@@ -23,6 +23,32 @@ function Modal(props) {
     <ReactModal
       isOpen={props.isOpen}
       onRequestClose={props.onRequestClose}
+      style={{
+        overlay: {
+          position: 'fixed',
+          left: 0,
+          right: 0,
+          bottom: 0,
+        },
+        content: {
+          position: 'absolute',
+          top: '10vh',
+          left: '50%',
+          right: '0',
+          bottom: 'auto',
+          border: '1px solid rgb(204, 204, 204)',
+          background: 'rgb(255, 255, 255)',
+          overflow: 'auto',
+          borderRadius: '4px',
+          outline: 'none',
+          padding: '20px',
+          width: '100%',
+          maxWidth: '600px',
+          maxHeight: '72vh',
+          height: '100%',
+          transform: 'translateX(-50%)',
+        }
+      }}
     >
       <MovieSearch
         allMovies={props.allMovies}

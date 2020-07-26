@@ -3,31 +3,64 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import HoverableMovieCard from './HoverableMovieCard'
 
-import { shuffle } from 'lodash'
+import { shuffle, isLength } from 'lodash'
 
 const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  font-family: sans-serif;
 `
 const SearchBox = styled.input`
-  font-size: 1.1em;
-  padding: 0.3em;
-  width: 330px;
-  margin-bottom: 3em;
+  position: absolute;
+  top: 1em;
+  box-sizing: border-box;
+  font-size: 1.5rem;
+  font-weight: normal;
+  padding: 1em;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 2em;
 
   &::placeholder {
-    text-align: center;
   }
 `
 
 const SearchResults = styled.div`
-  display: flex;
+  // display: flex;
+  margin-top: 7em;
   align-items: center;
   justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
+  width: 100%;
+  max-width: 600px;
+  max-height: 55vh;
+  overflow: auto;
+`
+
+const SearchResult = styled.div`
+  display: flex;
+  align-items: top;
+  justify-content: left;
+  flex-direction: row;
+  padding: .25em 0;
+`
+
+const SearchResultPoster = styled.img`
+  width: 35px;
+  margin-right: .5em;
+`
+
+const SearchResultTitle = styled.h3`
+  margin: 0 0 1rem;
+  font-size: 14px;
+  font-weight: normal;
+
+  small {
+    font-size: 85%;
+  }
 `
 
 function randomSample(array, size) {
@@ -49,17 +82,31 @@ function MovieSearch(props) {
   const { allMovies } = props
   const [ searchTerm, setSearchTerm ] = useState("")
   const [ searchResults, setSearchResults ] = useState([])
+  const [ movieDB, setMovieDB ] = useState([])
 
   useEffect(() => {
     setSearchResults(searchMovies(allMovies, searchTerm))
   }, [searchTerm, allMovies])
 
+  useEffect(() => {
+    const fetchMovieDB = async () => {
+      if (searchTerm.length > 0) {
+        let response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=fba97c7e6c8f93d931fe92ce8c7ac282&language=en-US&query=${searchTerm}&page=1&include_adult=false`)
+        response = await response.json()
+        console.log('res', response.results)
+        setMovieDB(response.results);
+      }
+    }
+
+    fetchMovieDB()
+  }, [searchTerm])
   const { tax=0 } = props
 
   let movieCards = []
   if (searchTerm.length === 0) {
     movieCards = randomSample(allMovies, 15).map(movie => (
       <HoverableMovieCard
+        master
         key={movie.id}
         onClick={props.onClick}
         movie={movie}
@@ -77,17 +124,44 @@ function MovieSearch(props) {
     ))
   }
 
+  let movieDBCards = React.createElement();
+  if (movieDB.length === 0 ) {
+    movieDBCards = (
+      <h4>Search for a movie</h4>
+    )
+  } else {
+    movieDBCards = movieDB.map(movie => {
+      movie.poster_path = `https://image.tmdb.org/t/p/w300${movie.poster_path}`
+
+      console.log('movie', movie);
+      return (
+        <SearchResult
+          onClick={props.onClick}
+        >
+          <SearchResultPoster
+            src={movie.poster_path}
+            alt={movie.title}
+          />
+          <SearchResultTitle>{movie.title} <small>({ movie.release_date.substr(0, 4) })</small></SearchResultTitle>
+        </SearchResult>
+      )
+    })
+  }
+
   return (
     <Container className={props.className}>
       <SearchBox
-        placeholder={"CHOOSE YOUR WEAPON"}
+        placeholder={"Search"}
         value={searchTerm}
         onChange={e => setSearchTerm(e.target.value)}
       />
-
       <SearchResults>
-        {movieCards}
+        {movieDBCards}
       </SearchResults>
+      {/*<SearchResults>
+        {movieCards}
+      </SearchResults>*/}
+
     </Container>
   )
 }
