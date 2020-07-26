@@ -2,6 +2,17 @@ import firebase from './firebase'
 
 const db = firebase.firestore()
 
+function fixPosterURLs(movie) {
+  const IMAGE_URL = "https://image.tmdb.org/t/p/w300"
+  const SITE_URL = "https://www.themoviedb.org/movie/"
+  return {
+    ...movie,
+    backdrop_path: `${IMAGE_URL}${movie.backdrop_path}`,
+    poster_path: `${IMAGE_URL}${movie.poster_path}`,
+    info_url: `${SITE_URL}${movie.id}`
+  }
+}
+
 // there's gotta be a better way to do this
 function extractData(queryResult) {
   const data = []
@@ -40,23 +51,15 @@ export async function getActivePicks() {
         movie.get(),
         picker.get(),
       ])
+
       const [fetchedMovie, fetchedPicker] = data
       return {
         ...pick,
-        movie: fetchedMovie.data(),
+        movie: fixPosterURLs(fetchedMovie.data()),
         picker: fetchedPicker.data(),
       }
     })
   )
-}
-
-function fixPosterURLs(movie) {
-  const movieDB_URL = "https://image.tmdb.org/t/p/w300"
-  return {
-    ...movie,
-    backdrop_path: `${movieDB_URL}${movie.backdrop_path}`,
-    poster_path: `${movieDB_URL}${movie.poster_path}`,
-  }
 }
 
 export async function getUserBacklog(email) {
@@ -88,12 +91,21 @@ export async function getPrevNight() {
   return nightRef.data()
 }
 
+export async function getActiveNights() {
+  const nights = await db.collection('Nights')
+    .where('state', '==',  'pending')
+    .get()
+
+  return extractData(nights)
+}
+
+
 export async function getActivity(limit) {
-  const nights = await db.collection('Activity')
+  const activity = await db.collection('Activity')
     .orderBy('timestamp', 'desc')
     .limit(limit)
     .get()
 
-  const extractedData = await extractData(nights)
+  const extractedData = await extractData(activity)
   return extractedData
 }
