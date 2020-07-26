@@ -20,20 +20,32 @@ import MovieSearchModal from 'components/MovieSearchModal'
 
 const Movies = styled.div`
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
 `
 
 const Container = styled.div`
+  .search-container {
+    display: block;
+    text-align: right;
+    margin: -3.5em 0 1.5em;
+  }
+
+  .open-search {
+    display: inline-block;
+    text-align: right;
+  }
+
+  .open-search i {
+    font-style: normal  ;
+  }
 `
 
 const Picks = styled.div`
   display: flex;
-  flex-direction: row;
 `
 
 const NoNight = styled.h3`
-
+  font-size: 3em;
+  color: #fff;
 `
 
 const propTypes = {
@@ -63,8 +75,10 @@ export default function Home(props) {
 
   return (
     <Container>
-      <h1>Home</h1>
-      <Button onClick={() => setIsSearchOpen(true)}>SEARCH</Button>
+      <h1>What's next</h1>
+      <div className="search-container">
+        <Button className="open-search" onClick={() => setIsSearchOpen(true)}>Search movies <i>&#128269;</i></Button>
+      </div>
 
       {
         night
@@ -76,16 +90,16 @@ export default function Home(props) {
             night={night}
           />
           :
-          <NoNight>No Night Created Yet</NoNight>
+          <NoNight>One sec...</NoNight>
       }
 
 
-      <h3>Activity Feed</h3>
+      <h3>Recent activity</h3>
       <ActivityFeed
         activity={activity}
       />
 
-      <h3>Your Backlog</h3>
+      <h3>Recently added</h3>
 
       <Movies>
         {movies}

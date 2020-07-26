@@ -8,6 +8,8 @@ import Outbid from './Outbid'
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  font-size: .85em;
+  color: ${({ theme }) => theme.grey04};
 `
 
 const propTypes = {

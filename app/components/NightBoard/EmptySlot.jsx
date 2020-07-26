@@ -13,16 +13,17 @@ import MovieSearchModal from 'components/MovieSearchModal'
 
 const Container = styled.div`
   display: flex;
+  flex: 0 0 50%;
+  min-height: 350px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 300px;
-  height: 200px;
   border: 1px solid ${({ theme }) => theme.primary};
 `
 
 const Content = styled.div`
   position: absolute;
+  text-align: center;
 `
 
 const StyledButton = styled(Button)`
@@ -46,8 +47,8 @@ function EmptySlot(props) {
         <StyledButton onClick={() => setPickerOpen(true)}>Make Pick</StyledButton>
       </Content>
       <Particles 
-        width={300}
-        height={200}
+        width={350}
+        height={250}
         params={particleConfig}
       />
       <MovieSearchModal

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import HoverableMovieCard from './HoverableMovieCard'
+import Button from 'components/Button'
 
 import { shuffle, isLength } from 'lodash'
 
@@ -36,21 +37,25 @@ const SearchResults = styled.div`
   flex-wrap: wrap;
   width: 100%;
   max-width: 600px;
-  max-height: 55vh;
+  max-height: 65vh;
   overflow: auto;
 `
 
 const SearchResult = styled.div`
   display: flex;
   align-items: top;
-  justify-content: left;
   flex-direction: row;
-  padding: .25em 0;
+  margin: .75em 0;
 `
 
 const SearchResultPoster = styled.img`
   width: 35px;
-  margin-right: .5em;
+  margin-right: 2em;
+  font-size: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: ${({ theme }) => theme.grey07};
+  background: ${({ theme }) => theme.grey02};
 `
 
 const SearchResultTitle = styled.h3`
@@ -61,6 +66,13 @@ const SearchResultTitle = styled.h3`
   small {
     font-size: 85%;
   }
+`
+
+const SearchResultActions = styled.div`
+  flex-grow: 1;
+  text-align: right;
+  justify-self: right;
+  padding-right: 1em;
 `
 
 function randomSample(array, size) {
@@ -131,7 +143,7 @@ function MovieSearch(props) {
     )
   } else {
     movieDBCards = movieDB.map(movie => {
-      movie.poster_path = `https://image.tmdb.org/t/p/w300${movie.poster_path}`
+      movie.poster_path = `https://image.tmdb.org/t/p/w300/${movie.poster_path}`
 
       console.log('movie', movie);
       return (
@@ -143,6 +155,9 @@ function MovieSearch(props) {
             alt={movie.title}
           />
           <SearchResultTitle>{movie.title} <small>({ movie.release_date.substr(0, 4) })</small></SearchResultTitle>
+          <SearchResultActions>
+            <Button className="button-pick">Pick</Button>
+          </SearchResultActions>
         </SearchResult>
       )
     })

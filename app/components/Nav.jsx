@@ -44,6 +44,8 @@ const NavContainer = styled.div`
 
   .user-info {
     text-align: right;
+    font-size: .75em;
+    padding-right: 1em;
   }
 `
 
