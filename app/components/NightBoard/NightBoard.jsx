@@ -6,14 +6,13 @@ import Slot from './Slot'
 import EmptySlot from './EmptySlot'
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: row;
+
 `
 
-const Title = styled.div`
+const Title = styled.h3`
 `
 
-const Location = styled.div`
+const Location = styled.p`
 `
 
 const Header = styled.div`

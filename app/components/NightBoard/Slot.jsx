@@ -10,22 +10,23 @@ import MovieSearchModal from 'components/MovieSearchModal'
 
 const Container = styled.div`
   display: grid;
-  padding: 0.5em;
+  padding: 3vw;
   grid-template-rows: 1fr 1fr;
-  grid-template-columns: 1fr 50px;
+  grid-template-columns: 1fr .5fr;
   grid-template-areas:
-    "picked-by point-cost"
-    "title pick-button";
+    "title point-cost"
+    "picked-by pick-button";
 
   flex-direction: column;
   align-items: flex-end;
   justify-content: flex-end;
-  width: 300px;
-  height: 200px;
   background: no-repeat linear-gradient(transparent 70%, black), url(${props => props.backdrop_path});
   background-size: cover;
   background-position: center;
   border: 1px solid ${({ theme }) => theme.primary};
+  flex: 0 0 50%;
+  box-sizing: border-box;
+  min-height: 350px;
 `
 
 const Content = styled.div`
@@ -38,7 +39,8 @@ const Content = styled.div`
 
 const MovieTitle = styled.a`
   grid-area: title;
-  color: papayawhip;
+  align-self: flex-start;
+  color: #fff;
   font-size: 1.4em;
   text-shadow: 1px 1px black;
 
@@ -57,18 +59,18 @@ const PointCost = styled.div`
 `
 
 const PickedBy = styled.span`
-  align-self: flex-start;
   grid-area: picked-by;
-  font-size: 1.1em;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
   width: fit-content;
+  padding: 1em;
+  font-size: .75em;
+  color: ${({ theme }) => theme.grey02};
   background-color: ${({ theme }) => theme.purpleSuperdark};
 `
 
 const OutbidButton = styled(Button)`
   grid-area: pick-button;
-  margin-right: 1em;
+  max-width: 100px;
+  justify-self: right;
 `
 
 const propTypes = {

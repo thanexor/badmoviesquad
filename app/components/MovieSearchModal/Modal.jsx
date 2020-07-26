@@ -32,7 +32,7 @@ function Modal(props) {
         },
         content: {
           position: 'absolute',
-          top: '10vh',
+          top: '6vh',
           left: '50%',
           right: '0',
           bottom: 'auto',
@@ -44,7 +44,7 @@ function Modal(props) {
           padding: '20px',
           width: '100%',
           maxWidth: '600px',
-          maxHeight: '72vh',
+          maxHeight: '80vh',
           height: '100%',
           transform: 'translateX(-50%)',
         }

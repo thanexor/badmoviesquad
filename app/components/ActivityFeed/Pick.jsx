@@ -5,7 +5,9 @@ import moment from 'moment'
 
 import Time from './Time'
 
-const Container = styled.div``
+const Container = styled.div`
+  margin: .5em 0;
+`
 
 const Name = styled.span``
 const Movie = styled.span``
