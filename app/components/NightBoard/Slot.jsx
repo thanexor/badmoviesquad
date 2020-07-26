@@ -97,6 +97,7 @@ function Slot(props) {
       <MovieSearchModal
         isOpen={pickerOpen}
         onRequestClose={() => setPickerOpen(false)}
+        tax={tax + 1}
         onClick={async movie => {
           await outbidPick({
             movieId: movie.firebase_id,
