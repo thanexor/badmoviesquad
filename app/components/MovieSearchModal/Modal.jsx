@@ -15,6 +15,7 @@ const propTypes = {
   onRequestClose: PropTypes.func.isRequired,
   allMovies: PropTypes.array.isRequired,
   onClick: PropTypes.func.isRequired,
+  tax: PropTypes.number,
 }
 
 function Modal(props) {
@@ -26,6 +27,7 @@ function Modal(props) {
       <MovieSearch
         allMovies={props.allMovies}
         onClick={props.onClick}
+        tax={props.tax}
       />
     </ReactModal>
   )
