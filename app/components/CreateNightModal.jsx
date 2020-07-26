@@ -11,12 +11,13 @@ const Container = styled.div``
 
 const Label = styled.label``
 
-const Input = styled.input
+const Input = styled.input``
 
 const propTypes = {
   className: PropTypes.string,
   isOpen: PropTypes.bool.isRequired,
   onRequestClose: PropTypes.func.isRequired,
+  refreshActiveNights: PropTypes.func.isRequired,
 }
 
 function CreateNightModal(props) {
@@ -34,6 +35,8 @@ function CreateNightModal(props) {
       setError(results.error)
     }
     setWorking(false)
+    props.refreshActiveNights()
+    props.onRequestClose()
   }
 
   return (
@@ -54,7 +57,7 @@ function CreateNightModal(props) {
         <Button
           onClick={onCreateNight}
         >
-          {/* {working ? "Creating..." : "Create Night"} */}
+          {working ? "Creating..." : "Create Night"}
         </Button>
       </Container>
     </ReactModal>

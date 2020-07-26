@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import MovieCard from 'components/MovieCard'
+import HoverableMovieCard from './HoverableMovieCard'
 
 import { shuffle } from 'lodash'
 
@@ -41,6 +41,8 @@ function searchMovies(movies, term) {
 const propTypes = {
   className: PropTypes.string,
   allMovies: PropTypes.array.isRequired,
+  onClick: PropTypes.func.isRequired,
+  tax: PropTypes.number,
 }
 
 function MovieSearch(props) {
@@ -52,21 +54,25 @@ function MovieSearch(props) {
     setSearchResults(searchMovies(allMovies, searchTerm))
   }, [searchTerm, allMovies])
 
+  const { tax=0 } = props
+
   let movieCards = []
   if (searchTerm.length === 0) {
     movieCards = randomSample(allMovies, 15).map(movie => (
-      <MovieCard 
+      <HoverableMovieCard
         key={movie.id}
-        onClick={() => { }}
+        onClick={props.onClick}
         movie={movie}
+        pointCost={3 + tax}
       />
     ))
   } else {
     movieCards = searchResults.map(movie => (
-      <MovieCard
+      <HoverableMovieCard
         key={movie.id}
-        onClick={() => { }}
+        onClick={props.onClick}
         movie={movie}
+        pointCost={3 + tax}
       />
     ))
   }

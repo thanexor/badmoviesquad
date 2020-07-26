@@ -1,4 +1,4 @@
-import { getMovies } from 'services/read'
+import { getMovies, getActivePicks } from 'services/read'
 
 export const LOGIN = "LOGIN"
 export function loginAs({displayName, email, avatarURL, admin, points, lastLogin}) {
@@ -17,6 +17,33 @@ export const LOGOUT = "LOGOUT"
 export function logout() {
   return {
     type: LOGOUT,
+  }
+}
+
+export const FETCH_ACTIVE_PICKS_SUCCESS = "FETCH_ACTIVE_PICKS_SUCCESS"
+function fetchActivePicksSuccess(data) {
+  return {
+    type: FETCH_ACTIVE_PICKS_SUCCESS,
+    data,
+  }
+}
+
+export const FETCH_ACTIVE_PICKS_FAILURE = "FETCH_ACTIVE_PICKS_FAILURE"
+function fetchActivePicksFailure(error) {
+  return {
+    type: FETCH_ACTIVE_PICKS_FAILURE,
+    error,
+  }
+}
+
+export function fetchActivePicks() {
+  return async (dispatch) => {
+    try {
+      const data = await getActivePicks()
+      dispatch(fetchActivePicksSuccess(data))
+    } catch(e) {
+      dispatch(fetchActivePicksFailure(e.message))
+    }
   }
 }
 

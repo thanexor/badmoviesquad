@@ -2,6 +2,17 @@ import firebase from './firebase'
 
 const db = firebase.firestore()
 
+function fixPosterURLs(movie) {
+  const IMAGE_URL = "https://image.tmdb.org/t/p/w300"
+  const SITE_URL = "https://www.themoviedb.org/movie/"
+  return {
+    ...movie,
+    backdrop_path: `${IMAGE_URL}${movie.backdrop_path}`,
+    poster_path: `${IMAGE_URL}${movie.poster_path}`,
+    info_url: `${SITE_URL}${movie.id}`
+  }
+}
+
 // there's gotta be a better way to do this
 function extractData(queryResult) {
   const data = []
@@ -26,7 +37,7 @@ export async function getScores() {
   return extractData(users)
 }
 
-export async function getUpcoming() {
+export async function getActivePicks() {
   const activePicks = await db.collection('Picks')
     .where("state", "==", "active")
     .get()
@@ -34,27 +45,21 @@ export async function getUpcoming() {
   const extractedData = await extractData(activePicks)
 
   return Promise.all(
-    extractedData.map(async ({movie, picker}) => {
+    extractedData.map(async (pick) => {
+      const { movie, picker } = pick
       const data = await Promise.all([
         movie.get(),
         picker.get(),
       ])
+
       const [fetchedMovie, fetchedPicker] = data
       return {
-        movie: fetchedMovie.data(),
+        ...pick,
+        movie: fixPosterURLs(fetchedMovie.data()),
         picker: fetchedPicker.data(),
       }
     })
   )
-}
-
-function fixPosterURLs(movie) {
-  const movieDB_URL = "https://image.tmdb.org/t/p/w300"
-  return {
-    ...movie,
-    backdrop_path: `${movieDB_URL}${movie.backdrop_path}`,
-    poster_path: `${movieDB_URL}${movie.poster_path}`,
-  }
 }
 
 export async function getUserBacklog(email) {
@@ -84,4 +89,23 @@ export async function getPrevNight() {
 
   const nightRef = nights[0]
   return nightRef.data()
+}
+
+export async function getActiveNights() {
+  const nights = await db.collection('Nights')
+    .where('state', '==',  'pending')
+    .get()
+
+  return extractData(nights)
+}
+
+
+export async function getActivity(limit) {
+  const activity = await db.collection('Activity')
+    .orderBy('timestamp', 'desc')
+    .limit(limit)
+    .get()
+
+  const extractedData = await extractData(activity)
+  return extractedData
 }
