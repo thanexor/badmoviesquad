@@ -97,10 +97,10 @@ function App(props) {
           <Container>
             <Switch>
               <Route path="/movies">
-                {!props.isLoggedIn ? <Redirect to="/login" /> : <Movies />}
+                <Movies />
               </Route>
               <Route path="/scores">
-                {!props.isLoggedIn ? <Redirect to="/login" /> : <Scores />}
+                <Scores />
               </Route>
               <Route path="/login">
                 {props.isLoggedIn ? <Redirect to="/" /> : <Login />}
