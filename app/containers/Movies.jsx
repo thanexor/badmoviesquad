@@ -25,10 +25,7 @@ function Movies(props) {
       <MovieCard
         key={movie.id}
         movie={movie}
-        onClick={() => {
-          console.log('click!')
-          window.open(`${MOVIE_URL}/${props.movie.id}`, '_blank')
-        }}
+        onClick={() => window.open(`${MOVIE_URL}/${movie.id}`, '_blank')}
       />
     )
   })

@@ -34,6 +34,7 @@ const Container = styled.div`
   margin-left: auto;
   padding-right: 15px;
   padding-left: 15px;
+  padding-bottom: 15px;
   max-width: 1540px;
 `
 

@@ -19,7 +19,7 @@ import ActivityFeed from 'components/ActivityFeed'
 import MovieSearchModal from 'components/MovieSearchModal'
 
 const Movies = styled.div`
-  display: flex;
+  // display: flex;
 `
 
 const Container = styled.div`
@@ -100,10 +100,10 @@ export default function Home(props) {
       />
 
       <h3>Recently added</h3>
-
       <Movies>
         {movies}
       </Movies>
+
       <MovieSearchModal
         isOpen={isSearchOpen}
         onRequestClose={() => setIsSearchOpen(false)}

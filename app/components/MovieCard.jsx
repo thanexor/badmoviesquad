@@ -6,16 +6,22 @@ import Button from 'components/Button'
 
 const Container = styled.div`
   display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  height: 12vw;
-  overflow: hidden;
+  align-items: left;
+  flex-direction: row;
+  flex-wrap: wrap;
+  // cursor: pointer;
+  // height: 12vw;
+  // overflow: hidden;
 `
 
 const MakePickButton = styled(Button)`
 `
 
-const Poster = styled.img`
+const Poster = styled.div`
+  max-height: 200px;
+`
+
+const PosterImage = styled.img`
   display: block;
   width: auto;
   height: 100%;
@@ -41,10 +47,12 @@ export default function MovieCard(props) {
       className={props.className}
       onClick={() => props.onClick(movie)}
     >
-      <Poster
-        src={movie.poster_path}
-        alt={movie.name}
+      <Poster>
+        <PosterImage
+          src={movie.poster_path}
+          alt={movie.name}
         />
+      </Poster>
     </Container>
   )
 }
