@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Redirect,
 } from "react-router-dom"
 import { connect } from 'react-redux'
 import {
@@ -20,6 +20,7 @@ import Home from 'containers/Home'
 import Admin from 'containers/Admin'
 import Scores from 'containers/Scores'
 import Backlog from 'containers/Backlog'
+import Login from 'containers/Login'
 
 const Body = styled.div`
   font-size: 16px;
@@ -42,26 +43,29 @@ function App(props) {
     <Body>
       <Router>
         <div>
-          <Nav
-            username={props.username}
-            isLoggedIn={props.isLoggedIn}
-            isAdmin={props.isAdmin}
-          />
+          {props.isLoggedIn &&
+            <Nav
+              username={props.username}
+              isLoggedIn={props.isLoggedIn}
+              isAdmin={props.isAdmin}
+            />
+          }
           <Container>
             <Switch>
               <Route path="/backlog">
-                <Backlog
-                  backlog={[]}
-                />
+                {!props.isLoggedIn ? <Redirect to="/login" /> : <Backlog />}
               </Route>
               <Route path="/scores">
-                <Scores />
+                {!props.isLoggedIn ? <Redirect to="/login" /> : <Scores />}
+              </Route>
+              <Route path="/login">
+                <Login />
               </Route>
               <Route path="/admin">
                 <Admin />
               </Route>
               <Route path="/">
-                <Home />
+                {!props.isLoggedIn ? <Redirect to="/login" /> : <Home />}
               </Route>
             </Switch>
           </Container>
