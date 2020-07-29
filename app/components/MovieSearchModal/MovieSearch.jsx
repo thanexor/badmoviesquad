@@ -174,10 +174,6 @@ function MovieSearch(props) {
       <SearchResults>
         {movieDBCards}
       </SearchResults>
-      {/*<SearchResults>
-        {movieCards}
-      </SearchResults>*/}
-
     </Container>
   )
 }

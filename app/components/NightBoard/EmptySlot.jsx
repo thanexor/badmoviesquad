@@ -29,6 +29,10 @@ const Content = styled.div`
 const StyledButton = styled(Button)`
 `
 
+const StyledParticles = styled(Particles)`
+  max-height: 100%;
+`
+
 const Text = styled.div``
 
 const propTypes = {
@@ -38,7 +42,7 @@ const propTypes = {
 }
 
 function EmptySlot(props) {
-  const [ pickerOpen, setPickerOpen ] = useState(false)
+  const [pickerOpen, setPickerOpen] = useState(false)
 
   return (
     <Container className={props.className}>
@@ -46,10 +50,11 @@ function EmptySlot(props) {
         <Text>Empty Slot</Text>
         <StyledButton onClick={() => setPickerOpen(true)}>Make Pick</StyledButton>
       </Content>
-      <Particles 
-        width={350}
-        height={250}
+      <StyledParticles 
+        width={'100%'}
+        height={'100%'}
         params={particleConfig}
+
       />
       <MovieSearchModal
         isOpen={pickerOpen}
