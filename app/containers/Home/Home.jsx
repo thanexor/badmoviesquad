@@ -19,7 +19,14 @@ import ActivityFeed from 'components/ActivityFeed'
 import MovieSearchModal from 'components/MovieSearchModal'
 
 const Movies = styled.div`
-  // display: flex;
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  flex-wrap: wrap;
+
+  .home-movies-list {
+    width: 20%;
+  }
 `
 
 const Container = styled.div`
@@ -100,7 +107,7 @@ export default function Home(props) {
       />
 
       <h3>Recently added</h3>
-      <Movies>
+      <Movies className="home-movies-list">
         {movies}
       </Movies>
 

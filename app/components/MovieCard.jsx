@@ -5,34 +5,17 @@ import styled from 'styled-components'
 import Button from 'components/Button'
 
 const Container = styled.div`
-  display: flex;
-  align-items: left;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: flex;  
   // cursor: pointer;
   // height: 12vw;
   // overflow: hidden;
 `
 
-const MakePickButton = styled(Button)`
-`
-
-const Poster = styled.div`
-  max-height: 200px;
-`
-
-const PosterImage = styled.img`
-  display: block;
+const Poster = styled.img`
   width: auto;
   height: 100%;
   margin: 0 auto;
 `
-
-const NoData = styled.div`
-  height: 400px;
-`
-
-const Name = styled.div``
 
 const propTypes = {
   className: PropTypes.string,
@@ -47,12 +30,10 @@ export default function MovieCard(props) {
       className={props.className}
       onClick={() => props.onClick(movie)}
     >
-      <Poster>
-        <PosterImage
-          src={movie.poster_path}
-          alt={movie.name}
-        />
-      </Poster>
+      <Poster
+        src={movie.poster_path}
+        alt={movie.name}
+      />
     </Container>
   )
 }
