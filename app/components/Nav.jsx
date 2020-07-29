@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 
 import NavList from "components/NavList";
 import NavItem from "components/NavItem";
-import SignInButton from "components/SignInButton";
+import SignOutButton from "components/SignOutButton";
 import Profile from "components/Profile";
 
 // styled components
@@ -41,12 +41,12 @@ const NavContainer = styled.div`
   ${NavList} {
     flex: 0 0 50%;
   }
+`
 
-  .user-info {
+const UserInfo = styled.div`
     text-align: right;
     font-size: .75em;
     padding-right: 1em;
-  }
 `
 
 const propTypes = {
@@ -82,14 +82,11 @@ export default function Nav(props) {
             : null
           }
         </NavList>
+        <SignOutButton />
         <span className="user">
-          <div className="user-info">
-            {props.isLoggedIn ? (
+          <UserInfo>
               <Profile username={props.username} />
-            ) : (
-              <SignInButton />
-            )}
-          </div>
+          </UserInfo>
         </span>
       </NavContainer>
     </NavTheme>

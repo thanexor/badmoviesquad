@@ -10,7 +10,6 @@ import { connect } from 'react-redux'
 import {
   isLoggedIn,
   getUsername,
-  getUserEmail,
   getIsAdmin,
 } from 'reduxState/selectors'
 
@@ -59,7 +58,7 @@ function App(props) {
                 {!props.isLoggedIn ? <Redirect to="/login" /> : <Scores />}
               </Route>
               <Route path="/login">
-                <Login />
+                {props.isLoggedIn ? <Redirect to="/" /> : <Login />}
               </Route>
               <Route path="/admin">
                 <Admin />
