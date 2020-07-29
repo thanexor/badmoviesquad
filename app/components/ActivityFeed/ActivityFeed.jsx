@@ -2,24 +2,24 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { useFetchedData } from 'app/hooks'
-import { getActivity } from 'services/read'
 import Pick from './Pick'
 import Outbid from './Outbid'
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  font-size: .85em;
+  color: ${({ theme }) => theme.grey04};
 `
 
 const propTypes = {
   className: PropTypes.string,
+  activity: PropTypes.array.isRequired,
 }
 
-function ActivityFeed(props) {
-  const activity = useFetchedData(getActivity, 10)
+export default function ActivityFeed(props) {
 
-  const renderedActivity = activity.map(action => {
+  const renderedActivity = props.activity.map(action => {
     switch (action.type) {
       case 'pick':
         return (
@@ -58,4 +58,3 @@ function ActivityFeed(props) {
 }
 
 ActivityFeed.propTypes = propTypes
-export default React.memo(ActivityFeed)

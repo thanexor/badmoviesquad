@@ -5,16 +5,28 @@ import styled from 'styled-components'
 import { makePick } from 'services/writes'
 import { recordPick } from 'services/activity'
 
+import Particles from 'react-particles-js'
+import particleConfig from './particleConfig'
+
 import Button from 'components/Button'
 import MovieSearchModal from 'components/MovieSearchModal'
 
 const Container = styled.div`
   display: flex;
+  flex: 0 0 50%;
+  min-height: 350px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 300px;
-  height: 200px;
+  border: 1px solid ${({ theme }) => theme.primary};
+`
+
+const Content = styled.div`
+  position: absolute;
+  text-align: center;
+`
+
+const StyledButton = styled(Button)`
 `
 
 const Text = styled.div``
@@ -22,6 +34,7 @@ const Text = styled.div``
 const propTypes = {
   className: PropTypes.string,
   fetchActivePicks: PropTypes.func.isRequired,
+  refreshActivity: PropTypes.func.isRequired,
 }
 
 function EmptySlot(props) {
@@ -29,8 +42,15 @@ function EmptySlot(props) {
 
   return (
     <Container className={props.className}>
-      <Text>Empty Slot</Text>
-      <Button onClick={() => setPickerOpen(true)}>Make Pick</Button>
+      <Content>
+        <Text>Empty Slot</Text>
+        <StyledButton onClick={() => setPickerOpen(true)}>Make Pick</StyledButton>
+      </Content>
+      <Particles 
+        width={350}
+        height={250}
+        params={particleConfig}
+      />
       <MovieSearchModal
         isOpen={pickerOpen}
         onRequestClose={() => setPickerOpen(false)}
@@ -45,6 +65,7 @@ function EmptySlot(props) {
           })
           setPickerOpen(false)
           props.fetchActivePicks()
+          props.refreshActivity()
         }}
       />
     </Container>

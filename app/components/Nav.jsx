@@ -54,6 +54,12 @@ const NavContainer = styled.div`
       flex: 0 0 33.33%;
     }
   }
+  
+  .user-info {
+    text-align: right;
+    font-size: .75em;
+    padding-right: 1em;
+  }
 `
 
 const propTypes = {

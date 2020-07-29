@@ -4,8 +4,12 @@ import styled from 'styled-components'
 
 import Button from 'components/Button'
 
-import { useFetchedData } from 'app/hooks'
-import { getUserBacklog } from 'services/read'
+import { useFetchedData, useForceUpdate } from 'app/hooks'
+import {
+  getUserBacklog,
+  getActiveNights,
+  getActivity,
+} from 'services/read'
 
 import { MOVIE_URL } from 'app/constants'
 import MovieCard from 'components/MovieCard'
@@ -16,15 +20,32 @@ import MovieSearchModal from 'components/MovieSearchModal'
 
 const Movies = styled.div`
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
 `
 
-const Container = styled.div``
+const Container = styled.div`
+  .search-container {
+    display: block;
+    text-align: right;
+    margin: -3.5em 0 1.5em;
+  }
+
+  .open-search {
+    display: inline-block;
+    text-align: right;
+  }
+
+  .open-search i {
+    font-style: normal  ;
+  }
+`
 
 const Picks = styled.div`
   display: flex;
-  flex-direction: row;
+`
+
+const NoNight = styled.h3`
+  font-size: 3em;
+  color: #fff;
 `
 
 const propTypes = {
@@ -36,7 +57,13 @@ const propTypes = {
 export default function Home(props) {
   const [ isSearchOpen, setIsSearchOpen ] = useState(false)
 
-  const backlog = useFetchedData(getUserBacklog, props.user)
+  const [ backlog ] = useFetchedData(getUserBacklog, props.user)
+  const [ nights ] = useFetchedData(getActiveNights)
+  const [ activity, refreshActivity ] = useFetchedData(getActivity, 10)
+
+  const forceUpdate = useForceUpdate()
+
+  const night = nights[0]
 
   const movies = backlog.map(movie => (
     <MovieCard
@@ -48,19 +75,31 @@ export default function Home(props) {
 
   return (
     <Container>
-      <h1>Home</h1>
-      <Button onClick={() => setIsSearchOpen(true)}>SEARCH</Button>
+      <h1>What's next</h1>
+      <div className="search-container">
+        <Button className="open-search" onClick={() => setIsSearchOpen(true)}>Search movies <i>&#128269;</i></Button>
+      </div>
 
-      <NightBoard
-        slots={2}
-        activePicks={props.activePicks}
-        fetchActivePicks={props.fetchActivePicks}
+      {
+        night
+          ? <NightBoard
+            slots={2}
+            activePicks={props.activePicks}
+            fetchActivePicks={props.fetchActivePicks}
+            refreshActivity={refreshActivity}
+            night={night}
+          />
+          :
+          <NoNight>One sec...</NoNight>
+      }
+
+
+      <h3>Recent activity</h3>
+      <ActivityFeed
+        activity={activity}
       />
 
-      <h3>Activity Feed</h3>
-      <ActivityFeed />
-
-      <h3>Your Backlog</h3>
+      <h3>Recently added</h3>
 
       <Movies>
         {movies}

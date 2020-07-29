@@ -48,6 +48,18 @@ const theme = {
     xl: '@media screen and (min-width: 1600px)',
     uw: '@media screen and (min-width: 2000px)',
   },
+
+  // greys
+  grey01: 'rgb(250, 250, 250)',
+  grey02: 'rgb(228, 228, 228)',
+  grey03: 'rgb(206, 206, 206)',
+  grey04: 'rgb(185, 184, 184)',
+  grey05: 'rgb(162, 162, 162)',
+  grey06: 'rgb(140, 140, 140)',
+  grey07: 'rgb(118, 118, 118)',
+  grey08: 'rgb(92, 92, 92)',
+  grey09: 'rgb(65, 65, 65)',
+  grey10: 'rgb(15, 15, 15)',
 }
 
 export default theme

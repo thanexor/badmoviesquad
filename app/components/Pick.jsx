@@ -4,12 +4,19 @@ import styled from 'styled-components'
 
 import Button from './Button'
 
-const Container = styled.div``
-
-const MovieTitle = styled.div`
+const Container = styled.div`
+  flex: 0 0 50%;
+  margin: 2px;
+  padding: 5em;
+  border: 1px solid  ${({ theme }) => theme.pinkHot};
+  border-radius: 5px;
 `
 
-const PickedBy = styled.div`
+const MovieTitle = styled.h2`
+
+`
+
+const PickedBy = styled.p`
   font-size: 0.8em;
 `
 
@@ -25,7 +32,7 @@ function Pick(props) {
     <Container className={props.className}>
       <MovieTitle>{props.movie.title}</MovieTitle>
       <PickedBy>Picked by {props.pickedBy.displayName}</PickedBy>
-      <Button onClick={props.onOutbid}>GET THIS SHIT OUTTA HERE</Button>
+      <Button onClick={props.onOutbid}>Remove pick</Button>
     </Container>
   )
 }
