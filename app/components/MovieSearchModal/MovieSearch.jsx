@@ -25,6 +25,7 @@ const SearchBox = styled.input`
   margin-bottom: 2em;
 
   &::placeholder {
+    ${({ theme }) => theme.textAlign.textCenter}
   }
 `
 
