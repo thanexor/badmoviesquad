@@ -4,13 +4,12 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Redirect,
 } from "react-router-dom"
 import { connect } from 'react-redux'
 import {
   isLoggedIn,
   getUsername,
-  getUserEmail,
   getIsAdmin,
 } from 'reduxState/selectors'
 
@@ -19,6 +18,7 @@ import Nav from 'components/Nav'
 import Home from 'containers/Home'
 import Admin from 'containers/Admin'
 import Scores from 'containers/Scores'
+import Login from 'containers/Login'
 import Movies from 'containers/Movies'
 
 const Body = styled.div`
@@ -87,26 +87,29 @@ function App(props) {
     <Body>
       <Router>
         <div>
-          <Nav
-            username={props.username}
-            isLoggedIn={props.isLoggedIn}
-            isAdmin={props.isAdmin}
-          />
+          {props.isLoggedIn &&
+            <Nav
+              username={props.username}
+              isLoggedIn={props.isLoggedIn}
+              isAdmin={props.isAdmin}
+            />
+          }
           <Container>
             <Switch>
               <Route path="/movies">
-                <Movies
-                  movies={[]}
-                />
+                {!props.isLoggedIn ? <Redirect to="/login" /> : <Movies />}
               </Route>
               <Route path="/scores">
-                <Scores />
+                {!props.isLoggedIn ? <Redirect to="/login" /> : <Scores />}
+              </Route>
+              <Route path="/login">
+                {props.isLoggedIn ? <Redirect to="/" /> : <Login />}
               </Route>
               <Route path="/admin">
                 <Admin />
               </Route>
               <Route path="/">
-                <Home />
+                {!props.isLoggedIn ? <Redirect to="/login" /> : <Home />}
               </Route>
             </Switch>
           </Container>
