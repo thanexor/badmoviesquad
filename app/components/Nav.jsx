@@ -54,8 +54,9 @@ const NavContainer = styled.div`
       flex: 0 0 33.33%;
     }
   }
-  
-  .user-info {
+`
+
+const UserInfo = styled.div`
     text-align: right;
     font-size: .75em;
     padding-right: 1em;
@@ -93,7 +94,7 @@ export default function Nav(props) {
         <SignOutButton />
         <span className="user">
           <UserInfo>
-              <Profile username={props.username} />
+            <Profile username={props.username} />
           </UserInfo>
         </span>
       </NavContainer>
