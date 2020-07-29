@@ -19,7 +19,7 @@ import Nav from 'components/Nav'
 import Home from 'containers/Home'
 import Admin from 'containers/Admin'
 import Scores from 'containers/Scores'
-import Backlog from 'containers/Backlog'
+import Movies from 'containers/Movies'
 
 const Body = styled.div`
   font-size: 1.6rem;
@@ -94,9 +94,9 @@ function App(props) {
           />
           <Container>
             <Switch>
-              <Route path="/backlog">
-                <Backlog
-                  backlog={[]}
+              <Route path="/movies">
+                <Movies
+                  movies={[]}
                 />
               </Route>
               <Route path="/scores">

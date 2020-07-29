@@ -9,18 +9,18 @@ import MovieCard from 'components/MovieCard'
 
 const Container = styled.div``
 
-const Movies = styled.div`
+const MoviesList = styled.div`
   display: flex;
   flex-direction: row;
 `
 
 const propTypes = {
   className: PropTypes.string,
-  backlog: PropTypes.array.isRequired,
+  movies: PropTypes.array.isRequired,
 }
 
-function Backlog(props) {
-  const Backlog = props.backlog.map(movie => {
+function Movies(props) {
+  const renderedMovies = props.movies.map(movie => {
     return (
       <MovieCard
         key={movie.id}
@@ -35,13 +35,13 @@ function Backlog(props) {
 
   return (
     <Container className={props.className}>
-      <h1>Backlog</h1>
-      <Movies>
-        {Backlog}
-      </Movies>
+      <h1>Movies</h1>
+      <MoviesList>
+        {renderedMovies}
+      </MoviesList>
     </Container>
   )
 }
 
-Backlog.propTypes = propTypes
-export default React.memo(Backlog)
+Movies.propTypes = propTypes
+export default React.memo(Movies)

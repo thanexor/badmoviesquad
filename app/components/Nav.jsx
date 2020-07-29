@@ -82,7 +82,7 @@ export default function Nav(props) {
             <Link to="/scores">Scores</Link>
           </NavItem>
           <NavItem>
-            <Link to="/backlog">Backlog</Link>
+            <Link to="/movies">Movies</Link>
           </NavItem>
           { props.isAdmin ?
             <NavItem>
