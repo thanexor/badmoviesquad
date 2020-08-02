@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import Button from 'components/Button'
 
-import { useFetchedData, useForceUpdate } from 'app/hooks'
+import { useFetchedData } from 'app/hooks'
 import {
   getUserBacklog,
   getActiveNights,
@@ -60,8 +60,6 @@ export default function Home(props) {
   const [ backlog ] = useFetchedData(getUserBacklog, props.user)
   const [ nights ] = useFetchedData(getActiveNights)
   const [ activity, refreshActivity ] = useFetchedData(getActivity, 10)
-
-  const forceUpdate = useForceUpdate()
 
   const night = nights[0]
 
