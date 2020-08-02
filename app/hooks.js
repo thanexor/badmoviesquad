@@ -16,17 +16,19 @@ export function useFetchedData(fetchDataFunction, params) {
 }
 
 export function useFetchedDatum(fetchDataFunction, params) {
-  const [data, setData] = useState(null)
+  const [data, setData] = useState({})
   const [loading, setLoading] = useState(true)
 
   const getData = useCallback(async () => {
+      setLoading(true)
       const d = await fetchDataFunction(params)
       setData(d)
+      setLoading(false)
     }, [fetchDataFunction, params, setData])
 
   useEffect(() => {
     getData()
   }, [params])
 
-  return [ data, getData, isLoading ]
+  return [ data, getData, loading ]
 }
