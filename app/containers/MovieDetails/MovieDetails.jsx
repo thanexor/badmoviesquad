@@ -5,7 +5,12 @@ import styled from 'styled-components'
 import { useFetchedDatum } from 'app/hooks'
 import { getMovie } from 'services/read'
 
-const Container = styled.div``
+import Hero from './Hero'
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`
 
 const propTypes = {
   className: PropTypes.string,
@@ -18,7 +23,7 @@ function MovieDetails(props) {
 
   return (
     <Container className={props.className}>
-      <h1>Viewing {movie.title}</h1>
+      <Hero movie={movie} />
     </Container>
   )
 }
