@@ -1,5 +1,6 @@
 export const getUserEmail = state => state.loggedInEmail
 export const getUsername = state => state.username
+export const getAvatarURL = state => state.avatarURL
 export const isLoggedIn = state => getUserEmail(state) !== null
 
 export const getPoints = state => state.points

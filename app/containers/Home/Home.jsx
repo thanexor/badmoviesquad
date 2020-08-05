@@ -77,39 +77,35 @@ export default function Home(props) {
     <Container>
       <h1>What's next</h1>
       <div className="search-container">
-        <Button className="open-search" onClick={() => setIsSearchOpen(true)}>Search movies <i>&#128269;</i></Button>
+        <Button className="open-search" onClick={() => setIsSearchOpen(true)}>
+          <i>&#128269;</i>&nbsp;&nbsp;Search movies
+        </Button>
       </div>
 
-      {
-        night
-          ? <NightBoard
-            slots={2}
-            activePicks={props.activePicks}
-            fetchActivePicks={props.fetchActivePicks}
-            refreshActivity={refreshActivity}
-            night={night}
-          />
-          :
-          <NoNight>One sec...</NoNight>
-      }
-
+      {night ? (
+        <NightBoard
+          slots={2}
+          activePicks={props.activePicks}
+          fetchActivePicks={props.fetchActivePicks}
+          refreshActivity={refreshActivity}
+          night={night}
+        />
+      ) : (
+        <NoNight>One sec...</NoNight>
+      )}
 
       <h3>Recent activity</h3>
-      <ActivityFeed
-        activity={activity}
-      />
+      <ActivityFeed activity={activity} />
 
       <h3>Recently added</h3>
 
-      <Movies>
-        {movies}
-      </Movies>
+      <Movies>{movies}</Movies>
       <MovieSearchModal
         isOpen={isSearchOpen}
         onRequestClose={() => setIsSearchOpen(false)}
       />
     </Container>
-  )
+  );
 }
 
 Home.propTypes = propTypes
