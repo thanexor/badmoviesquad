@@ -5,16 +5,29 @@ import styled from 'styled-components'
 import Button from 'components/Button'
 
 const Container = styled.div`
-  display: flex;  
-  // cursor: pointer;
-  // height: 12vw;
-  // overflow: hidden;
+  width: 12.25%;
+  margin: 1%;
 `
 
 const Poster = styled.img`
-  width: auto;
-  height: 100%;
-  margin: 0 auto;
+  display: block;
+  max-width: 100%;
+
+  // for broken images
+  font-size: 10px;
+  color: ${({ theme }) => theme.grey02};
+  background: rgba(255, 255, 255, .1);
+  min-height: 250px;
+  min-width: 80px;
+`
+
+const Title = styled.span`
+  font-size: 1.4rem;
+  font-weight: normal;
+
+  small {
+    font-size: 1.2rem;
+  }
 `
 
 const propTypes = {
@@ -32,8 +45,9 @@ export default function MovieCard(props) {
     >
       <Poster
         src={movie.poster_path}
-        alt={movie.name}
+        alt={movie.title}
       />
+      <Title className="h6">{movie.title} <small>({ movie.release_date.substr(0, 4) })</small></Title>
     </Container>
   )
 }
