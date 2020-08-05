@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { useFetchedData } from 'app/hooks'
 import { MOVIE_URL } from 'app/constants'
 
 import MovieCard from 'components/MovieCard'
@@ -25,7 +24,9 @@ function Movies(props) {
       <MovieCard
         key={movie.id}
         movie={movie}
-        onClick={() => window.open(`${MOVIE_URL}/${movie.id}`, '_blank')}
+        onClick={() => {
+          window.open(props.movie.info_url)
+        }}
       />
     )
   })

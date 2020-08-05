@@ -45,3 +45,14 @@ export function signIn() {
     console.error("Error signing in: ", message)
   });
 }
+
+export function signOut() {
+  const provider = new firebase.auth.GoogleAuthProvider()
+  firebase.auth().signOut().then(function(result) {
+    console.log('signed out successfully')
+  }).catch(function({ code, message, email, credential }) {
+    console.error("Error signing in: ", message)
+  }).finally(() => {
+    store.dispatch(logout())
+  })
+}
