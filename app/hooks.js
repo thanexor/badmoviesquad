@@ -15,9 +15,20 @@ export function useFetchedData(fetchDataFunction, params) {
   return [ data, getData ]
 }
 
-export function useForceUpdate(fetchDataFunction, params) {
-  const [data, setData] = useState(0)
+export function useFetchedDatum(fetchDataFunction, params) {
+  const [data, setData] = useState({})
+  const [loading, setLoading] = useState(true)
 
-  const forceUpdate = () => setData(data + 1)
-  return forceUpdate
+  const getData = useCallback(async () => {
+      setLoading(true)
+      const d = await fetchDataFunction(params)
+      setData(d)
+      setLoading(false)
+    }, [fetchDataFunction, params, setData])
+
+  useEffect(() => {
+    getData()
+  }, [params])
+
+  return [ data, getData, loading ]
 }

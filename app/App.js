@@ -20,6 +20,7 @@ import Admin from 'containers/Admin'
 import Scores from 'containers/Scores'
 import Login from 'containers/Login'
 import Movies from 'containers/Movies'
+import MovieDetails from 'containers/MovieDetails'
 
 const Body = styled.div`
   font-size: 1.6rem;
@@ -79,6 +80,7 @@ const Container = styled.div`
   margin-left: auto;
   padding-right: 15px;
   padding-left: 15px;
+  padding-bottom: 15px;
   max-width: 1540px;
 `
 
@@ -105,6 +107,9 @@ function App(props) {
               <Route path="/login">
                 {props.isLoggedIn ? <Redirect to="/" /> : <Login />}
               </Route>
+
+              <Route path="/movie/:movieId" component={MovieDetails} />
+
               <Route path="/admin">
                 <Admin />
               </Route>

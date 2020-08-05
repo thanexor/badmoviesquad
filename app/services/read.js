@@ -3,12 +3,13 @@ import firebase from './firebase'
 const db = firebase.firestore()
 
 function fixPosterURLs(movie) {
-  const IMAGE_URL = "https://image.tmdb.org/t/p/w1280"
+  const BACKDROP_URL = "https://image.tmdb.org/t/p/w780"
+  const POSTER_URL = "https://image.tmdb.org/t/p/w342"
   const SITE_URL = "https://www.themoviedb.org/movie/"
   return {
     ...movie,
-    backdrop_path: `${IMAGE_URL}${movie.backdrop_path}`,
-    poster_path: `${IMAGE_URL}${movie.poster_path}`,
+    backdrop_path: `${BACKDROP_URL}${movie.backdrop_path}`,
+    poster_path: `${POSTER_URL}${movie.poster_path}`,
     info_url: `${SITE_URL}${movie.id}`
   }
 }
@@ -108,4 +109,10 @@ export async function getActivity(limit) {
 
   const extractedData = await extractData(activity)
   return extractedData
+}
+
+export async function getMovie(firebase_movie_id) {
+  const movie = await db.collection('Movies').doc(firebase_movie_id).get()
+
+  return fixPosterURLs(movie.data())
 }

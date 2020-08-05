@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import Button from 'components/Button'
 
-import { useFetchedData, useForceUpdate } from 'app/hooks'
+import { useFetchedData } from 'app/hooks'
 import {
   getUserBacklog,
   getActiveNights,
@@ -20,6 +20,13 @@ import MovieSearchModal from 'components/MovieSearchModal'
 
 const Movies = styled.div`
   display: flex;
+  flex-direction: row;
+  align-items: left;
+  flex-wrap: wrap;
+
+  .home-movies-list {
+    width: 20%;
+  }
 `
 
 const Container = styled.div`
@@ -61,8 +68,6 @@ export default function Home(props) {
   const [ nights ] = useFetchedData(getActiveNights)
   const [ activity, refreshActivity ] = useFetchedData(getActivity, 10)
 
-  const forceUpdate = useForceUpdate()
-
   const night = nights[0]
 
   const movies = backlog.map(movie => (
@@ -98,8 +103,10 @@ export default function Home(props) {
       <ActivityFeed activity={activity} />
 
       <h3>Recently added</h3>
+      <Movies className="home-movies-list">
+        {movies}
+      </Movies>
 
-      <Movies>{movies}</Movies>
       <MovieSearchModal
         isOpen={isSearchOpen}
         onRequestClose={() => setIsSearchOpen(false)}
