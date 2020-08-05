@@ -109,3 +109,9 @@ export async function getActivity(limit) {
   const extractedData = await extractData(activity)
   return extractedData
 }
+
+export async function getMovie(firebase_movie_id) {
+  const movie = await db.collection('Movies').doc(firebase_movie_id).get()
+
+  return fixPosterURLs(movie.data())
+}

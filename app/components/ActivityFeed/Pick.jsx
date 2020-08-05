@@ -4,13 +4,14 @@ import styled from 'styled-components'
 import moment from 'moment'
 
 import Time from './Time'
+import Link from 'components/Link'
 
 const Container = styled.div`
   margin: .5em 0;
 `
 
 const Name = styled.span``
-const Movie = styled.span``
+const Movie = styled(Link)``
 
 const propTypes = {
   className: PropTypes.string,
@@ -26,7 +27,7 @@ function Pick(props) {
   return (
     <Container className={props.className}>
       <Time>[{time}]</Time>
-      <Name>{ props.username }</Name> picked <Movie>{ props.movieName}</Movie>
+      <Name>{ props.username }</Name> picked <Movie to={`/movie/${props.movieId}`}>{ props.movieName}</Movie>
     </Container>
   )
 }
