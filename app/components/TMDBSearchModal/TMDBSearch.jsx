@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
+import { addToBacklog } from 'services/writes'
+
 import Button from 'components/Button'
 
 const Container = styled.div``
@@ -104,7 +106,13 @@ export default function TMDBSearch(props) {
         />
         <SearchResultTitle>{movie.title} <small>({movie.release_date.substr(0, 4)})</small></SearchResultTitle>
         <SearchResultActions>
-          <Button className="button-pick">Pick</Button>
+          <Button
+            onClick={async () => {
+              await addToBacklog(movie)
+            }}
+            className="button-pick"
+          >Add to Backlog
+          </Button>
         </SearchResultActions>
       </SearchResult>
     )
