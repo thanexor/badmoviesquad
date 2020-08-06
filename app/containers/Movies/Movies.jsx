@@ -11,6 +11,7 @@ const Container = styled.div``
 const MoviesList = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 `
 
 const propTypes = {
