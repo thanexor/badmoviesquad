@@ -73,9 +73,9 @@ const propTypes = {
   className: PropTypes.string,
 }
 
-function TMDBSearch(props) {
+export default function TMDBSearch(props) {
   const [movieDB, setMovieDB] = useState([])
-  const [ searchTerm, setSearchTerm ] = useState("")
+  const [searchTerm, setSearchTerm] = useState("")
 
   useEffect(() => {
     const fetchMovieDB = async () => {
@@ -109,25 +109,23 @@ function TMDBSearch(props) {
       </SearchResult>
     )
   })
-}
 
-return (
-  <Container className={props.className}>
-    <SearchBox
-      placeholder={"Search"}
-      value={searchTerm}
-      onChange={e => setSearchTerm(e.target.value)}
-    />
-    <SearchResults>
-      {(movieDBCards.length === 0)
-        ? <h4>Search for a movie</h4>
-        : null
-      }
-      {movieDBCards}
-    </SearchResults>
-  </Container>
-)
+  return (
+    <Container className={props.className}>
+      <SearchBox
+        placeholder={"Search"}
+        value={searchTerm}
+        onChange={e => setSearchTerm(e.target.value)}
+      />
+      <SearchResults>
+        {(movieDBCards.length === 0)
+          ? <h4>Search for a movie</h4>
+          : null
+        }
+        {movieDBCards}
+      </SearchResults>
+    </Container>
+  )
 }
 
 TMDBSearch.propTypes = propTypes
-export default React.memo(TMDBSearch)

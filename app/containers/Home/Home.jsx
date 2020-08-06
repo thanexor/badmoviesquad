@@ -16,7 +16,7 @@ import MovieCard from 'components/MovieCard'
 import NightBoard from 'components/NightBoard'
 import ActivityFeed from 'components/ActivityFeed'
 
-import MovieSearchModal from 'components/MovieSearchModal'
+import TMDBSearchModal from 'components/TMDBSearchModal'
 
 const Movies = styled.div`
   display: flex;
@@ -109,7 +109,7 @@ export default function Home(props) {
         {movies}
       </Movies>
 
-      <MovieSearchModal
+      <TMDBSearchModal
         isOpen={isSearchOpen}
         onRequestClose={() => setIsSearchOpen(false)}
       />
