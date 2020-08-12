@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import Pick from './Pick'
+import Backlog from './Backlog'
 import Outbid from './Outbid'
 
 const Container = styled.div`
@@ -21,6 +22,17 @@ export default function ActivityFeed(props) {
 
   const renderedActivity = props.activity.map(action => {
     switch (action.type) {
+      case 'backlog':
+        return (
+          <Backlog
+            key={action.firebase_id}
+            movieName={action.movieName}
+            movieId={action.movieId}
+            userId={action.userId}
+            username={action.username}
+            timestamp={action.timestamp}
+          />
+        )
       case 'pick':
         return (
           <Pick

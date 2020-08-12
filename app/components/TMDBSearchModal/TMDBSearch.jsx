@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import { addToBacklog } from 'services/writes'
-
 import Button from 'components/Button'
 
 const Container = styled.div``
@@ -73,6 +71,7 @@ const SearchResultActions = styled.div`
 
 const propTypes = {
   className: PropTypes.string,
+  addMovieToBacklog: PropTypes.func.isRequired,
 }
 
 export default function TMDBSearch(props) {
@@ -84,7 +83,6 @@ export default function TMDBSearch(props) {
       if (searchTerm.length > 0) {
         let response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=fba97c7e6c8f93d931fe92ce8c7ac282&language=en-US&query=${searchTerm}&page=1&include_adult=false`)
         response = await response.json()
-        console.log('res', response.results)
         setMovieDB(response.results);
       }
     }
@@ -96,8 +94,6 @@ export default function TMDBSearch(props) {
     movie.poster_path = `https://image.tmdb.org/t/p/w300/${movie.poster_path}`
 
     const releaseDate = movie.release_date ? movie.release_date.substr(0,4) : null
-
-    console.log('movie', movie);
     return (
       <SearchResult
         onClick={props.onClick}
@@ -109,9 +105,7 @@ export default function TMDBSearch(props) {
         <SearchResultTitle>{movie.title} <small>({releaseDate})</small></SearchResultTitle>
         <SearchResultActions>
           <Button
-            onClick={async () => {
-              await addToBacklog(movie)
-            }}
+            onClick={() => props.addMovieToBacklog(movie)}
             className="button-pick"
           >Add to Backlog
           </Button>

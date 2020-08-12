@@ -5,6 +5,9 @@ import styled from 'styled-components'
 import ReactModal from 'react-modal'
 import TMDBSearch from './TMDBSearch'
 
+import { addToBacklog } from 'services/writes'
+import { recordBacklog } from 'services/activity'
+
 const Container = styled.div`
 
 `
@@ -19,6 +22,18 @@ const propTypes = {
 }
 
 function Modal(props) {
+
+  async function addMovieToBacklog(movie) {
+    const ref = await addToBacklog(movie)
+    if (ref) {
+      await recordBacklog({
+        movieId: ref.id,
+        movieName: movie.title,
+      })
+    }
+    props.onRequestClose()
+  }
+
   return (
     <ReactModal
       isOpen={props.isOpen}
@@ -50,7 +65,9 @@ function Modal(props) {
         }
       }}
     >
-      <TMDBSearch />
+      <TMDBSearch
+        addMovieToBacklog={addMovieToBacklog}
+       />
     </ReactModal>
   )
 }
