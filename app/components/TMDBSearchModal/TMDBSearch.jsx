@@ -6,7 +6,19 @@ import { addToBacklog } from 'services/writes'
 
 import Button from 'components/Button'
 
-const Container = styled.div``
+const Container = styled.div`
+  max-height: 72vh;
+
+  h3 {
+    font-size: 1.8rem;
+    font-weight: normal;
+    color: ${({ theme }) => theme.grey06};
+  }
+
+  .muted {
+    opacity: .25;
+  }
+`
 
 const SearchBox = styled.input`
   position: absolute;
@@ -20,20 +32,20 @@ const SearchBox = styled.input`
   margin-bottom: 2em;
 
   &::placeholder {
-    ${({ theme }) => theme.textAlign.textCenter}
+    
   }
 `
 
 const SearchResults = styled.div`
   // display: flex;
-  margin-top: 7em;
+  margin-top: 5em;
   align-items: center;
   justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
   max-width: 600px;
-  max-height: 65vh;
+  max-height: 72vh;
   overflow: auto;
 `
 
@@ -41,11 +53,17 @@ const SearchResult = styled.div`
   display: flex;
   align-items: top;
   flex-direction: row;
-  margin: .75em 0;
+  margin: .5em 0 1em;
+  padding: .5em;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.grey01};
+  }
 `
 
 const SearchResultPoster = styled.img`
-  width: 35px;
+  width: 55px;
+  min-height: 70px;
   margin-right: 2em;
   font-size: 8px;
   overflow: hidden;
@@ -54,10 +72,11 @@ const SearchResultPoster = styled.img`
   background: ${({ theme }) => theme.grey02};
 `
 
-const SearchResultTitle = styled.h3`
+const SearchResultTitle = styled.h4`
   margin: 0 0 1rem;
-  font-size: 14px;
+  font-size: 1.8rem;
   font-weight: normal;
+  color: ${({ theme }) => theme.grey09};
 
   small {
     font-size: 85%;
@@ -68,7 +87,7 @@ const SearchResultActions = styled.div`
   flex-grow: 1;
   text-align: right;
   justify-self: right;
-  padding-right: 1em;
+  padding-right: 1.5em;
 `
 
 const propTypes = {
@@ -93,17 +112,15 @@ export default function TMDBSearch(props) {
   }, [searchTerm])
 
   const movieDBCards = movieDB.map(movie => {
-    movie.poster_path = `https://image.tmdb.org/t/p/w300/${movie.poster_path}`
-
+    const moviePosterURL = `https://image.tmdb.org/t/p/w300/${movie.poster_path}`
     const releaseDate = movie.release_date ? movie.release_date.substr(0,4) : null
 
-    console.log('movie', movie);
     return (
       <SearchResult
         onClick={props.onClick}
       >
         <SearchResultPoster
-          src={movie.poster_path}
+          src={moviePosterURL}
           alt={movie.title}
         />
         <SearchResultTitle>{movie.title} <small>({releaseDate})</small></SearchResultTitle>
@@ -113,7 +130,8 @@ export default function TMDBSearch(props) {
               await addToBacklog(movie)
             }}
             className="button-pick"
-          >Add to Backlog
+          >
+            Add
           </Button>
         </SearchResultActions>
       </SearchResult>
@@ -123,14 +141,14 @@ export default function TMDBSearch(props) {
   return (
     <Container className={props.className}>
       <SearchBox
-        placeholder={"Search"}
+        placeholder={"Search to add movie"}
         value={searchTerm}
         onChange={e => setSearchTerm(e.target.value)}
       />
       <SearchResults>
         {(movieDBCards.length === 0)
-          ? <h4>Search for a movie</h4>
-          : null
+          ? <h3 className="muted">Search results (0)</h3>
+          : <h3>Search results ({movieDBCards.length})</h3>
         }
         {movieDBCards}
       </SearchResults>

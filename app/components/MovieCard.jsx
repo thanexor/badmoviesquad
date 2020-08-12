@@ -19,19 +19,18 @@ const Poster = styled.img`
   display: block;
   max-width: 100%;
   position: relative;
-  z-index: 1;
-
-  // for broken images
-  min-height: 65%;
-  font-size: 10px;
-  color: ${({ theme }) => theme.grey03};
-  background: rgba(255, 255, 255, .15);
 
   transition: all 200ms ease;
   transition-property: box-shadow, transform;
 
   box-shadow: 0 0 0 3px ${({ theme }) => theme.purpleDark};
   transform: translate(0, 0);
+
+  // for broken images
+  min-height: 65%;
+  font-size: 10px;
+  color: ${({ theme }) => theme.grey03};
+  background: rgba(255, 255, 255, .15);
 
   &:hover {
     transform: translate(-3px, -3px);

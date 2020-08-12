@@ -29,6 +29,7 @@ function Modal(props) {
           left: 0,
           right: 0,
           bottom: 0,
+          background: 'rgba(225, 225, 225, 0.85)',
         },
         content: {
           position: 'absolute',
@@ -37,7 +38,6 @@ function Modal(props) {
           right: '0',
           bottom: 'auto',
           border: '1px solid rgb(204, 204, 204)',
-          background: 'rgb(255, 255, 255)',
           overflow: 'auto',
           borderRadius: '4px',
           outline: 'none',

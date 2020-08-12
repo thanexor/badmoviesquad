@@ -29,6 +29,7 @@ function Modal(props) {
           left: 0,
           right: 0,
           bottom: 0,
+          background: 'rgba(225, 225, 225, 0.85)',
         },
         content: {
           position: 'absolute',
@@ -47,6 +48,7 @@ function Modal(props) {
           maxHeight: '80vh',
           height: '100%',
           transform: 'translateX(-50%)',
+          fontFamily: 'sans-serif',
         }
       }}
     >
