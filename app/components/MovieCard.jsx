@@ -5,28 +5,51 @@ import styled from 'styled-components'
 import Button from 'components/Button'
 
 const Container = styled.div`
-  width: 12.25%;
-  margin: 1%;
+  width: 19%;
+  margin: 3%;
+  position: relative;
+
+  ${({ theme }) => theme.mediaBreakpoint.md} {
+    width: 13.5%;
+    margin: 1.5%;
+  }
 `
 
 const Poster = styled.img`
   display: block;
   max-width: 100%;
+  position: relative;
+  z-index: 1;
 
   // for broken images
+  min-height: 65%;
   font-size: 10px;
-  color: ${({ theme }) => theme.grey02};
-  background: rgba(255, 255, 255, .1);
-  min-height: 250px;
-  min-width: 80px;
+  color: ${({ theme }) => theme.grey03};
+  background: rgba(255, 255, 255, .15);
+
+  transition: all 200ms ease;
+  transition-property: box-shadow, transform;
+
+  box-shadow: 0 0 0 3px ${({ theme }) => theme.purpleDark};
+  transform: translate(0, 0);
+
+  &:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 2px 2px 0 5px ${({ theme }) => theme.purpleDark};
+  }
 `
 
 const Title = styled.span`
-  font-size: 1.4rem;
+  display: block;
+  margin: .5em 0 0;
+  font-size: 1.6rem;
   font-weight: normal;
+  color: ${({ theme }) => theme.grey03};
+  line-height: 1.25;
 
   small {
     font-size: 1.2rem;
+    opacity: .5;
   }
 `
 
