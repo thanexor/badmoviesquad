@@ -25,7 +25,7 @@ const SearchBox = styled.input`
   max-width: 600px;
 
   &::placeholder {
-    ${({ theme }) => theme.textAlign.textCenter}
+    // ${({ theme }) => theme.textAlign.textCenter}
   }
 `
 

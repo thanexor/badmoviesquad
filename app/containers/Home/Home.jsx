@@ -82,7 +82,7 @@ export default function Home(props) {
     <Container>
       <h1>What's next</h1>
       <div className="search-container">
-        <Button className="open-search" onClick={() => setIsSearchOpen(true)}>Search movies <i>&#128269;</i></Button>
+        <Button className="open-search" onClick={() => setIsSearchOpen(true)}>Add new movie <i>&#128269;</i></Button>
       </div>
 
       {

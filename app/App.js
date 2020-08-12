@@ -84,6 +84,10 @@ const Container = styled.div`
   max-width: 1540px;
 `
 
+const ReactModalPortal = styled.div`
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+`
+
 function App(props) {
   return (
     <Body>
