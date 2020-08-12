@@ -19,6 +19,7 @@ const propTypes = {
   allMovies: PropTypes.array.isRequired,
   onClick: PropTypes.func.isRequired,
   tax: PropTypes.number,
+  refreshActivity: PropTypes.func.isRequired,
 }
 
 function Modal(props) {
@@ -31,6 +32,7 @@ function Modal(props) {
         movieName: movie.title,
       })
     }
+    props.refreshActivity()
     props.onRequestClose()
   }
 

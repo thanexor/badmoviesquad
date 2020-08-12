@@ -56,7 +56,6 @@ export async function recordOutbid({ movieId, movieName, outbidPickId }) {
 }
 
 export async function recordBacklog({ movieId, movieName }) {
-  debugger
   const email = getUserEmail(store.getState())
   const username = getUsername(store.getState())
 
