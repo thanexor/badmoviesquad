@@ -119,11 +119,11 @@ export async function createNight({ title, location, slots }) {
 }
 
 async function isMovieInBacklog(id) {
-  const empty = await db.collection('Movies')
+  const data = await db.collection('Movies')
     .where('id', '==', id)
-    .empty()
+    .get()
 
-  return !empty
+  return !data.empty
 }
 
 export async function addToBacklog(movie) {
@@ -152,7 +152,7 @@ export async function addToBacklog(movie) {
     return
   }
 
-  const movieRef = await db.collection('Movies') 
+  const movieRef = await db.collection('Movies')
     .add({
       added_by: email,
       adult,
@@ -171,4 +171,5 @@ export async function addToBacklog(movie) {
       vote_count,
     })
 
+  return movieRef
 }

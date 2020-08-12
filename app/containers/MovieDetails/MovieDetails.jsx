@@ -56,7 +56,7 @@ function MovieDetails(props) {
       }
       {pickId
         ? OutbidButton
-      : null
+        : null
       }
     </Container>
   )
