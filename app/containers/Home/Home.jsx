@@ -112,6 +112,7 @@ export default function Home(props) {
       <TMDBSearchModal
         isOpen={isSearchOpen}
         onRequestClose={() => setIsSearchOpen(false)}
+        refreshActivity={refreshActivity}
       />
     </Container>
   )

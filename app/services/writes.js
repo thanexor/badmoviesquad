@@ -149,7 +149,7 @@ export async function addToBacklog(movie) {
 
   if (movieExists) {
     console.log('movie exists!')
-    return
+    return null
   }
 
   const movieRef = await db.collection('Movies')
