@@ -95,6 +95,8 @@ export default function TMDBSearch(props) {
   const movieDBCards = movieDB.map(movie => {
     movie.poster_path = `https://image.tmdb.org/t/p/w300/${movie.poster_path}`
 
+    const releaseDate = movie.release_date ? movie.release_date.substr(0,4) : null
+
     console.log('movie', movie);
     return (
       <SearchResult
@@ -104,7 +106,7 @@ export default function TMDBSearch(props) {
           src={movie.poster_path}
           alt={movie.title}
         />
-        <SearchResultTitle>{movie.title} <small>({movie.release_date.substr(0, 4)})</small></SearchResultTitle>
+        <SearchResultTitle>{movie.title} <small>({releaseDate})</small></SearchResultTitle>
         <SearchResultActions>
           <Button
             onClick={async () => {
