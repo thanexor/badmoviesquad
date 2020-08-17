@@ -6,10 +6,11 @@ import HoverableMovieCard from './HoverableMovieCard'
 import { shuffle, isLength } from 'lodash'
 
 const Container = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  // display: flex;
+  // align-items: left;
+  // justify-content: left;
+  // flex-direction: row;
+  // flex-basis: 30%;
   font-family: sans-serif;
 `
 
@@ -30,8 +31,10 @@ const SearchBox = styled.input`
 `
 
 const Movies = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  display: flex;
+  flex-basis: 25%;
+  flex-wrap: wrap;
+  justify-content: left;
 `
 
 function randomSample(array, size) {

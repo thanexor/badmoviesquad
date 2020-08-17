@@ -23,6 +23,7 @@ import Movies from 'containers/Movies'
 import MovieDetails from 'containers/MovieDetails'
 
 const Body = styled.div`
+  position: relative;
   font-size: 1.6rem;
   ${({ theme }) => theme.fontWeight.w400}
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";

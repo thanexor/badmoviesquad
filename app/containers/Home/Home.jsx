@@ -31,8 +31,10 @@ const Movies = styled.div`
 
 const Container = styled.div`
   .search-container {
-    display: block;
     text-align: right;
+    position: fixed;
+    top: 75px;
+    right: 20px;
     margin: -3.5em 0 1.5em;
   }
 
@@ -82,7 +84,7 @@ export default function Home(props) {
     <Container>
       <h1>What's next</h1>
       <div className="search-container">
-        <Button className="open-search" onClick={() => setIsSearchOpen(true)}>Add new movie <i>&#128269;</i></Button>
+        <Button className="open-search" onClick={() => setIsSearchOpen(true)}>Search to add<i>&#128269;</i></Button>
       </div>
 
       {
