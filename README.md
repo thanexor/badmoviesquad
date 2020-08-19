@@ -16,3 +16,9 @@ nvm install node --latest-npm --reinstall-packages-from=node
 ```
 nvm install 10.15.3
 ```
+
+### to deploy
+```
+yarn build
+firebase deploy
+```
