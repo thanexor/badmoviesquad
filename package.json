@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server",
-    "firebase-repair": "node firebaseRunner.js"
+    "firebase-repair": "node firebaseRunner.js",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   "homepage": "https://github.com/thanexor/badmoviesquad#readme",
   "dependencies": {
     "firebase": "^7.15.1",
+    "firebase-functions": "^3.9.1",
     "lodash": "^4.17.19",
     "moment": "^2.27.0",
     "react": ">= 16.8",
