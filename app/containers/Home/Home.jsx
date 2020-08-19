@@ -32,9 +32,9 @@ const Movies = styled.div`
 const Container = styled.div`
   .search-container {
     text-align: right;
-    position: fixed;
+    position: sticky;
     top: 75px;
-    right: 20px;
+    z-index: 30;
     margin: -3.5em 0 1.5em;
   }
 
@@ -84,27 +84,25 @@ export default function Home(props) {
     <Container>
       <h1>What's next</h1>
       <div className="search-container">
-        <Button className="open-search" onClick={() => setIsSearchOpen(true)}>Search to add<i>&#128269;</i></Button>
+        <Button className="open-search" onClick={() => setIsSearchOpen(true)}>
+          <i>&#128269;</i>&nbsp;&nbsp;Search to add
+        </Button>
       </div>
 
-      {
-        night
-          ? <NightBoard
-            slots={2}
-            activePicks={props.activePicks}
-            fetchActivePicks={props.fetchActivePicks}
-            refreshActivity={refreshActivity}
-            night={night}
-          />
-          :
-          <NoNight>One sec...</NoNight>
-      }
-
+      {night ? (
+        <NightBoard
+          slots={2}
+          activePicks={props.activePicks}
+          fetchActivePicks={props.fetchActivePicks}
+          refreshActivity={refreshActivity}
+          night={night}
+        />
+      ) : (
+        <NoNight>One sec...</NoNight>
+      )}
 
       <h3>Recent activity</h3>
-      <ActivityFeed
-        activity={activity}
-      />
+      <ActivityFeed activity={activity} />
 
       <h3>Recently added</h3>
       <Movies className="home-movies-list">
@@ -117,7 +115,7 @@ export default function Home(props) {
         refreshActivity={refreshActivity}
       />
     </Container>
-  )
+  );
 }
 
 Home.propTypes = propTypes
