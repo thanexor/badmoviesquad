@@ -32,9 +32,9 @@ const Movies = styled.div`
 const Container = styled.div`
   .search-container {
     text-align: right;
-    position: fixed;
+    position: sticky;
     top: 75px;
-    right: 20px;
+    z-index: 30;
     margin: -3.5em 0 1.5em;
   }
 
