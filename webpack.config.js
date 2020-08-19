@@ -8,11 +8,11 @@ module.exports = {
   entry: './app/index.js',
   devtool: 'source-map',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'public'),
     filename: 'app.bundle.js'
   },
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.join(__dirname, 'public'),
     compress: true,
     hot: false, // you can really blow through firebase with hot reloading on
     port: 9001,
