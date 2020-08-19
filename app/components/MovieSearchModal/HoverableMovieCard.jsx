@@ -6,16 +6,18 @@ import styled from 'styled-components'
 // maybe we do something like a sticker on the poster
 // like: $3 to pick
 const HoverCard = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
+  padding: .5em;
   color: white;
   background: black;
-  
-  grid-area: main;
   opacity: 0;
   width: 100%;
-  border: 1px solid black;
+  text-align: center;
+  background: none ${({ theme }) => theme.purpleDark};
+  box-sizing: border-box;
+  margin-top: 3px;
+  border: none;
+  border-radius: 2px;
 `
 
 const HoverText = styled.div`
@@ -32,22 +34,41 @@ const Points = styled.div`
 const PointText = styled.div``
 
 const Poster = styled.img`
-  grid-area: main;
-  width: 100%;
+  display: block;
+  max-width: 100%;
+  position: relative;
+
+  transition: all 200ms ease;
+  transition-property: box-shadow, transform;
+
+  box-shadow: 0 0 0 3px ${({ theme }) => theme.purpleDark};
+  transform: translate(0, 0);
+
+  // for broken images
+  min-height: 80%;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: ${({ theme }) => theme.grey08};
+  background: rgba(200, 200, 200, .25);
+
+  &:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 2px 2px 0 5px ${({ theme }) => theme.purpleDark};
+  }
 `
 
 const Name = styled.div``
 
 const Container = styled.div`
-  width: 150px;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
-  grid-template-areas: "main";
+  width: 25%;
+  padding: 1%;
+  min-height: 65%;
   cursor: pointer;
+  box-sizing: border-box;
 
   &:hover ${HoverCard} {
     opacity: 0.7;
+
   }
 `
 
@@ -73,18 +94,17 @@ export default function HoverableMovieCard(props) {
     >
       <Poster
         src={movie.poster_path}
-        alt={movie.name}
+        alt={movie.title}
       />
 
       <HoverCard>
         <HoverText>
           { makingPick 
           ? 
-            "making pick..."
+            "Making pick..."
           : (
             <>
-              <Points>{props.pointCost}</Points>
-              <PointText>points</PointText>
+              Pick for &nbsp;<Points>{props.pointCost}</Points> <PointText>points</PointText>
             </>
           )
           }

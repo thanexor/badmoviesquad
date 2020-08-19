@@ -16,7 +16,7 @@ import MovieCard from 'components/MovieCard'
 import NightBoard from 'components/NightBoard'
 import ActivityFeed from 'components/ActivityFeed'
 
-import MovieSearchModal from 'components/MovieSearchModal'
+import TMDBSearchModal from 'components/TMDBSearchModal'
 
 const Movies = styled.div`
   display: flex;
@@ -31,8 +31,10 @@ const Movies = styled.div`
 
 const Container = styled.div`
   .search-container {
-    display: block;
     text-align: right;
+    position: fixed;
+    top: 75px;
+    right: 20px;
     margin: -3.5em 0 1.5em;
   }
 
@@ -83,7 +85,7 @@ export default function Home(props) {
       <h1>What's next</h1>
       <div className="search-container">
         <Button className="open-search" onClick={() => setIsSearchOpen(true)}>
-          <i>&#128269;</i>&nbsp;&nbsp;Search movies
+          <i>&#128269;</i>&nbsp;&nbsp;Search to add
         </Button>
       </div>
 
@@ -107,9 +109,10 @@ export default function Home(props) {
         {movies}
       </Movies>
 
-      <MovieSearchModal
+      <TMDBSearchModal
         isOpen={isSearchOpen}
         onRequestClose={() => setIsSearchOpen(false)}
+        refreshActivity={refreshActivity}
       />
     </Container>
   );

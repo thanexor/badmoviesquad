@@ -23,6 +23,7 @@ import Movies from 'containers/Movies'
 import MovieDetails from 'containers/MovieDetails'
 
 const Body = styled.div`
+  position: relative;
   font-size: 1.6rem;
   ${({ theme }) => theme.fontWeight.w400}
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -82,6 +83,10 @@ const Container = styled.div`
   padding-left: 15px;
   padding-bottom: 15px;
   max-width: 1540px;
+`
+
+const ReactModalPortal = styled.div`
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 `
 
 function App(props) {

@@ -3,7 +3,10 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import ReactModal from 'react-modal'
-import MovieSearch from './MovieSearch'
+import TMDBSearch from './TMDBSearch'
+
+import { addToBacklog } from 'services/writes'
+import { recordBacklog } from 'services/activity'
 
 const Container = styled.div`
 
@@ -16,9 +19,23 @@ const propTypes = {
   allMovies: PropTypes.array.isRequired,
   onClick: PropTypes.func.isRequired,
   tax: PropTypes.number,
+  refreshActivity: PropTypes.func.isRequired,
 }
 
 function Modal(props) {
+
+  async function addMovieToBacklog(movie) {
+    const ref = await addToBacklog(movie)
+    if (ref) {
+      await recordBacklog({
+        movieId: ref.id,
+        movieName: movie.title,
+      })
+    }
+    props.refreshActivity()
+    props.onRequestClose()
+  }
+
   return (
     <ReactModal
       isOpen={props.isOpen}
@@ -38,6 +55,7 @@ function Modal(props) {
           right: '0',
           bottom: 'auto',
           border: '1px solid rgb(204, 204, 204)',
+          background: 'rgb(255, 255, 255)',
           overflow: 'auto',
           borderRadius: '4px',
           outline: 'none',
@@ -47,14 +65,13 @@ function Modal(props) {
           maxHeight: '80vh',
           height: '100%',
           transform: 'translateX(-50%)',
+          fontFamily: 'sans-serif',
         }
       }}
     >
-      <MovieSearch
-        allMovies={props.allMovies}
-        onClick={props.onClick}
-        tax={props.tax}
-      />
+      <TMDBSearch
+        addMovieToBacklog={addMovieToBacklog}
+       />
     </ReactModal>
   )
 }

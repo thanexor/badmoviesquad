@@ -117,3 +117,59 @@ export async function createNight({ title, location, slots }) {
     state: "pending",
   })
 }
+
+async function isMovieInBacklog(id) {
+  const data = await db.collection('Movies')
+    .where('id', '==', id)
+    .get()
+
+  return !data.empty
+}
+
+export async function addToBacklog(movie) {
+  const {
+    adult,
+    backdrop_path,
+    genre_ids,
+    id,
+    original_language,
+    original_title,
+    overview,
+    popularity,
+    poster_path,
+    release_date,
+    title,
+    video,
+    vote_average,
+    vote_count,
+  } = movie
+  const email = getUserEmail(store.getState())
+
+  const movieExists = await isMovieInBacklog(id)
+
+  if (movieExists) {
+    console.log('movie exists!')
+    return null
+  }
+
+  const movieRef = await db.collection('Movies')
+    .add({
+      added_by: email,
+      adult,
+      backdrop_path,
+      genre_ids,
+      id,
+      original_language,
+      original_title,
+      overview,
+      popularity,
+      poster_path,
+      release_date,
+      title,
+      video,
+      vote_average,
+      vote_count,
+    })
+
+  return movieRef
+}

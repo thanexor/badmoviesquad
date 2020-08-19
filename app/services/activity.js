@@ -55,6 +55,24 @@ export async function recordOutbid({ movieId, movieName, outbidPickId }) {
   return ref
 }
 
+export async function recordBacklog({ movieId, movieName }) {
+  const email = getUserEmail(store.getState())
+  const username = getUsername(store.getState())
+
+  const ref = await firebase.firestore()
+    .collection('Activity')
+    .add({
+      type: 'backlog',
+      movieId: movieId,
+      movieName: movieName,
+      userId: email,
+      username: username,
+      timestamp: Date.now()
+    })
+
+  return ref
+}
+
 export async function recordLike({ movieId }) {
 
 }
