@@ -12,11 +12,42 @@ const Container = styled.div`
   flex-direction: column;
 `
 
-const Title = styled.h1``
+const Title = styled.h1`
+`
 
 const StyledSignIn = styled(SignInButton)`
-  width: 200px;
-  height: 40px;
+  display: inline-block;
+  min-width: 110px;
+  background: linear-gradient(-35deg,var(--c1,#e15712),var(--c2,#b20e44) 50%,var(--c1,#e15712)) var(--x,0)/300%;
+  color: #fff;
+  text-align: center;
+  text-shadow: 1px 1px 0 rgba(83,7,32,.75);
+  border: 0;
+  outline: 2px solid transparent;
+  padding: 1.2em 1.65em;
+  font-size: 1em;
+  line-height: 1.1;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: outline .2s ease-in-out,background .15s ease-in-out;
+
+  transition:
+    outline 200ms ease-in-out,
+    background 150ms ease-in-out;
+
+  &:hover {
+    --x: 40%;
+  }
+
+  &:focus {
+    outline: 2px solid rgba(darken($teal, 40%), .15);
+  }
+
+  &:active {
+    outline: 2px solid rgba(darken($teal, 40%), .35);
+    --x: 20%;
+  }
 `
 
 const propTypes = {
