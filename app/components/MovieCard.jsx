@@ -34,7 +34,7 @@ const Poster = styled.img`
 
   &:hover {
     transform: translate(-3px, -3px);
-    box-shadow: 2px 2px 0 5px ${({ theme }) => theme.purpleDark};
+    box-shadow: 2px 2px 0 5px ${({ theme }) => theme.pinkHot};
   }
 `
 

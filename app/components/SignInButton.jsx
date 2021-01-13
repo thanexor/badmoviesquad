@@ -16,7 +16,7 @@ function SignInButton(props) {
       className={props.className}
       onClick={signIn}
     >
-      Sign In
+      Sign in with Google
     </Button>
   )
 }
