@@ -115,7 +115,7 @@ function Slot(props) {
         <MovieLink target='_blank' href={movie.info_url}>
           {movie.title}
         </MovieLink>
-        <MovieDate>({movie.release_date})</MovieDate>
+        <MovieDate>({movie.release_date.substr(0, 4)})</MovieDate>
       </MovieTitle>
       <OutbidButton onClick={() => setPickerOpen(true)}>Outbid</OutbidButton>
 
