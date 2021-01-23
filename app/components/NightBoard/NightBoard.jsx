@@ -1,27 +1,23 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import Slot from './Slot'
-import EmptySlot from './EmptySlot'
+import Slot from './Slot';
+import EmptySlot from './EmptySlot';
 
-const Container = styled.div`
+const Container = styled.div``;
 
-`
+const Title = styled.h3``;
 
-const Title = styled.h3`
-`
+const Location = styled.p``;
 
-const Location = styled.p`
-`
-
-const Header = styled.div`
-`
+const Header = styled.div``;
 
 const Slots = styled.div`
-  display: flex;
-  flex-direction: row;
-`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+`;
 
 const propTypes = {
   className: PropTypes.string,
@@ -30,26 +26,28 @@ const propTypes = {
   fetchActivePicks: PropTypes.func.isRequired,
   night: PropTypes.object.isRequired,
   refreshActivity: PropTypes.func.isRequired,
-}
+};
 
 function NightBoard(props) {
-  const { title, location } = props.night
+  const { title, location } = props.night;
 
-  const slots = props.activePicks.map(pick => (
+  const slots = props.activePicks.map((pick) => (
     <Slot
       key={pick.firestore_id}
       pick={pick}
       fetchActivePicks={props.fetchActivePicks}
       refreshActivity={props.refreshActivity}
     />
-  ))
+  ));
 
-  while ( slots.length < props.slots ) {
-    slots.push(<EmptySlot
-      key={slots.length}
-      fetchActivePicks={props.fetchActivePicks}
-      refreshActivity={props.refreshActivity}
-    />)
+  while (slots.length < props.slots) {
+    slots.push(
+      <EmptySlot
+        key={slots.length}
+        fetchActivePicks={props.fetchActivePicks}
+        refreshActivity={props.refreshActivity}
+      />
+    );
   }
 
   return (
@@ -59,12 +57,10 @@ function NightBoard(props) {
         <Location>{location}</Location>
       </Header>
 
-      <Slots>
-        {slots}
-      </Slots>
+      <Slots>{slots}</Slots>
     </Container>
-  )
+  );
 }
 
-NightBoard.propTypes = propTypes
-export default React.memo(NightBoard)
+NightBoard.propTypes = propTypes;
+export default React.memo(NightBoard);

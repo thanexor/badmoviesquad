@@ -1,39 +1,50 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import Button from 'components/Button'
+import Button from 'components/Button';
 
-import { useFetchedData } from 'app/hooks'
-import {
-  getUserBacklog,
-  getActiveNights,
-  getActivity,
-} from 'services/read'
+import { useFetchedData } from 'app/hooks';
+import { getUserBacklog, getActiveNights, getActivity } from 'services/read';
 
-import { MOVIE_URL } from 'app/constants'
-import MovieCard from 'components/MovieCard'
-import NightBoard from 'components/NightBoard'
-import ActivityFeed from 'components/ActivityFeed'
+import { MOVIE_URL } from 'app/constants';
+import MovieCard from 'components/MovieCard';
+import NightBoard from 'components/NightBoard';
+import ActivityFeed from 'components/ActivityFeed';
 
-import TMDBSearchModal from 'components/TMDBSearchModal'
+// import TMDBSearchModal from 'components/TMDBSearchModal';
 
 const Movies = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: left;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1em;
+  padding-bottom: 10vh;
+
+  ${({ theme }) => theme.mediaBreakpoint.md} {
+    grid-template-columns: repeat(6, 1fr);
+  }
 
   .home-movies-list {
     width: 20%;
   }
-`
+`;
+
+const SearchButton = styled(Button)`
+  padding: 25.08px 22px;
+  border-radius: 100px;
+  background-color: ${({ theme }) => theme.limeGreem};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.limeGreemDark};
+  }
+`;
 
 const Container = styled.div`
-  .search-container {
+  /* .search-container {
     text-align: right;
     position: sticky;
-    top: 75px;
+    top: 0;
+    right: 0;
     z-index: 30;
     margin: -3.5em 0 1.5em;
   }
@@ -44,50 +55,78 @@ const Container = styled.div`
   }
 
   .open-search i {
-    font-style: normal  ;
-  }
-`
+    font-style: normal;
+  } */
+`;
 
 const Picks = styled.div`
   display: flex;
-`
+`;
 
 const NoNight = styled.h3`
   font-size: 3em;
   color: #fff;
-`
+`;
 
 const propTypes = {
   user: PropTypes.string.isRequired,
   fetchActivePicks: PropTypes.func.isRequired,
   activePicks: PropTypes.array.isRequired,
-}
+};
 
 export default function Home(props) {
-  const [ isSearchOpen, setIsSearchOpen ] = useState(false)
+  // const [isSearchOpen, setIsSearchOpen] = useState(false);
+  // const [searchLabel, setSearchLabel] = useState('Search');
 
-  const [ backlog ] = useFetchedData(getUserBacklog, props.user)
-  const [ nights ] = useFetchedData(getActiveNights)
-  const [ activity, refreshActivity ] = useFetchedData(getActivity, 10)
+  const [backlog] = useFetchedData(getUserBacklog, props.user);
+  const [nights] = useFetchedData(getActiveNights);
+  const [activity, refreshActivity] = useFetchedData(getActivity, 10);
 
-  const night = nights[0]
+  const night = nights[0];
 
-  const movies = backlog.map(movie => (
+  const movies = backlog.map((movie) => (
     <MovieCard
       key={movie.id}
       movie={movie}
       onClick={() => window.open(`${MOVIE_URL}/${movie.id}`, '_blank')}
     />
-  ))
+  ));
+
+  // const showSearchLabel = (e) => {
+  //   const parent = e.currentTarget.parentNode;
+  //   const label = e.currentTarget.getAttribute('data-label');
+  //   const currText = e.currentTarget.textContent;
+
+  //   const labelContainer = document.createElement('span');
+  //   const labelText = document.createTextNode(label);
+  //   labelContainer.appendChild(labelText);
+  //   parent.appendChild(labelText);
+  // };
+
+  // const hideSearchLabel = (e) => {
+  //   const parent = e.currentTarget.parentNode;
+  //   const label = e.currentTarget.getAttribute('data-label');
+  //   const currText = e.currentTarget.textContent;
+
+  //   const labelContainer = document.createElement('span');
+  //   const labelText = document.createTextNode(label);
+  //   labelContainer.appendChild(labelText);
+  //   parent.popChild(labelText);
+  // };
 
   return (
     <Container>
       <h1>What's next</h1>
-      <div className="search-container">
-        <Button className="open-search" onClick={() => setIsSearchOpen(true)}>
-          <i>&#128269;</i>&nbsp;&nbsp;Search to add
-        </Button>
-      </div>
+
+      {/* <div className='search-container'>
+        <SearchButton
+          className='open-search'
+          data-label={searchLabel}
+          onClick={() => setIsSearchOpen(true)}
+        >
+          <i>&#128269;</i>
+        </SearchButton>
+      </div> */}
 
       {night ? (
         <NightBoard
@@ -105,17 +144,14 @@ export default function Home(props) {
       <ActivityFeed activity={activity} />
 
       <h3>Recently added</h3>
-      <Movies className="home-movies-list">
-        {movies}
-      </Movies>
-
-      <TMDBSearchModal
+      <Movies className='home-movies-list'>{movies}</Movies>
+      {/* <TMDBSearchModal
         isOpen={isSearchOpen}
         onRequestClose={() => setIsSearchOpen(false)}
         refreshActivity={refreshActivity}
-      />
+      /> */}
     </Container>
   );
 }
 
-Home.propTypes = propTypes
+Home.propTypes = propTypes;

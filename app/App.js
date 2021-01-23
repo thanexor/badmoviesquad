@@ -93,7 +93,7 @@ function App(props) {
   return (
     <Body>
       <Router>
-        <div>
+        <div style={{ position: 'relative' }}>
           {props.isLoggedIn &&
             <Nav
               username={props.username}
