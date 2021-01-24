@@ -20,7 +20,6 @@ const Container = styled.div`
   justify-content: center;
   background-color: ${({ theme }) => theme.purpleDark};
   border-radius: 4px;
-  /* border: 2px solid ${({ theme }) => theme.primary}; */
 `;
 
 const Content = styled.div`

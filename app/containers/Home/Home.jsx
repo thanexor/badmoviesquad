@@ -12,8 +12,6 @@ import MovieCard from 'components/MovieCard';
 import NightBoard from 'components/NightBoard';
 import ActivityFeed from 'components/ActivityFeed';
 
-// import TMDBSearchModal from 'components/TMDBSearchModal';
-
 const Movies = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -39,25 +37,7 @@ const SearchButton = styled(Button)`
   }
 `;
 
-const Container = styled.div`
-  /* .search-container {
-    text-align: right;
-    position: sticky;
-    top: 0;
-    right: 0;
-    z-index: 30;
-    margin: -3.5em 0 1.5em;
-  }
-
-  .open-search {
-    display: inline-block;
-    text-align: right;
-  }
-
-  .open-search i {
-    font-style: normal;
-  } */
-`;
+const Container = styled.div``;
 
 const Picks = styled.div`
   display: flex;
@@ -75,9 +55,6 @@ const propTypes = {
 };
 
 export default function Home(props) {
-  // const [isSearchOpen, setIsSearchOpen] = useState(false);
-  // const [searchLabel, setSearchLabel] = useState('Search');
-
   const [backlog] = useFetchedData(getUserBacklog, props.user);
   const [nights] = useFetchedData(getActiveNights);
   const [activity, refreshActivity] = useFetchedData(getActivity, 10);
@@ -92,41 +69,9 @@ export default function Home(props) {
     />
   ));
 
-  // const showSearchLabel = (e) => {
-  //   const parent = e.currentTarget.parentNode;
-  //   const label = e.currentTarget.getAttribute('data-label');
-  //   const currText = e.currentTarget.textContent;
-
-  //   const labelContainer = document.createElement('span');
-  //   const labelText = document.createTextNode(label);
-  //   labelContainer.appendChild(labelText);
-  //   parent.appendChild(labelText);
-  // };
-
-  // const hideSearchLabel = (e) => {
-  //   const parent = e.currentTarget.parentNode;
-  //   const label = e.currentTarget.getAttribute('data-label');
-  //   const currText = e.currentTarget.textContent;
-
-  //   const labelContainer = document.createElement('span');
-  //   const labelText = document.createTextNode(label);
-  //   labelContainer.appendChild(labelText);
-  //   parent.popChild(labelText);
-  // };
-
   return (
     <Container>
       <h1>What's next</h1>
-
-      {/* <div className='search-container'>
-        <SearchButton
-          className='open-search'
-          data-label={searchLabel}
-          onClick={() => setIsSearchOpen(true)}
-        >
-          <i>&#128269;</i>
-        </SearchButton>
-      </div> */}
 
       {night ? (
         <NightBoard
@@ -145,11 +90,6 @@ export default function Home(props) {
 
       <h3>Recently added</h3>
       <Movies className='home-movies-list'>{movies}</Movies>
-      {/* <TMDBSearchModal
-        isOpen={isSearchOpen}
-        onRequestClose={() => setIsSearchOpen(false)}
-        refreshActivity={refreshActivity}
-      /> */}
     </Container>
   );
 }

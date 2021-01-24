@@ -15,8 +15,12 @@ const Header = styled.div``;
 
 const Slots = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 1em;
+
+  ${({ theme }) => theme.mediaBreakpoint.md} {
+    grid-template-columns: 1fr 1fr;
+  }
 `;
 
 const propTypes = {
