@@ -102,7 +102,8 @@ const SearchButton = styled(Button)`
   border-radius: 100px;
   background-color: ${({ theme }) => theme.limeGreem};
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: ${({ theme }) => theme.limeGreemDark};
   }
 `;
