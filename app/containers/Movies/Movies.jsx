@@ -9,9 +9,14 @@ import MovieCard from 'components/MovieCard';
 const Container = styled.div``;
 
 const MoviesList = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1em;
+  padding-bottom: 10vh;
+
+  ${({ theme }) => theme.mediaBreakpoint.md} {
+    grid-template-columns: repeat(6, 1fr);
+  }
 `;
 
 const propTypes = {

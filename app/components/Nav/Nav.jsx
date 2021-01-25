@@ -6,6 +6,10 @@ import { Link } from 'react-router-dom';
 import { useFetchedData } from 'app/hooks';
 import { getUserBacklog, getActiveNights, getActivity } from 'services/read';
 
+import useBoop from '../../hooks/use-boop';
+import { animated } from 'react-spring';
+
+import Boop from 'components/Boop';
 import TMDBSearchModal from 'components/TMDBSearchModal';
 
 import Logo from './Logo';
@@ -118,8 +122,8 @@ const propTypes = {
 // template
 export default function Nav(props) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchLabel, setSearchLabel] = useState('Search');
   const [activity, refreshActivity] = useFetchedData(getActivity, 10);
+  const [style, trigger] = useBoop({ rotation: 10, timing: 150 });
 
   return (
     <>
@@ -153,10 +157,15 @@ export default function Nav(props) {
       <SearchContainer>
         <SearchButton
           className='open-search'
-          data-label={searchLabel}
-          onClick={() => setIsSearchOpen(true)}
+          onMouseEnter={trigger}
+          onClick={() => {
+            setIsSearchOpen(true);
+            trigger();
+          }}
         >
-          <i>&#128269;</i>
+          <animated.span style={style}>
+            <i>&#128269;</i>
+          </animated.span>
         </SearchButton>
       </SearchContainer>
       <TMDBSearchModal
