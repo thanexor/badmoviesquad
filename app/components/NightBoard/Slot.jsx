@@ -5,6 +5,9 @@ import styled from 'styled-components';
 import { outbidPick } from 'services/writes';
 import { recordOutbid } from 'services/activity';
 
+import useBoop from '../../hooks/use-boop';
+import { animated } from 'react-spring';
+
 import Button from 'components/Button';
 import MovieSearchModal from 'components/MovieSearchModal';
 
@@ -19,13 +22,14 @@ const Container = styled.div`
   flex-direction: column;
   align-items: flex-end;
   justify-content: flex-end;
-  background: no-repeat
-      linear-gradient(
-        ${({ theme }) => theme.purpleDark} 70%,
-        ${({ theme }) => theme.grey10}
-      ),
-    url(${(props) => props.backdrop_path});
+  background: linear-gradient(
+      to bottom,
+      rgba(38, 8, 80, 0.5) 50%,
+      rgb(0, 0, 0) 100%
+    ),
+    url(${(props) => props.poster_path});
   background-size: cover;
+  background-repeat: no-repeat;
   background-position: center;
   border: 2px solid ${({ theme }) => theme.primary};
   border-radius: 4px;
@@ -101,12 +105,14 @@ const propTypes = {
 
 function Slot(props) {
   const [pickerOpen, setPickerOpen] = useState(false);
+  const [style, trigger] = useBoop({ scale: 1.1, timing: 150 });
+
   const { movie, picker, tax } = props.pick;
 
   console.log(movie);
 
   return (
-    <Container className={props.className} backdrop_path={movie.backdrop_path}>
+    <Container className={props.className} poster_path={movie.poster_path}>
       <PickedBy>
         Picked by: <strong>{picker.displayName}</strong>
       </PickedBy>
@@ -117,7 +123,9 @@ function Slot(props) {
         </MovieLink>
         <MovieDate>({movie.release_date.substr(0, 4)})</MovieDate>
       </MovieTitle>
-      <OutbidButton onClick={() => setPickerOpen(true)}>Outbid</OutbidButton>
+      <OutbidButton onClick={() => setPickerOpen(true)} onMouseEnter={trigger}>
+        <animated.span style={style}>Outbid</animated.span>
+      </OutbidButton>
 
       <MovieSearchModal
         isOpen={pickerOpen}

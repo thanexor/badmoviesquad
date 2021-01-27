@@ -5,13 +5,14 @@ import styled from 'styled-components';
 import Slot from './Slot';
 import EmptySlot from './EmptySlot';
 
-const Container = styled.div``;
+const Container = styled.div`
+  header p {
+    margin-top: 0;
+    font-weight: bold;
+  }
+`;
 
-const Title = styled.h3``;
-
-const Location = styled.p``;
-
-const Header = styled.div``;
+const Title = styled.h2``;
 
 const Slots = styled.div`
   display: grid;
@@ -56,10 +57,10 @@ function NightBoard(props) {
 
   return (
     <Container className={props.className}>
-      <Header>
+      <header>
         <Title>{title}</Title>
-        <Location>{location}</Location>
-      </Header>
+        <p>{location}</p>
+      </header>
 
       <Slots>{slots}</Slots>
     </Container>

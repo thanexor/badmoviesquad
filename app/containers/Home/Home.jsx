@@ -14,12 +14,13 @@ import ActivityFeed from 'components/ActivityFeed';
 
 const Movies = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1em;
+  padding-top: 1.5em;
   padding-bottom: 10vh;
 
   ${({ theme }) => theme.mediaBreakpoint.md} {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(8, 1fr);
   }
 
   .home-movies-list {
@@ -37,7 +38,13 @@ const SearchButton = styled(Button)`
   }
 `;
 
-const Container = styled.div``;
+const Container = styled.div`
+  padding: 1.5em 0;
+`;
+
+const RecentActivity = styled.div`
+  padding: 1.5em 0;
+`;
 
 const Picks = styled.div`
   display: flex;
@@ -71,8 +78,7 @@ export default function Home(props) {
 
   return (
     <Container>
-      <h1>What's next</h1>
-
+      <h1 className='sr-only'>Bad Movie Squad</h1>
       {night ? (
         <NightBoard
           slots={2}
@@ -84,11 +90,12 @@ export default function Home(props) {
       ) : (
         <NoNight>One sec...</NoNight>
       )}
+      <RecentActivity>
+        <h2>Recent activity</h2>
+        <ActivityFeed activity={activity} />
+      </RecentActivity>
 
-      <h3>Recent activity</h3>
-      <ActivityFeed activity={activity} />
-
-      <h3>Recently added</h3>
+      <h2>Recently added</h2>
       <Movies className='home-movies-list'>{movies}</Movies>
     </Container>
   );

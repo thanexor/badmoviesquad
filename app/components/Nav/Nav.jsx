@@ -9,7 +9,6 @@ import { getUserBacklog, getActiveNights, getActivity } from 'services/read';
 import useBoop from '../../hooks/use-boop';
 import { animated } from 'react-spring';
 
-import Boop from 'components/Boop';
 import TMDBSearchModal from 'components/TMDBSearchModal';
 
 import Logo from './Logo';
@@ -123,7 +122,7 @@ const propTypes = {
 export default function Nav(props) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [activity, refreshActivity] = useFetchedData(getActivity, 10);
-  const [style, trigger] = useBoop({ rotation: 10, timing: 150 });
+  const [style, trigger] = useBoop({ rotation: 20, timing: 150 });
 
   return (
     <>

@@ -8,6 +8,9 @@ import { recordPick } from 'services/activity';
 import Particles from 'react-particles-js';
 import particleConfig from './particleConfig';
 
+import useBoop from '../../hooks/use-boop';
+import { animated } from 'react-spring';
+
 import Button from 'components/Button';
 import MovieSearchModal from 'components/MovieSearchModal';
 
@@ -48,13 +51,17 @@ const propTypes = {
 
 function EmptySlot(props) {
   const [pickerOpen, setPickerOpen] = useState(false);
+  const [style, trigger] = useBoop({ scale: 1.1, timing: 150 });
 
   return (
     <Container className={props.className}>
       <Content>
         <Text>Empty Slot</Text>
-        <StyledButton onClick={() => setPickerOpen(true)}>
-          Make Pick
+        <StyledButton
+          onClick={() => setPickerOpen(true)}
+          onMouseEnter={trigger}
+        >
+          <animated.span style={style}>Make Pick</animated.span>
         </StyledButton>
       </Content>
       <StyledParticles width={'100%'} height={'100%'} params={particleConfig} />

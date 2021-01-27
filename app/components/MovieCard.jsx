@@ -14,7 +14,7 @@ const Poster = styled.img`
   max-width: 100%;
   position: relative;
 
-  transition: all 100ms ease;
+  transition: all 100ms ease-in-out;
   transition-property: box-shadow, transform;
 
   border: 3px solid ${({ theme }) => theme.pinkHot};
