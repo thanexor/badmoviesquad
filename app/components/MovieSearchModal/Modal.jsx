@@ -1,13 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import ReactModal from 'react-modal'
-import MovieSearch from './MovieSearch'
+import ReactModal from 'react-modal';
+import MovieSearch from './MovieSearch';
 
-const Container = styled.div`
-
-`
+const Container = styled.div``;
 
 const propTypes = {
   className: PropTypes.string,
@@ -16,7 +14,7 @@ const propTypes = {
   allMovies: PropTypes.array.isRequired,
   onClick: PropTypes.func.isRequired,
   tax: PropTypes.number,
-}
+};
 
 function Modal(props) {
   return (
@@ -33,7 +31,7 @@ function Modal(props) {
         },
         content: {
           position: 'absolute',
-          top: '6vh',
+          top: '10vh',
           left: '50%',
           right: '0',
           bottom: 'auto',
@@ -47,7 +45,7 @@ function Modal(props) {
           maxHeight: '80vh',
           height: '100%',
           transform: 'translateX(-50%)',
-        }
+        },
       }}
     >
       <MovieSearch
@@ -56,8 +54,8 @@ function Modal(props) {
         tax={props.tax}
       />
     </ReactModal>
-  )
+  );
 }
 
-Modal.propTypes = propTypes
-export default React.memo(Modal)
+Modal.propTypes = propTypes;
+export default React.memo(Modal);

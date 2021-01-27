@@ -1,94 +1,84 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import Button from 'components/Button'
+import Button from 'components/Button';
 
-import { useFetchedData } from 'app/hooks'
-import {
-  getUserBacklog,
-  getActiveNights,
-  getActivity,
-} from 'services/read'
+import { useFetchedData } from 'app/hooks';
+import { getUserBacklog, getActiveNights, getActivity } from 'services/read';
 
-import { MOVIE_URL } from 'app/constants'
-import MovieCard from 'components/MovieCard'
-import NightBoard from 'components/NightBoard'
-import ActivityFeed from 'components/ActivityFeed'
-
-import TMDBSearchModal from 'components/TMDBSearchModal'
+import { MOVIE_URL } from 'app/constants';
+import MovieCard from 'components/MovieCard';
+import NightBoard from 'components/NightBoard';
+import ActivityFeed from 'components/ActivityFeed';
 
 const Movies = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: left;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1em;
+  padding-top: 1.5em;
+  padding-bottom: 10vh;
+
+  ${({ theme }) => theme.mediaBreakpoint.md} {
+    grid-template-columns: repeat(8, 1fr);
+  }
 
   .home-movies-list {
     width: 20%;
   }
-`
+`;
+
+const SearchButton = styled(Button)`
+  padding: 25.08px 22px;
+  border-radius: 100px;
+  background-color: ${({ theme }) => theme.limeGreem};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.limeGreemDark};
+  }
+`;
 
 const Container = styled.div`
-  .search-container {
-    text-align: right;
-    position: sticky;
-    top: 75px;
-    z-index: 30;
-    margin: -3.5em 0 1.5em;
-  }
+  padding: 1.5em 0;
+`;
 
-  .open-search {
-    display: inline-block;
-    text-align: right;
-  }
-
-  .open-search i {
-    font-style: normal  ;
-  }
-`
+const RecentActivity = styled.div`
+  padding: 1.5em 0;
+`;
 
 const Picks = styled.div`
   display: flex;
-`
+`;
 
 const NoNight = styled.h3`
   font-size: 3em;
   color: #fff;
-`
+`;
 
 const propTypes = {
   user: PropTypes.string.isRequired,
   fetchActivePicks: PropTypes.func.isRequired,
   activePicks: PropTypes.array.isRequired,
-}
+};
 
 export default function Home(props) {
-  const [ isSearchOpen, setIsSearchOpen ] = useState(false)
+  const [backlog] = useFetchedData(getUserBacklog, props.user);
+  const [nights] = useFetchedData(getActiveNights);
+  const [activity, refreshActivity] = useFetchedData(getActivity, 10);
 
-  const [ backlog ] = useFetchedData(getUserBacklog, props.user)
-  const [ nights ] = useFetchedData(getActiveNights)
-  const [ activity, refreshActivity ] = useFetchedData(getActivity, 10)
+  const night = nights[0];
 
-  const night = nights[0]
-
-  const movies = backlog.map(movie => (
+  const movies = backlog.map((movie) => (
     <MovieCard
       key={movie.id}
       movie={movie}
       onClick={() => window.open(`${MOVIE_URL}/${movie.id}`, '_blank')}
     />
-  ))
+  ));
 
   return (
     <Container>
-      <h1>What's next</h1>
-      <div className="search-container">
-        <Button className="open-search" onClick={() => setIsSearchOpen(true)}>
-          <i>&#128269;</i>&nbsp;&nbsp;Search to add
-        </Button>
-      </div>
-
+      <h1 className='sr-only'>Bad Movie Squad</h1>
       {night ? (
         <NightBoard
           slots={2}
@@ -100,22 +90,15 @@ export default function Home(props) {
       ) : (
         <NoNight>One sec...</NoNight>
       )}
+      <RecentActivity>
+        <h2>Recent activity</h2>
+        <ActivityFeed activity={activity} />
+      </RecentActivity>
 
-      <h3>Recent activity</h3>
-      <ActivityFeed activity={activity} />
-
-      <h3>Recently added</h3>
-      <Movies className="home-movies-list">
-        {movies}
-      </Movies>
-
-      <TMDBSearchModal
-        isOpen={isSearchOpen}
-        onRequestClose={() => setIsSearchOpen(false)}
-        refreshActivity={refreshActivity}
-      />
+      <h2>Recently added</h2>
+      <Movies className='home-movies-list'>{movies}</Movies>
     </Container>
   );
 }
 
-Home.propTypes = propTypes
+Home.propTypes = propTypes;

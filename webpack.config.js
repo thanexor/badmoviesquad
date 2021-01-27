@@ -50,6 +50,7 @@ module.exports = {
       app: path.resolve(__dirname, 'app/'),
       components: path.resolve(__dirname, 'app/components/'),
       containers: path.resolve(__dirname, 'app/containers/'),
+      icon: path.resolve(__dirname, 'app/icon/'),
       reduxState: path.resolve(__dirname, 'app/reduxState/'),
       services: path.resolve(__dirname, 'app/services/'),
     }

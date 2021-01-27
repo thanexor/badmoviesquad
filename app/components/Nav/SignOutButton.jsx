@@ -1,25 +1,34 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import { signOut } from 'services/auth'
+import Button from 'components/Button';
+import useBoop from '../../hooks/use-boop';
+import { animated } from 'react-spring';
 
-const Button = styled.button``
+import { signOut } from 'services/auth';
+
+const StyledButton = styled(Button)`
+  padding: 0.5em 1.25em;
+`;
 
 const propTypes = {
   className: PropTypes.string,
-}
+};
 
 function SignOutButton(props) {
+  const [style, trigger] = useBoop({ scale: 1.1, timing: 150 });
+
   return (
-    <Button
+    <StyledButton
       className={props.className}
       onClick={signOut}
+      onMouseEnter={trigger}
     >
-      Sign Out
-    </Button>
-  )
+      <animated.span style={style}>Sign Out</animated.span>
+    </StyledButton>
+  );
 }
 
-SignOutButton.propTypes = propTypes
-export default React.memo(SignOutButton)
+SignOutButton.propTypes = propTypes;
+export default React.memo(SignOutButton);

@@ -1,27 +1,28 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import Slot from './Slot'
-import EmptySlot from './EmptySlot'
+import Slot from './Slot';
+import EmptySlot from './EmptySlot';
 
 const Container = styled.div`
+  header p {
+    margin-top: 0;
+    font-weight: bold;
+  }
+`;
 
-`
-
-const Title = styled.h3`
-`
-
-const Location = styled.p`
-`
-
-const Header = styled.div`
-`
+const Title = styled.h2``;
 
 const Slots = styled.div`
-  display: flex;
-  flex-direction: row;
-`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1em;
+
+  ${({ theme }) => theme.mediaBreakpoint.md} {
+    grid-template-columns: 1fr 1fr;
+  }
+`;
 
 const propTypes = {
   className: PropTypes.string,
@@ -30,41 +31,41 @@ const propTypes = {
   fetchActivePicks: PropTypes.func.isRequired,
   night: PropTypes.object.isRequired,
   refreshActivity: PropTypes.func.isRequired,
-}
+};
 
 function NightBoard(props) {
-  const { title, location } = props.night
+  const { title, location } = props.night;
 
-  const slots = props.activePicks.map(pick => (
+  const slots = props.activePicks.map((pick) => (
     <Slot
       key={pick.firestore_id}
       pick={pick}
       fetchActivePicks={props.fetchActivePicks}
       refreshActivity={props.refreshActivity}
     />
-  ))
+  ));
 
-  while ( slots.length < props.slots ) {
-    slots.push(<EmptySlot
-      key={slots.length}
-      fetchActivePicks={props.fetchActivePicks}
-      refreshActivity={props.refreshActivity}
-    />)
+  while (slots.length < props.slots) {
+    slots.push(
+      <EmptySlot
+        key={slots.length}
+        fetchActivePicks={props.fetchActivePicks}
+        refreshActivity={props.refreshActivity}
+      />
+    );
   }
 
   return (
     <Container className={props.className}>
-      <Header>
+      <header>
         <Title>{title}</Title>
-        <Location>{location}</Location>
-      </Header>
+        <p>{location}</p>
+      </header>
 
-      <Slots>
-        {slots}
-      </Slots>
+      <Slots>{slots}</Slots>
     </Container>
-  )
+  );
 }
 
-NightBoard.propTypes = propTypes
-export default React.memo(NightBoard)
+NightBoard.propTypes = propTypes;
+export default React.memo(NightBoard);
