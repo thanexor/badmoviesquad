@@ -86,6 +86,8 @@ const StyledNavList = styled(NavList)`
 
     background-color: transparent;
     padding: 0;
+
+    transform: none;
   }
 `;
 
