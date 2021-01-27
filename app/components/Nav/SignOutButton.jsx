@@ -9,7 +9,12 @@ import { animated } from 'react-spring';
 import { signOut } from 'services/auth';
 
 const StyledButton = styled(Button)`
+  margin-right: 10px;
   padding: 0.5em 1.25em;
+
+  ${({ theme }) => theme.mediaBreakpoint.md} {
+    margin-right: 0;
+  }
 `;
 
 const propTypes = {
@@ -17,7 +22,7 @@ const propTypes = {
 };
 
 function SignOutButton(props) {
-  const [style, trigger] = useBoop({ scale: 1.1, timing: 150 });
+  const [style, trigger] = useBoop({ scale: 1.025, timing: 150 });
 
   return (
     <StyledButton

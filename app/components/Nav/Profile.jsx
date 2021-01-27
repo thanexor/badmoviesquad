@@ -15,7 +15,12 @@ const ProfileImage = styled.img`
 `;
 
 const Username = styled.span`
-  font-size: 18px;
+  display: none;
+  font-size: 1.6rem;
+
+  ${({ theme }) => theme.mediaBreakpoint.md} {
+    display: block;
+  }
 `;
 
 const propTypes = {

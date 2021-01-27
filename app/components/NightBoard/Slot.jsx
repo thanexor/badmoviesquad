@@ -105,7 +105,7 @@ const propTypes = {
 
 function Slot(props) {
   const [pickerOpen, setPickerOpen] = useState(false);
-  const [style, trigger] = useBoop({ scale: 1.1, timing: 150 });
+  const [style, trigger] = useBoop({ scale: 1.025, timing: 150 });
 
   const { movie, picker, tax } = props.pick;
 
