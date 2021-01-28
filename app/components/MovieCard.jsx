@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import Button from 'components/Button';
-
 const Container = styled.div`
   position: relative;
   cursor: pointer;
@@ -33,16 +31,15 @@ const Poster = styled.img`
   }
 `;
 
-const Title = styled.span`
+const Title = styled.p`
   display: block;
   margin: 0.5em 0 0;
-  font-size: 1.6rem;
   font-weight: normal;
   color: ${({ theme }) => theme.grey03};
   line-height: 1.25;
 
   small {
-    font-size: 1.2rem;
+    font-size: 80%;
     opacity: 0.5;
   }
 `;
@@ -58,7 +55,7 @@ export default function MovieCard(props) {
   return (
     <Container className={props.className} onClick={() => props.onClick(movie)}>
       <Poster src={movie.poster_path} alt={movie.title} />
-      <Title className='h6'>
+      <Title>
         {movie.title} <small>({movie.release_date.substr(0, 4)})</small>
       </Title>
     </Container>

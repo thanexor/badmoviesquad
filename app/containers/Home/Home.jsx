@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import Button from 'components/Button';
-
 import { useFetchedData } from 'app/hooks';
 import { getUserBacklog, getActiveNights, getActivity } from 'services/read';
 
@@ -28,16 +26,6 @@ const Movies = styled.div`
   }
 `;
 
-const SearchButton = styled(Button)`
-  padding: 25.08px 22px;
-  border-radius: 100px;
-  background-color: ${({ theme }) => theme.limeGreem};
-
-  &:hover {
-    background-color: ${({ theme }) => theme.limeGreemDark};
-  }
-`;
-
 const Container = styled.div`
   padding: 1.5em 0;
 `;
@@ -51,7 +39,6 @@ const Picks = styled.div`
 `;
 
 const NoNight = styled.h3`
-  font-size: 3em;
   color: #fff;
 `;
 

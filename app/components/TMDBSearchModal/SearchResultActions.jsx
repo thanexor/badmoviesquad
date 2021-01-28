@@ -14,7 +14,7 @@ const Container = styled.div`
 `;
 
 const SearchResultActions = (props) => {
-  const [style, trigger] = useBoop({ scale: 1.1, timing: 150 });
+  const [style, trigger] = useBoop({ scale: 1.025, timing: 150 });
 
   return (
     <Container>
