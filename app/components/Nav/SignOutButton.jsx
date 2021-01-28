@@ -10,7 +10,7 @@ import { signOut } from 'services/auth';
 
 const StyledButton = styled(Button)`
   margin-right: 10px;
-  padding: 0.5em 1.25em;
+  padding: 0.5em 0.75em;
 
   ${({ theme }) => theme.mediaBreakpoint.md} {
     margin-right: 0;

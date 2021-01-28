@@ -3,21 +3,20 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
-import { useFetchedData } from 'app/hooks';
 import { getUserBacklog, getActiveNights, getActivity } from 'services/read';
 
+import { useFetchedData } from 'app/hooks';
 import useBoop from '../../hooks/use-boop';
 import { animated } from 'react-spring';
 
 import TMDBSearchModal from 'components/TMDBSearchModal';
+import Button from 'components/Button';
 
-import Logo from './Logo';
 import NavList from './NavList';
 import NavItem from './NavItem';
 import SignOutButton from './SignOutButton';
 import Profile from './Profile';
 import User from './User';
-import Button from 'components/Button';
 
 import { Menu } from 'icon';
 
@@ -54,9 +53,41 @@ const NavContainer = styled.div`
   }
 `;
 
-const StyledLogo = styled(Logo)`
+const Logo = styled.div`
   flex: 1 0 25%;
-  ${({ theme }) => theme.textAlign.textLeft}
+  ${({ theme }) => theme.textAlign.textLeft};
+`;
+
+const LogoNavLink = styled(NavLink)`
+  font-family: ${({ theme }) => theme.logoFont.creepster};
+  color: ${({ theme }) => theme.limeGreem};
+  margin-top: 0;
+  margin-bottom: 0;
+  text-decoration: none;
+  transition: color 150ms ease-in-out;
+
+  &:hover {
+    color: ${({ theme }) => theme.limeGreemDark};
+  }
+`;
+
+const MenuOverlay = styled.div`
+  display: ${({ openMenu }) => (openMenu ? `block` : `none`)};
+  opacity: ${({ openMenu }) => (openMenu ? `1` : `0`)};
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 20;
+  background: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  transition: opacity 150ms ease-in;
+
+  ${({ theme }) => theme.mediaBreakpoint.md} {
+    display: none;
+    pointer-events: none;
+  }
 `;
 
 const StyledNavList = styled(NavList)`
@@ -168,7 +199,9 @@ export default function Nav(props) {
   const [openMenu, setOpenMenu] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [activity, refreshActivity] = useFetchedData(getActivity, 10);
-  const [style, trigger] = useBoop({ rotation: 20, timing: 150 });
+  const [searchStyle, searchTrigger] = useBoop({ rotation: 20, timing: 150 });
+  const [menuStyle, menuTrigger] = useBoop({ x: 1.2, timing: 100 });
+  const [logoStyle, logoTrigger] = useBoop({ rotation: 1, timing: 200 });
 
   const menuRef = useRef(null);
 
@@ -193,7 +226,11 @@ export default function Nav(props) {
     <>
       <NavTheme>
         <NavContainer>
-          <StyledLogo className='h--100'>Bad Movie Squad</StyledLogo>
+          <Logo>
+            <LogoNavLink to='/' className='h--100' onMouseEnter={logoTrigger}>
+              <animated.span style={logoStyle}>Bad Movie Squad</animated.span>
+            </LogoNavLink>
+          </Logo>
           <StyledNavList ref={menuRef} openMenu={openMenu}>
             <NavItem>
               <NavLink exact to='/' activeClassName='active'>
@@ -222,21 +259,27 @@ export default function Nav(props) {
             </UserInfo>
             <SignOutButton />
           </StyledUser>
-          <HamburgerButton onClick={() => setOpenMenu(true)}>
-            <Menu />
+          <HamburgerButton
+            onClick={() => setOpenMenu(true)}
+            onMouseEnter={menuTrigger}
+          >
+            <animated.span style={menuStyle}>
+              <Menu />
+            </animated.span>
           </HamburgerButton>
+          <MenuOverlay openMenu={openMenu} />
         </NavContainer>
       </NavTheme>
       <SearchContainer>
         <SearchButton
           className='open-search'
-          onMouseEnter={trigger}
+          onMouseEnter={searchTrigger}
           onClick={() => {
             setIsSearchOpen(true);
             trigger();
           }}
         >
-          <animated.span style={style}>
+          <animated.span style={searchStyle}>
             <i>&#128269;</i>
           </animated.span>
         </SearchButton>

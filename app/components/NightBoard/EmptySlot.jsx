@@ -34,7 +34,7 @@ const StyledButton = styled(Button)``;
 
 const StyledParticles = styled(Particles)`
   width: 100%;
-  max-height: 100%;
+  max-height: 350px;
 `;
 
 const Text = styled.div`
@@ -64,7 +64,11 @@ function EmptySlot(props) {
           <animated.span style={style}>Make Pick</animated.span>
         </StyledButton>
       </Content>
-      <StyledParticles width={'100%'} height={'100%'} params={particleConfig} />
+      <StyledParticles
+        width={'100%'}
+        height={'350px'}
+        params={particleConfig}
+      />
       <MovieSearchModal
         isOpen={pickerOpen}
         onRequestClose={() => setPickerOpen(false)}

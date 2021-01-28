@@ -79,7 +79,7 @@ const Body = styled.div`
     font-size: 2rem;
   }
   h6,
-  h--600 {
+  .h--600 {
     font-size: 1.8rem;
   }
   p,
