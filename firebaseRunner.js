@@ -27,4 +27,30 @@ function run() {
     })
 }
 
-run()
+function updatePosters() {
+  db.collection('Movies')
+    .get()
+    .then(async movies => {
+      movies.forEach(async doc => {
+        const movieRef = doc.ref
+
+        const movie = await movieRef.get()
+
+        const { id, title } = movie.data()
+      
+        console.log(`updating ${title} (${id})`)
+
+        let response = await fetch(
+          `https://api.themoviedb.org/3/movie/${id}?api_key=fba97c7e6c8f93d931fe92ce8c7ac282&language=en-US`
+        )
+        response = await response.json();
+
+        movieRef.update({
+          backdrop_path: response.backdrop_path,
+          poster_path: response.poster_path,
+        })
+      })
+    })
+}
+
+updatePosters()

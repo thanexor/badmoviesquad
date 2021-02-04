@@ -7,6 +7,11 @@ yarn install
 yarn start
 ```
 
+## Updating / Repairing movie posters
+```
+npm run fixPosters
+```
+
 ### installing the latest LTS version of NodeJS
 ```
 nvm install node --latest-npm --reinstall-packages-from=node
