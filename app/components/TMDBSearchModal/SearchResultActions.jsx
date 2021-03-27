@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import useBoop from '../../hooks/use-boop';
+import useBoop from '../../hooks/useBoop';
 import { animated } from 'react-spring';
 
 import Button from 'components/Button';

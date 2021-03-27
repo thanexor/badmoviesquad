@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { outbidPick } from 'services/writes';
 import { recordOutbid } from 'services/activity';
 
-import useBoop from '../../hooks/use-boop';
+import useBoop from '../../hooks/useBoop';
 import { animated } from 'react-spring';
 
 import Button from 'components/Button';
@@ -22,17 +22,18 @@ const Container = styled.div`
   flex-direction: column;
   align-items: flex-end;
   justify-content: flex-end;
+  background: rgb(255, 0, 226);
   background: linear-gradient(
-      to bottom,
-      rgba(38, 8, 80, 0.5) 50%,
-      rgb(0, 0, 0) 100%
+      145deg,
+      rgba(255, 0, 226, 0.8) -50%,
+      rgba(38, 8, 80, 0.8) 100%
     ),
     url(${(props) => props.poster_path});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  border: 2px solid ${({ theme }) => theme.primary};
-  border-radius: 4px;
+  /* border: 2px solid ${({ theme }) => theme.primary}; */
+  border-radius: 10px;
   flex: 0 0 50%;
   box-sizing: border-box;
   min-height: 350px;
@@ -74,7 +75,8 @@ const PointCost = styled.div`
   justify-self: flex-end;
   grid-area: point-cost;
   font-size: 1.4rem;
-  padding: 0.25em 0.5em;
+  font-weight: 500;
+  padding: 0.25em 0.5em 0.5em;
   border-radius: 4px;
   background-color: ${({ theme }) => theme.purpleSuperdark};
   color: white;

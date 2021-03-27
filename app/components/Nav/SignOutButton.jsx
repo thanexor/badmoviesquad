@@ -3,18 +3,13 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Button from 'components/Button';
-import useBoop from '../../hooks/use-boop';
+import useBoop from '../../hooks/useBoop';
 import { animated } from 'react-spring';
 
 import { signOut } from 'services/auth';
 
 const StyledButton = styled(Button)`
-  margin-right: 10px;
   padding: 0.5em 0.75em;
-
-  ${({ theme }) => theme.mediaBreakpoint.md} {
-    margin-right: 0;
-  }
 `;
 
 const propTypes = {

@@ -1,27 +1,33 @@
 import styled from 'styled-components';
 
-export default styled.li`
-  padding: 1em 0.25em;
-  ${({ theme }) => theme.textAlign.textCenter}
+import { COLORS } from '../../constants';
 
-  ${({ theme }) => theme.mediaBreakpoint.md} {
-    padding: 1.25em 2em;
-  }
+export default styled.li`
+  text-align: center;
 
   a {
+    line-height: 1;
+    padding: 0.2em 0.5em 0.5em;
+    background-color: transparent;
+    border-radius: 4px;
     text-decoration: none;
-    color: #fff;
+    color: ${COLORS.white};
     font-size: 1.8rem;
-    font-weight: bold;
-    transition: color 100ms ease-in-out;
+    font-weight: 500;
+    transition: background-color 100ms ease-in-out;
 
     &:hover,
     &:focus {
-      color: ${({ theme }) => theme.pinkHot};
+      background-color: ${COLORS.purpleSuperdark};
     }
   }
 
   .active {
-    color: ${({ theme }) => theme.pinkHot};
+    background-color: ${COLORS.primary};
+
+    &:hover,
+    &:focus {
+      background-color: ${COLORS.primaryDark};
+    }
   }
 `;

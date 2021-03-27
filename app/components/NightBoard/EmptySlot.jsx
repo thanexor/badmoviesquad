@@ -8,7 +8,7 @@ import { recordPick } from 'services/activity';
 import Particles from 'react-particles-js';
 import particleConfig from './particleConfig';
 
-import useBoop from '../../hooks/use-boop';
+import useBoop from '../../hooks/useBoop';
 import { animated } from 'react-spring';
 
 import Button from 'components/Button';

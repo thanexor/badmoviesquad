@@ -6,7 +6,8 @@ import { NavLink } from 'react-router-dom';
 import { getUserBacklog, getActiveNights, getActivity } from 'services/read';
 
 import { useFetchedData } from 'app/hooks';
-import useBoop from '../../hooks/use-boop';
+import useBoop from '../../hooks/useBoop';
+import useWindowSize from '../../hooks/useWindowSize';
 import { animated } from 'react-spring';
 
 import TMDBSearchModal from 'components/TMDBSearchModal';
@@ -17,6 +18,7 @@ import NavItem from './NavItem';
 import SignOutButton from './SignOutButton';
 import Profile from './Profile';
 import User from './User';
+import Spacer from '../Spacer';
 
 import { Menu } from 'icon';
 
@@ -26,6 +28,7 @@ const NavTheme = styled.nav`
   top: 0;
   z-index: 30;
   background-color: ${({ theme }) => theme.purpleDark};
+  box-shadow: 0 7px 16px 0px ${({ theme }) => theme.purpleSuperdarkTransparent};
 
   svg {
     width: 2em;
@@ -40,26 +43,26 @@ const NavContainer = styled.div`
   /* Site container */
   margin-right: auto;
   margin-left: auto;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 24px;
+  padding-left: 24px;
   max-width: 1540px;
 
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
 
   ${({ theme }) => theme.mediaBreakpoint.md} {
-    padding-top: 0;
-    padding-bottom: 0;
+    padding-top: 0.75em;
+    padding-bottom: 0.75em;
   }
 `;
 
 const Logo = styled.div`
-  flex: 1 0 25%;
-  ${({ theme }) => theme.textAlign.textLeft};
+  margin-right: auto;
+  text-align: left;
 `;
 
 const LogoNavLink = styled(NavLink)`
-  font-family: ${({ theme }) => theme.logoFont.creepster};
+  font-family: ${({ theme }) => theme.fontFamily.creepster};
   color: ${({ theme }) => theme.limeGreem};
   margin-top: 0;
   margin-bottom: 0;
@@ -123,7 +126,7 @@ const StyledNavList = styled(NavList)`
 `;
 
 const StyledUser = styled(User)`
-  flex: 0 0 50%;
+  flex: 1;
   justify-content: flex-end;
   order: 3;
 
@@ -137,32 +140,31 @@ const UserInfo = styled.div`
   text-align: right;
   font-size: 0.75em;
   padding-right: 0;
+`;
 
+const MobileOnlyWrapper = styled.div`
+  display: flex;
+  order: 4;
   ${({ theme }) => theme.mediaBreakpoint.md} {
-    padding-right: 1em;
+    display: none;
   }
 `;
 
 const HamburgerButton = styled.div`
-  display: block;
+  display: inline-flex;
   width: 2em;
   height: 2em;
   position: relative;
   font-size: 1.2rem;
   background-color: transparent;
   cursor: pointer;
-  order: 4;
-
-  ${({ theme }) => theme.mediaBreakpoint.md} {
-    display: none;
-  }
 `;
 
 const SearchContainer = styled.div`
   text-align: right;
   position: fixed;
   bottom: 1em;
-  right: 3em;
+  right: 24px;
   z-index: 30;
   margin: -3.5em 0 1.5em;
 
@@ -202,6 +204,7 @@ export default function Nav(props) {
   const [searchStyle, searchTrigger] = useBoop({ rotation: 20, timing: 150 });
   const [menuStyle, menuTrigger] = useBoop({ x: 1.2, timing: 100 });
   const [logoStyle, logoTrigger] = useBoop({ rotation: 1, timing: 200 });
+  const windowSize = useWindowSize();
 
   const menuRef = useRef(null);
 
@@ -228,7 +231,9 @@ export default function Nav(props) {
         <NavContainer>
           <Logo>
             <LogoNavLink to='/' className='h--100' onMouseEnter={logoTrigger}>
-              <animated.span style={logoStyle}>Bad Movie Squad</animated.span>
+              <animated.span style={logoStyle}>
+                {windowSize.width > 1000 ? 'Bad Movie Squad' : 'BMS'}
+              </animated.span>
             </LogoNavLink>
           </Logo>
           <StyledNavList ref={menuRef} openMenu={openMenu}>
@@ -257,17 +262,21 @@ export default function Nav(props) {
             <UserInfo>
               <Profile username={props.username} avatarURL={props.avatarURL} />
             </UserInfo>
+            <Spacer size={20} axis='horizontal' />
             <SignOutButton />
           </StyledUser>
-          <HamburgerButton
-            onClick={() => setOpenMenu(true)}
-            onMouseEnter={menuTrigger}
-          >
-            <animated.span style={menuStyle}>
-              <Menu />
-            </animated.span>
-          </HamburgerButton>
-          <MenuOverlay openMenu={openMenu} />
+          <MobileOnlyWrapper>
+            <Spacer size={15} axis='horizontal' />
+            <HamburgerButton
+              onClick={() => setOpenMenu(true)}
+              onMouseEnter={menuTrigger}
+            >
+              <animated.span style={menuStyle}>
+                <Menu />
+              </animated.span>
+            </HamburgerButton>
+            <MenuOverlay openMenu={openMenu} />
+          </MobileOnlyWrapper>
         </NavContainer>
       </NavTheme>
       <SearchContainer>

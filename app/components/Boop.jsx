@@ -1,7 +1,7 @@
-import React from 'react'
-import { animated } from 'react-spring'
+import React from 'react';
+import { animated } from 'react-spring';
 
-import useBoop from '../hooks/use-boop'
+import useBoop from '../hooks/useBoop';
 
 const Boop = ({ children, ...boopConfig }) => {
   const [style, trigger] = useBoop(boopConfig);
@@ -11,6 +11,6 @@ const Boop = ({ children, ...boopConfig }) => {
       {children}
     </animated.span>
   );
-}
+};
 
 export default Boop;

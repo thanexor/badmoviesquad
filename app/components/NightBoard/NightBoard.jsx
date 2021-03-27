@@ -8,7 +8,6 @@ import EmptySlot from './EmptySlot';
 const Container = styled.div`
   header p {
     margin-top: 0;
-    font-weight: bold;
   }
 `;
 
@@ -17,7 +16,7 @@ const Title = styled.h2``;
 const Slots = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1em;
+  gap: 24px;
 
   ${({ theme }) => theme.mediaBreakpoint.md} {
     grid-template-columns: 1fr 1fr;

@@ -10,6 +10,7 @@ const theme = {
 
   purpleDark: '#260850',
   purpleSuperdark: '#120425',
+  purpleSuperdarkTransparent: 'hsla(265, 80%, 8%, 0.5)',
 
   pinkHot: '#f0407b',
   pinkHotter: '#d41d5a',
@@ -17,7 +18,7 @@ const theme = {
   limeGreemDark: '#95c029',
 
   // TYPOGRAPHY
-  logoFont: {
+  fontFamily: {
     creepster: "'Creepster', cursive",
     permanentMarker: "'Permanent Marker', cursive",
     systemFonts:
@@ -32,15 +33,6 @@ const theme = {
     w700: 'font-weight: 700;',
     w800: 'font-weight: 800;',
     w900: 'font-weight: 900;',
-  },
-
-  // Alignment
-  textAlign: {
-    textLeft: 'text-align: left;',
-    textRight: 'text-align: right;',
-    textCenter: 'text-align: center;',
-    textJustify: 'text-align: justify;',
-    textNoWrap: 'text-align: nowrap;',
   },
 
   // BREAKPOINTS
