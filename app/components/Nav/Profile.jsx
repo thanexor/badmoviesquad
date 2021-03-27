@@ -2,9 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-// import { getScores } from 'services/read';
-// import { useFetchedData } from 'app/hooks';
-
 import Tooltip from '../Tooltip';
 import Spacer from '../Spacer';
 
@@ -29,15 +26,12 @@ const Points = styled.span`
 
 const propTypes = {
   className: PropTypes.string,
-  score: PropTypes.number.isRequired,
   username: PropTypes.string.isRequired,
+  points: PropTypes.string.isRequired,
   avatarURL: PropTypes.string.isRequired,
 };
 
 function Profile(props) {
-  // TODO: Need to get currentUser score not all scores
-  // const [userScores] = useFetchedData(getScores);
-
   return (
     <Container className={props.className}>
       <Tooltip
@@ -49,7 +43,7 @@ function Profile(props) {
         <ProfileImage src={props.avatarURL} />
       </Tooltip>
       <Spacer size={10} axis='horizontal' />
-      <Points>420 pts</Points>
+      <Points>{props.points} pts</Points>
     </Container>
   );
 }

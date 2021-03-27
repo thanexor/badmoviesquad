@@ -68,6 +68,7 @@ const LogoNavLink = styled(NavLink)`
   margin-bottom: 0;
   text-decoration: none;
   transition: color 150ms ease-in-out;
+  font-size: clamp(3.6rem, 5vw, 4.4rem);
 
   &:hover {
     color: ${({ theme }) => theme.limeGreemDark};
@@ -103,7 +104,7 @@ const StyledNavList = styled(NavList)`
   justify-content: flex-start;
 
   background-color: ${({ theme }) => theme.purpleDark};
-  padding: 1em 5em;
+  padding: 3em 5em;
 
   transform: ${({ openMenu }) =>
     openMenu ? `translateX(0)` : `translateX(100%)`};
@@ -113,7 +114,7 @@ const StyledNavList = styled(NavList)`
     position: relative;
     top: unset;
     right: unset;
-    flex: 0 0 50%;
+    flex: 1;
     flex-direction: row;
     justify-content: center;
     order: 2;
@@ -126,13 +127,9 @@ const StyledNavList = styled(NavList)`
 `;
 
 const StyledUser = styled(User)`
-  flex: 1;
+  margin-left: auto;
   justify-content: flex-end;
   order: 3;
-
-  ${({ theme }) => theme.mediaBreakpoint.md} {
-    flex: 0 0 25%;
-  }
 `;
 
 const UserInfo = styled.div`
@@ -191,6 +188,7 @@ const SearchButton = styled(Button)`
 
 const propTypes = {
   username: PropTypes.string,
+  points: PropTypes.string,
   avatarURL: PropTypes.string.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   isAdmin: PropTypes.bool.isRequired,
@@ -212,9 +210,13 @@ export default function Nav(props) {
     // close menu when user clicks outside it
     const closeMenu = (e) => {
       if (menuRef.current && menuRef.current.contains(e.target)) {
+        if (e.target.hasAttribute('data-menu-link')) {
+          setTimeout(() => {
+            setOpenMenu(false);
+          }, 100);
+        }
         return;
       }
-
       setOpenMenu(false);
     };
 
@@ -230,7 +232,7 @@ export default function Nav(props) {
       <NavTheme>
         <NavContainer>
           <Logo>
-            <LogoNavLink to='/' className='h--100' onMouseEnter={logoTrigger}>
+            <LogoNavLink to='/' onMouseEnter={logoTrigger}>
               <animated.span style={logoStyle}>
                 {windowSize.width > 1000 ? 'Bad Movie Squad' : 'BMS'}
               </animated.span>
@@ -238,17 +240,30 @@ export default function Nav(props) {
           </Logo>
           <StyledNavList ref={menuRef} openMenu={openMenu}>
             <NavItem>
-              <NavLink exact to='/' activeClassName='active'>
+              <NavLink
+                exact
+                to='/'
+                activeClassName='active'
+                data-menu-link='true'
+              >
                 Home
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to='/scores' activeClassName='active'>
+              <NavLink
+                to='/scores'
+                activeClassName='active'
+                data-menu-link='true'
+              >
                 Scores
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to='/movies' activeClassName='active'>
+              <NavLink
+                to='/movies'
+                activeClassName='active'
+                data-menu-link='true'
+              >
                 Movies
               </NavLink>
             </NavItem>
@@ -260,7 +275,11 @@ export default function Nav(props) {
           </StyledNavList>
           <StyledUser>
             <UserInfo>
-              <Profile username={props.username} avatarURL={props.avatarURL} />
+              <Profile
+                username={props.username}
+                points={props.points}
+                avatarURL={props.avatarURL}
+              />
             </UserInfo>
             <Spacer size={20} axis='horizontal' />
             <SignOutButton />

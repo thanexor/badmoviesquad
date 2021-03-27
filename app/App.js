@@ -7,7 +7,12 @@ import {
   Redirect,
 } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { isLoggedIn, getUsername, getIsAdmin } from 'reduxState/selectors';
+import {
+  isLoggedIn,
+  getUsername,
+  getPoints,
+  getIsAdmin,
+} from 'reduxState/selectors';
 
 import Nav from 'components/Nav';
 
@@ -113,6 +118,7 @@ function App(props) {
           {props.isLoggedIn && (
             <Nav
               username={props.username}
+              points={props.points}
               isLoggedIn={props.isLoggedIn}
               isAdmin={props.isAdmin}
             />
@@ -148,5 +154,6 @@ function App(props) {
 export default connect((state) => ({
   isLoggedIn: isLoggedIn(state),
   username: getUsername(state),
+  points: getPoints(state),
   isAdmin: getIsAdmin(state),
 }))(App);

@@ -9,10 +9,10 @@ export default styled.li`
     line-height: 1;
     padding: 0.2em 0.5em 0.5em;
     background-color: transparent;
-    border-radius: 4px;
+    border-radius: 8px;
     text-decoration: none;
     color: ${COLORS.white};
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 500;
     transition: background-color 100ms ease-in-out;
 
@@ -23,11 +23,21 @@ export default styled.li`
   }
 
   .active {
-    background-color: ${COLORS.primary};
+    background: ${COLORS.primary};
+    background: linear-gradient(
+      145deg,
+      ${COLORS.primary} -50%,
+      ${COLORS.pinkHotter} 100%
+    );
 
     &:hover,
     &:focus {
-      background-color: ${COLORS.primaryDark};
+      background: ${COLORS.primaryDark};
+      background: linear-gradient(
+        145deg,
+        ${COLORS.pinkHotter} -50%,
+        ${COLORS.primary} 100%
+      );
     }
   }
 `;
