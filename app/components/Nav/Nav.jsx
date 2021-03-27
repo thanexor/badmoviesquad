@@ -93,20 +93,22 @@ const StyledNavList = styled(NavList)`
   top: 0;
   right: 0;
   z-index: 100;
+  width: 30vw;
   height: 100%;
   flex-direction: column;
   justify-content: flex-start;
-
   background-color: ${COLORS.purpleDark};
   padding: 3em 5em;
 
-  transform: ${({ openMenu }) => openMenu ? `translateX(0)` : `translateX(100%)`};
+  transform: ${({ openMenu }) =>
+    openMenu ? `translateX(0)` : `translateX(100%)`};
   transition: transform 150ms ease-in;
 
   ${({ theme }) => theme.mediaBreakpoint.md} {
     position: relative;
     top: unset;
     right: unset;
+    width: 100%;
     flex: 1;
     flex-direction: row;
     justify-content: center;
@@ -200,11 +202,13 @@ export default function Nav(props) {
   return (
     <>
       <NavTheme>
-        <MaxWidthWrapper onClick={(e) => {
-          if (openMenu) {
-            setOpenMenu(false)
-          }
-        }}>
+        <MaxWidthWrapper
+          onClick={(e) => {
+            if (openMenu) {
+              setOpenMenu(false);
+            }
+          }}
+        >
           <NavContainer>
             <Logo>
               <LogoNavLink to='/' onMouseEnter={logoTrigger}>
@@ -213,11 +217,11 @@ export default function Nav(props) {
                 </animated.span>
               </LogoNavLink>
             </Logo>
-            <StyledNavList 
+            <StyledNavList
               openMenu={openMenu}
               onClick={(e) => {
                 // stop event bubbling so we don't close the menu on a side menu mis-click
-                e.stopPropagation()
+                e.stopPropagation();
               }}
             >
               <NavItem>
@@ -250,10 +254,7 @@ export default function Nav(props) {
               </NavItem>
               {props.isAdmin ? (
                 <NavItem>
-                  <NavLink
-                    to='/admin'
-                    onClick={() => setOpenMenu(false)}
-                  >
+                  <NavLink to='/admin' onClick={() => setOpenMenu(false)}>
                     Admin
                   </NavLink>
                 </NavItem>
