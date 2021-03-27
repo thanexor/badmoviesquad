@@ -1,7 +1,8 @@
 const path = require('path');
 // const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   mode: 'development',
@@ -9,7 +10,7 @@ module.exports = {
   devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, 'public'),
-    filename: 'app.bundle.js'
+    filename: 'app.bundle.js',
   },
   devServer: {
     contentBase: path.join(__dirname, 'public'),
@@ -22,27 +23,21 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: [
-          { loader: 'babel-loader' },
-        ]
+        use: [{ loader: 'babel-loader' }],
       },
-      // {
-      //   test: /\.sass$/,
-      //   use: [
-      //     { loader: MiniCssExtractPlugin.loader, },
-      //     "style-loader",
-      //     "css-loader",
-      //     "sass-loader",
-      //   ]
-      // },
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
     ],
   },
   plugins: [
     // new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       title: 'Bad Movie Squad',
-      template: 'app/index.html'
-    })
+      template: 'app/index.html',
+    }),
   ],
   resolve: {
     extensions: ['*', '.js', '.jsx', 'html', 'ts', 'json'],
@@ -53,6 +48,6 @@ module.exports = {
       icon: path.resolve(__dirname, 'app/icon/'),
       reduxState: path.resolve(__dirname, 'app/reduxState/'),
       services: path.resolve(__dirname, 'app/services/'),
-    }
-  }
+    },
+  },
 };
