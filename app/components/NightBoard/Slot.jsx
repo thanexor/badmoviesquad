@@ -5,11 +5,13 @@ import styled from 'styled-components';
 import { outbidPick } from 'services/writes';
 import { recordOutbid } from 'services/activity';
 
-import useBoop from '../../hooks/use-boop';
+import useBoop from '../../hooks/useBoop';
 import { animated } from 'react-spring';
 
 import Button from 'components/Button';
 import MovieSearchModal from 'components/MovieSearchModal';
+import PointsPill from '../PointsPill';
+import { COLORS } from '../../constants';
 
 const Container = styled.div`
   display: grid;
@@ -22,17 +24,17 @@ const Container = styled.div`
   flex-direction: column;
   align-items: flex-end;
   justify-content: flex-end;
+  background: rgb(255, 0, 226);
   background: linear-gradient(
-      to bottom,
-      rgba(38, 8, 80, 0.5) 50%,
-      rgb(0, 0, 0) 100%
+      145deg,
+      rgba(255, 0, 226, 0.8) -50%,
+      rgba(38, 8, 80, 0.8) 100%
     ),
     url(${(props) => props.poster_path});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  border: 2px solid ${({ theme }) => theme.primary};
-  border-radius: 4px;
+  border-radius: 10px;
   flex: 0 0 50%;
   box-sizing: border-box;
   min-height: 350px;
@@ -66,18 +68,13 @@ const MovieLink = styled.a`
 const MovieDate = styled.span`
   margin-left: 10px;
   font-size: 70%;
-  color: ${({ theme }) => theme.grey06};
+  color: ${COLORS.gray[600]};
 `;
 
 const PointCost = styled.div`
   align-self: flex-start;
   justify-self: flex-end;
   grid-area: point-cost;
-  font-size: 1.4rem;
-  padding: 0.25em 0.5em;
-  border-radius: 4px;
-  background-color: ${({ theme }) => theme.purpleSuperdark};
-  color: white;
 `;
 
 const PickedBy = styled.span`
@@ -86,7 +83,7 @@ const PickedBy = styled.span`
   padding: 0.5em 1em;
   border-radius: 100px;
   font-size: 1.6rem;
-  color: ${({ theme }) => theme.pinkHot};
+  color: ${COLORS.pinkHot};
   background-color: #ffffff;
 `;
 
@@ -109,14 +106,14 @@ function Slot(props) {
 
   const { movie, picker, tax } = props.pick;
 
-  console.log(movie);
-
   return (
     <Container className={props.className} poster_path={movie.poster_path}>
       <PickedBy>
         Picked by: <strong>{picker.displayName}</strong>
       </PickedBy>
-      <PointCost>{tax + 3} pts</PointCost>
+      <PointCost>
+        <PointsPill>{tax + 3} pts</PointsPill>
+      </PointCost>
       <MovieTitle target='_blank' href={movie.info_url}>
         <MovieLink target='_blank' href={movie.info_url}>
           {movie.title}

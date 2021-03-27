@@ -1,3 +1,4 @@
+import { transform } from 'lodash';
 import { useState, useEffect, useCallback } from 'react';
 import { useSpring } from 'react-spring';
 
@@ -17,6 +18,7 @@ function useBoop({
   const style = useSpring({
     display: 'inline-block',
     backfaceVisibility: 'hidden',
+    willChange: 'transform',
     transform: isBooped
       ? `
         translate(${x}px, ${y}px)
@@ -34,7 +36,7 @@ function useBoop({
   useEffect(() => {
     if (!isBooped) {
       return;
-    };
+    }
 
     const timeoutId = window.setTimeout(() => {
       setIsBooped(false);
@@ -43,7 +45,6 @@ function useBoop({
     return () => {
       window.clearTimeout(timeoutId);
     };
-
   }, [isBooped, timing]);
 
   const trigger = useCallback(() => {
@@ -51,6 +52,6 @@ function useBoop({
   }, []);
 
   return [style, trigger];
-};
+}
 
 export default useBoop;

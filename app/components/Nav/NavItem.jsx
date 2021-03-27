@@ -1,27 +1,34 @@
 import styled from 'styled-components';
 
-export default styled.li`
-  padding: 1em 0.25em;
-  ${({ theme }) => theme.textAlign.textCenter}
+import { COLORS } from '../../constants';
 
-  ${({ theme }) => theme.mediaBreakpoint.md} {
-    padding: 1.25em 2em;
-  }
+export default styled.li`
+  text-align: center;
 
   a {
+    display: block;
+    line-height: 1;
+    padding: 12px 20px 16px;
+    background-color: transparent;
+    border-radius: 50px;
     text-decoration: none;
-    color: #fff;
-    font-size: 1.8rem;
-    font-weight: bold;
-    transition: color 100ms ease-in-out;
+    color: ${COLORS.white};
+    font-size: 2rem;
+    font-weight: 500;
+    transition: background-color 100ms ease-in-out;
 
     &:hover,
     &:focus {
-      color: ${({ theme }) => theme.pinkHot};
+      background-color: ${COLORS.purpleSuperdark};
     }
   }
 
   .active {
-    color: ${({ theme }) => theme.pinkHot};
+    background: ${COLORS.primaryDark};
+    background: linear-gradient(
+      145deg,
+      ${COLORS.pinkHotter} -50%,
+      ${COLORS.primary} 100%
+    );
   }
 `;

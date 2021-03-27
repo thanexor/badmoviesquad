@@ -14,8 +14,8 @@ const propTypes = {
   className: PropTypes.string,
   isOpen: PropTypes.bool.isRequired,
   onRequestClose: PropTypes.func.isRequired,
-  allMovies: PropTypes.array.isRequired,
-  onClick: PropTypes.func.isRequired,
+  allMovies: PropTypes.array,
+  onClick: PropTypes.func,
   tax: PropTypes.number,
   refreshActivity: PropTypes.func.isRequired,
 };

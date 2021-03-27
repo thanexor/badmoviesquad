@@ -8,11 +8,12 @@ import { recordPick } from 'services/activity';
 import Particles from 'react-particles-js';
 import particleConfig from './particleConfig';
 
-import useBoop from '../../hooks/use-boop';
+import useBoop from '../../hooks/useBoop';
 import { animated } from 'react-spring';
 
 import Button from 'components/Button';
 import MovieSearchModal from 'components/MovieSearchModal';
+import { COLORS } from '../../constants';
 
 const Container = styled.div`
   display: flex;
@@ -21,8 +22,8 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.purpleDark};
-  border-radius: 4px;
+  background-color: ${COLORS.purpleDark};
+  border-radius: 10px;
 `;
 
 const Content = styled.div`

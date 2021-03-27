@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
-import { getUserBacklog, getActiveNights, getActivity } from 'services/read';
+import { getActivity } from 'services/read';
 
 import { useFetchedData } from 'app/hooks';
-import useBoop from '../../hooks/use-boop';
+import useBoop from '../../hooks/useBoop';
+import useWindowSize from '../../hooks/useWindowSize';
 import { animated } from 'react-spring';
 
 import TMDBSearchModal from 'components/TMDBSearchModal';
@@ -17,15 +18,19 @@ import NavItem from './NavItem';
 import SignOutButton from './SignOutButton';
 import Profile from './Profile';
 import User from './User';
+import Spacer from '../Spacer';
 
 import { Menu } from 'icon';
+import MaxWidthWrapper from '../MaxWidthWrapper';
+import { COLORS } from '../../constants';
 
 // styled components
 const NavTheme = styled.nav`
   position: sticky;
   top: 0;
   z-index: 30;
-  background-color: ${({ theme }) => theme.purpleDark};
+  background-color: ${COLORS.purpleDark};
+  box-shadow: 0 7px 16px 0px ${COLORS.purpleSuperdarkTransparent};
 
   svg {
     width: 2em;
@@ -34,40 +39,33 @@ const NavTheme = styled.nav`
 
 const NavContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
 
-  /* Site container */
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: 15px;
-  padding-left: 15px;
-  max-width: 1540px;
-
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
 
   ${({ theme }) => theme.mediaBreakpoint.md} {
-    padding-top: 0;
-    padding-bottom: 0;
+    padding-top: 0.75em;
+    padding-bottom: 0.75em;
   }
 `;
 
 const Logo = styled.div`
-  flex: 1 0 25%;
-  ${({ theme }) => theme.textAlign.textLeft};
+  margin-right: auto;
+  text-align: left;
 `;
 
 const LogoNavLink = styled(NavLink)`
-  font-family: ${({ theme }) => theme.logoFont.creepster};
-  color: ${({ theme }) => theme.limeGreem};
+  font-family: ${({ theme }) => theme.fontFamily.creepster};
+  color: ${COLORS.limeGreem};
   margin-top: 0;
   margin-bottom: 0;
   text-decoration: none;
   transition: color 150ms ease-in-out;
+  font-size: clamp(3.6rem, 4vw, 5.4rem);
 
   &:hover {
-    color: ${({ theme }) => theme.limeGreemDark};
+    color: ${COLORS.limeGreemDark};
   }
 `;
 
@@ -99,18 +97,17 @@ const StyledNavList = styled(NavList)`
   flex-direction: column;
   justify-content: flex-start;
 
-  background-color: ${({ theme }) => theme.purpleDark};
-  padding: 1em 5em;
+  background-color: ${COLORS.purpleDark};
+  padding: 3em 5em;
 
-  transform: ${({ openMenu }) =>
-    openMenu ? `translateX(0)` : `translateX(100%)`};
+  transform: ${({ openMenu }) => openMenu ? `translateX(0)` : `translateX(100%)`};
   transition: transform 150ms ease-in;
 
   ${({ theme }) => theme.mediaBreakpoint.md} {
     position: relative;
     top: unset;
     right: unset;
-    flex: 0 0 50%;
+    flex: 1;
     flex-direction: row;
     justify-content: center;
     order: 2;
@@ -123,13 +120,9 @@ const StyledNavList = styled(NavList)`
 `;
 
 const StyledUser = styled(User)`
-  flex: 0 0 50%;
+  margin-left: auto;
   justify-content: flex-end;
   order: 3;
-
-  ${({ theme }) => theme.mediaBreakpoint.md} {
-    flex: 0 0 25%;
-  }
 `;
 
 const UserInfo = styled.div`
@@ -137,32 +130,31 @@ const UserInfo = styled.div`
   text-align: right;
   font-size: 0.75em;
   padding-right: 0;
+`;
 
+const MobileOnlyWrapper = styled.div`
+  display: flex;
+  order: 4;
   ${({ theme }) => theme.mediaBreakpoint.md} {
-    padding-right: 1em;
+    display: none;
   }
 `;
 
 const HamburgerButton = styled.div`
-  display: block;
+  display: inline-flex;
   width: 2em;
   height: 2em;
   position: relative;
   font-size: 1.2rem;
   background-color: transparent;
   cursor: pointer;
-  order: 4;
-
-  ${({ theme }) => theme.mediaBreakpoint.md} {
-    display: none;
-  }
 `;
 
 const SearchContainer = styled.div`
   text-align: right;
   position: fixed;
   bottom: 1em;
-  right: 3em;
+  right: 24px;
   z-index: 30;
   margin: -3.5em 0 1.5em;
 
@@ -179,16 +171,17 @@ const SearchContainer = styled.div`
 const SearchButton = styled(Button)`
   padding: 25.08px 22px;
   border-radius: 100px;
-  background-color: ${({ theme }) => theme.limeGreem};
+  background-color: ${COLORS.limeGreem};
 
   &:hover,
   &:focus {
-    background-color: ${({ theme }) => theme.limeGreemDark};
+    background-color: ${COLORS.limeGreemDark};
   }
 `;
 
 const propTypes = {
   username: PropTypes.string,
+  points: PropTypes.number,
   avatarURL: PropTypes.string.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   isAdmin: PropTypes.bool.isRequired,
@@ -202,73 +195,95 @@ export default function Nav(props) {
   const [searchStyle, searchTrigger] = useBoop({ rotation: 20, timing: 150 });
   const [menuStyle, menuTrigger] = useBoop({ x: 1.2, timing: 100 });
   const [logoStyle, logoTrigger] = useBoop({ rotation: 1, timing: 200 });
-
-  const menuRef = useRef(null);
-
-  useEffect(() => {
-    // close menu when user clicks outside it
-    const closeMenu = (e) => {
-      if (menuRef.current && menuRef.current.contains(e.target)) {
-        return;
-      }
-
-      setOpenMenu(false);
-    };
-
-    document.addEventListener('mousedown', closeMenu);
-
-    return () => {
-      document.removeEventListener('mousedown', closeMenu);
-    };
-  }, []);
+  const windowSize = useWindowSize();
 
   return (
     <>
       <NavTheme>
-        <NavContainer>
-          <Logo>
-            <LogoNavLink to='/' className='h--100' onMouseEnter={logoTrigger}>
-              <animated.span style={logoStyle}>Bad Movie Squad</animated.span>
-            </LogoNavLink>
-          </Logo>
-          <StyledNavList ref={menuRef} openMenu={openMenu}>
-            <NavItem>
-              <NavLink exact to='/' activeClassName='active'>
-                Home
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink to='/scores' activeClassName='active'>
-                Scores
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink to='/movies' activeClassName='active'>
-                Movies
-              </NavLink>
-            </NavItem>
-            {props.isAdmin ? (
+        <MaxWidthWrapper onClick={(e) => {
+          if (openMenu) {
+            setOpenMenu(false)
+          }
+        }}>
+          <NavContainer>
+            <Logo>
+              <LogoNavLink to='/' onMouseEnter={logoTrigger}>
+                <animated.span style={logoStyle}>
+                  {windowSize.width > 1000 ? 'Bad Movie Squad' : 'BMS'}
+                </animated.span>
+              </LogoNavLink>
+            </Logo>
+            <StyledNavList 
+              openMenu={openMenu}
+              onClick={(e) => {
+                // stop event bubbling so we don't close the menu on a side menu mis-click
+                e.stopPropagation()
+              }}
+            >
               <NavItem>
-                <NavLink to='/admin'>Admin</NavLink>
+                <NavLink
+                  exact
+                  to='/'
+                  activeClassName='active'
+                  onClick={() => setOpenMenu(false)}
+                >
+                  Home
+                </NavLink>
               </NavItem>
-            ) : null}
-          </StyledNavList>
-          <StyledUser>
-            <UserInfo>
-              <Profile username={props.username} avatarURL={props.avatarURL} />
-            </UserInfo>
-            <SignOutButton />
-          </StyledUser>
-          <HamburgerButton
-            onClick={() => setOpenMenu(true)}
-            onMouseEnter={menuTrigger}
-          >
-            <animated.span style={menuStyle}>
-              <Menu />
-            </animated.span>
-          </HamburgerButton>
-          <MenuOverlay openMenu={openMenu} />
-        </NavContainer>
+              <NavItem>
+                <NavLink
+                  to='/scores'
+                  activeClassName='active'
+                  onClick={() => setOpenMenu(false)}
+                >
+                  Scores
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  to='/movies'
+                  activeClassName='active'
+                  onClick={() => setOpenMenu(false)}
+                >
+                  Movies
+                </NavLink>
+              </NavItem>
+              {props.isAdmin ? (
+                <NavItem>
+                  <NavLink
+                    to='/admin'
+                    onClick={() => setOpenMenu(false)}
+                  >
+                    Admin
+                  </NavLink>
+                </NavItem>
+              ) : null}
+            </StyledNavList>
+            <StyledUser>
+              <UserInfo>
+                <Profile
+                  username={props.username}
+                  points={props.points}
+                  avatarURL={props.avatarURL}
+                />
+              </UserInfo>
+              <Spacer size={20} axis='horizontal' />
+              <SignOutButton />
+            </StyledUser>
+            <MobileOnlyWrapper>
+              <Spacer size={15} axis='horizontal' />
+              <HamburgerButton
+                onClick={() => setOpenMenu(true)}
+                onMouseEnter={menuTrigger}
+              >
+                <animated.span style={menuStyle}>
+                  <Menu />
+                </animated.span>
+              </HamburgerButton>
+              <MenuOverlay openMenu={openMenu} />
+            </MobileOnlyWrapper>
+          </NavContainer>
+        </MaxWidthWrapper>
       </NavTheme>
       <SearchContainer>
         <SearchButton

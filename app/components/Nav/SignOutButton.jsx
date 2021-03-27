@@ -3,19 +3,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Button from 'components/Button';
-import useBoop from '../../hooks/use-boop';
+import useBoop from '../../hooks/useBoop';
 import { animated } from 'react-spring';
 
 import { signOut } from 'services/auth';
-
-const StyledButton = styled(Button)`
-  margin-right: 10px;
-  padding: 0.5em 0.75em;
-
-  ${({ theme }) => theme.mediaBreakpoint.md} {
-    margin-right: 0;
-  }
-`;
 
 const propTypes = {
   className: PropTypes.string,
@@ -25,13 +16,13 @@ function SignOutButton(props) {
   const [style, trigger] = useBoop({ scale: 1.025, timing: 150 });
 
   return (
-    <StyledButton
+    <Button
       className={props.className}
       onClick={signOut}
       onMouseEnter={trigger}
     >
       <animated.span style={style}>Sign Out</animated.span>
-    </StyledButton>
+    </Button>
   );
 }
 
