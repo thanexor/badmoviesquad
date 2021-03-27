@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
-import { getUserBacklog, getActiveNights, getActivity } from 'services/read';
+import { getActivity } from 'services/read';
 
 import { useFetchedData } from 'app/hooks';
 import useBoop from '../../hooks/useBoop';
@@ -100,8 +100,7 @@ const StyledNavList = styled(NavList)`
   background-color: ${COLORS.purpleDark};
   padding: 3em 5em;
 
-  transform: ${({ openMenu }) =>
-    openMenu ? `translateX(0)` : `translateX(100%)`};
+  transform: ${({ openMenu }) => openMenu ? `translateX(0)` : `translateX(100%)`};
   transition: transform 150ms ease-in;
 
   ${({ theme }) => theme.mediaBreakpoint.md} {
@@ -198,33 +197,14 @@ export default function Nav(props) {
   const [logoStyle, logoTrigger] = useBoop({ rotation: 1, timing: 200 });
   const windowSize = useWindowSize();
 
-  const menuRef = useRef(null);
-
-  useEffect(() => {
-    // close menu when user clicks outside it
-    const closeMenu = (e) => {
-      if (menuRef.current && menuRef.current.contains(e.target)) {
-        if (e.target.hasAttribute('data-menu-link')) {
-          setTimeout(() => {
-            setOpenMenu(false);
-          }, 100);
-        }
-        return;
-      }
-      setOpenMenu(false);
-    };
-
-    document.addEventListener('mousedown', closeMenu);
-
-    return () => {
-      document.removeEventListener('mousedown', closeMenu);
-    };
-  }, []);
-
   return (
     <>
       <NavTheme>
-        <MaxWidthWrapper>
+        <MaxWidthWrapper onClick={(e) => {
+          if (openMenu) {
+            setOpenMenu(false)
+          }
+        }}>
           <NavContainer>
             <Logo>
               <LogoNavLink to='/' onMouseEnter={logoTrigger}>
@@ -233,13 +213,19 @@ export default function Nav(props) {
                 </animated.span>
               </LogoNavLink>
             </Logo>
-            <StyledNavList ref={menuRef} openMenu={openMenu}>
+            <StyledNavList 
+              openMenu={openMenu}
+              onClick={(e) => {
+                // stop event bubbling so we don't close the menu on a side menu mis-click
+                e.stopPropagation()
+              }}
+            >
               <NavItem>
                 <NavLink
                   exact
                   to='/'
                   activeClassName='active'
-                  data-menu-link='true'
+                  onClick={() => setOpenMenu(false)}
                 >
                   Home
                 </NavLink>
@@ -248,7 +234,7 @@ export default function Nav(props) {
                 <NavLink
                   to='/scores'
                   activeClassName='active'
-                  data-menu-link='true'
+                  onClick={() => setOpenMenu(false)}
                 >
                   Scores
                 </NavLink>
@@ -257,14 +243,19 @@ export default function Nav(props) {
                 <NavLink
                   to='/movies'
                   activeClassName='active'
-                  data-menu-link='true'
+                  onClick={() => setOpenMenu(false)}
                 >
                   Movies
                 </NavLink>
               </NavItem>
               {props.isAdmin ? (
                 <NavItem>
-                  <NavLink to='/admin'>Admin</NavLink>
+                  <NavLink
+                    to='/admin'
+                    onClick={() => setOpenMenu(false)}
+                  >
+                    Admin
+                  </NavLink>
                 </NavItem>
               ) : null}
             </StyledNavList>
