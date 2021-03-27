@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import ReactModal from 'react-modal';
 import MovieSearch from './MovieSearch';
 
-const Container = styled.div``;
+import { COLORS } from '../../constants';
 
 const propTypes = {
   className: PropTypes.string,
@@ -18,7 +18,7 @@ const propTypes = {
 
 function Modal(props) {
   return (
-    <ReactModal
+    <StyledReactModal
       isOpen={props.isOpen}
       onRequestClose={props.onRequestClose}
       style={{
@@ -27,7 +27,7 @@ function Modal(props) {
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'rgba(225, 225, 225, 0.85)',
+          backgroundColor: 'hsla(265, 80%, 8%, 0.8)',
         },
         content: {
           position: 'absolute',
@@ -35,14 +35,12 @@ function Modal(props) {
           left: '50%',
           right: '0',
           bottom: 'auto',
-          border: '1px solid rgb(204, 204, 204)',
+          backgroundColor: '#ffffff',
           overflow: 'auto',
-          borderRadius: '4px',
+          borderRadius: '10px',
           outline: 'none',
           padding: '20px',
           width: '100%',
-          maxWidth: '600px',
-          maxHeight: '80vh',
           height: '100%',
           transform: 'translateX(-50%)',
         },
@@ -53,9 +51,17 @@ function Modal(props) {
         onClick={props.onClick}
         tax={props.tax}
       />
-    </ReactModal>
+    </StyledReactModal>
   );
 }
+
+const StyledReactModal = styled(ReactModal)`
+  max-width: 80vw;
+  max-height: 80vh;
+  ${({ theme }) => theme.mediaBreakpoint.md} {
+    max-width: 600px;
+  }
+`;
 
 Modal.propTypes = propTypes;
 export default React.memo(Modal);

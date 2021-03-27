@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import PointsPill from '../PointsPill';
 import Tooltip from '../Tooltip';
 import Spacer from '../Spacer';
+import { COLORS } from '../../constants';
 
 const Container = styled.div`
   display: flex;
@@ -12,16 +14,8 @@ const Container = styled.div`
 
 const ProfileImage = styled.img`
   width: 2em;
-  border: 2px solid ${({ theme }) => theme.limeGreem};
+  border: 2px solid ${COLORS.limeGreem};
   border-radius: 50px;
-`;
-
-const Points = styled.span`
-  font-size: 1.6rem;
-  font-weight: 500;
-  padding: 0.25em 0.5em 0.5em;
-  border-radius: 4px;
-  background-color: ${({ theme }) => theme.purpleSuperdark};
 `;
 
 const propTypes = {
@@ -43,7 +37,7 @@ function Profile(props) {
         <ProfileImage src={props.avatarURL} />
       </Tooltip>
       <Spacer size={10} axis='horizontal' />
-      <Points>{props.points} pts</Points>
+      <PointsPill>{props.points} pts</PointsPill>
     </Container>
   );
 }

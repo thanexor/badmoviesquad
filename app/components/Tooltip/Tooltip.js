@@ -8,6 +8,7 @@ import 'tippy.js/dist/tippy.css'; // optional
 import 'tippy.js/animations/shift-away-subtle.css';
 
 import UnstyledButton from '../UnstyledButton';
+import { COLORS } from '../../constants';
 
 const Tooltip = ({
   content,
@@ -69,7 +70,7 @@ const StyledTooltip = styled(Tippy)`
     border: none;
     border-radius: 6px;
     background-color: hsl(0, 0%, 100%);
-    color: ${({ theme }) => theme.purpleSuperdark};
+    color: ${COLORS.purpleSuperdark};
   }
 
   &[data-placement] > .tippy-arrow {

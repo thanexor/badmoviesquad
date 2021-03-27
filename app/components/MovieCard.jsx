@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { COLORS } from '../constants';
+
 const Container = styled.div`
   position: relative;
   cursor: pointer;
@@ -16,19 +18,19 @@ const Poster = styled.img`
   transition-property: box-shadow, transform;
   will-change: box-shadow, transform;
 
-  border: 3px solid ${({ theme }) => theme.pinkHot};
+  border: 3px solid ${COLORS.pinkHot};
   box-shadow: 0 0 0 3px transparent;
   transform: translate(0, 0);
 
   // for broken images
   min-height: 65%;
   font-size: 10px;
-  color: ${({ theme }) => theme.grey03};
+  color: ${COLORS.gray[300]};
   background: rgba(255, 255, 255, 0.15);
 
   &:hover {
     transform: translate(-3px, -3px);
-    box-shadow: 2px 2px 0 2px ${({ theme }) => theme.pinkHot};
+    box-shadow: 2px 2px 0 2px ${COLORS.pinkHot};
   }
 `;
 
@@ -36,7 +38,7 @@ const Title = styled.p`
   display: block;
   margin: 0.5em 0 0;
   font-weight: normal;
-  color: ${({ theme }) => theme.grey03};
+  color: ${COLORS.grey03};
   line-height: 1.25;
 
   small {

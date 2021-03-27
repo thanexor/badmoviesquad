@@ -21,14 +21,16 @@ import User from './User';
 import Spacer from '../Spacer';
 
 import { Menu } from 'icon';
+import MaxWidthWrapper from '../MaxWidthWrapper';
+import { COLORS } from '../../constants';
 
 // styled components
 const NavTheme = styled.nav`
   position: sticky;
   top: 0;
   z-index: 30;
-  background-color: ${({ theme }) => theme.purpleDark};
-  box-shadow: 0 7px 16px 0px ${({ theme }) => theme.purpleSuperdarkTransparent};
+  background-color: ${COLORS.purpleDark};
+  box-shadow: 0 7px 16px 0px ${COLORS.purpleSuperdarkTransparent};
 
   svg {
     width: 2em;
@@ -37,15 +39,7 @@ const NavTheme = styled.nav`
 
 const NavContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-
-  /* Site container */
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: 24px;
-  padding-left: 24px;
-  max-width: 1540px;
 
   padding-top: 0.25em;
   padding-bottom: 0.25em;
@@ -63,15 +57,15 @@ const Logo = styled.div`
 
 const LogoNavLink = styled(NavLink)`
   font-family: ${({ theme }) => theme.fontFamily.creepster};
-  color: ${({ theme }) => theme.limeGreem};
+  color: ${COLORS.limeGreem};
   margin-top: 0;
   margin-bottom: 0;
   text-decoration: none;
   transition: color 150ms ease-in-out;
-  font-size: clamp(3.6rem, 5vw, 4.4rem);
+  font-size: clamp(3.6rem, 4vw, 5.4rem);
 
   &:hover {
-    color: ${({ theme }) => theme.limeGreemDark};
+    color: ${COLORS.limeGreemDark};
   }
 `;
 
@@ -103,7 +97,7 @@ const StyledNavList = styled(NavList)`
   flex-direction: column;
   justify-content: flex-start;
 
-  background-color: ${({ theme }) => theme.purpleDark};
+  background-color: ${COLORS.purpleDark};
   padding: 3em 5em;
 
   transform: ${({ openMenu }) =>
@@ -178,11 +172,11 @@ const SearchContainer = styled.div`
 const SearchButton = styled(Button)`
   padding: 25.08px 22px;
   border-radius: 100px;
-  background-color: ${({ theme }) => theme.limeGreem};
+  background-color: ${COLORS.limeGreem};
 
   &:hover,
   &:focus {
-    background-color: ${({ theme }) => theme.limeGreemDark};
+    background-color: ${COLORS.limeGreemDark};
   }
 `;
 
@@ -230,73 +224,75 @@ export default function Nav(props) {
   return (
     <>
       <NavTheme>
-        <NavContainer>
-          <Logo>
-            <LogoNavLink to='/' onMouseEnter={logoTrigger}>
-              <animated.span style={logoStyle}>
-                {windowSize.width > 1000 ? 'Bad Movie Squad' : 'BMS'}
-              </animated.span>
-            </LogoNavLink>
-          </Logo>
-          <StyledNavList ref={menuRef} openMenu={openMenu}>
-            <NavItem>
-              <NavLink
-                exact
-                to='/'
-                activeClassName='active'
-                data-menu-link='true'
-              >
-                Home
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                to='/scores'
-                activeClassName='active'
-                data-menu-link='true'
-              >
-                Scores
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                to='/movies'
-                activeClassName='active'
-                data-menu-link='true'
-              >
-                Movies
-              </NavLink>
-            </NavItem>
-            {props.isAdmin ? (
+        <MaxWidthWrapper>
+          <NavContainer>
+            <Logo>
+              <LogoNavLink to='/' onMouseEnter={logoTrigger}>
+                <animated.span style={logoStyle}>
+                  {windowSize.width > 1000 ? 'Bad Movie Squad' : 'BMS'}
+                </animated.span>
+              </LogoNavLink>
+            </Logo>
+            <StyledNavList ref={menuRef} openMenu={openMenu}>
               <NavItem>
-                <NavLink to='/admin'>Admin</NavLink>
+                <NavLink
+                  exact
+                  to='/'
+                  activeClassName='active'
+                  data-menu-link='true'
+                >
+                  Home
+                </NavLink>
               </NavItem>
-            ) : null}
-          </StyledNavList>
-          <StyledUser>
-            <UserInfo>
-              <Profile
-                username={props.username}
-                points={props.points}
-                avatarURL={props.avatarURL}
-              />
-            </UserInfo>
-            <Spacer size={20} axis='horizontal' />
-            <SignOutButton />
-          </StyledUser>
-          <MobileOnlyWrapper>
-            <Spacer size={15} axis='horizontal' />
-            <HamburgerButton
-              onClick={() => setOpenMenu(true)}
-              onMouseEnter={menuTrigger}
-            >
-              <animated.span style={menuStyle}>
-                <Menu />
-              </animated.span>
-            </HamburgerButton>
-            <MenuOverlay openMenu={openMenu} />
-          </MobileOnlyWrapper>
-        </NavContainer>
+              <NavItem>
+                <NavLink
+                  to='/scores'
+                  activeClassName='active'
+                  data-menu-link='true'
+                >
+                  Scores
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  to='/movies'
+                  activeClassName='active'
+                  data-menu-link='true'
+                >
+                  Movies
+                </NavLink>
+              </NavItem>
+              {props.isAdmin ? (
+                <NavItem>
+                  <NavLink to='/admin'>Admin</NavLink>
+                </NavItem>
+              ) : null}
+            </StyledNavList>
+            <StyledUser>
+              <UserInfo>
+                <Profile
+                  username={props.username}
+                  points={props.points}
+                  avatarURL={props.avatarURL}
+                />
+              </UserInfo>
+              <Spacer size={20} axis='horizontal' />
+              <SignOutButton />
+            </StyledUser>
+            <MobileOnlyWrapper>
+              <Spacer size={15} axis='horizontal' />
+              <HamburgerButton
+                onClick={() => setOpenMenu(true)}
+                onMouseEnter={menuTrigger}
+              >
+                <animated.span style={menuStyle}>
+                  <Menu />
+                </animated.span>
+              </HamburgerButton>
+              <MenuOverlay openMenu={openMenu} />
+            </MobileOnlyWrapper>
+          </NavContainer>
+        </MaxWidthWrapper>
       </NavTheme>
       <SearchContainer>
         <SearchButton

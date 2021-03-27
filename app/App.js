@@ -14,6 +14,8 @@ import {
   getIsAdmin,
 } from 'reduxState/selectors';
 
+import { COLORS } from './constants';
+
 import Nav from 'components/Nav';
 
 import Home from 'containers/Home';
@@ -22,13 +24,15 @@ import Scores from 'containers/Scores';
 import Login from 'containers/Login';
 import Movies from 'containers/Movies';
 import MovieDetails from 'containers/MovieDetails';
+import MaxWidthContainer from './components/MaxWidthWrapper';
 
 const Body = styled.div`
   position: relative;
   font-size: 1.6rem;
-  ${({ theme }) => theme.fontWeight.w400}
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  background-color: ${({ theme }) => theme.purpleSuperdark};
+  font-weight: 400;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  background-color: ${COLORS.purpleSuperdark};
   color: #fff;
   min-height: 100vh;
 
@@ -51,7 +55,7 @@ const Body = styled.div`
   h4,
   h5,
   h6 {
-    ${({ theme }) => theme.fontWeight.w600}
+    font-weight: 600;
     line-height: 1.2;
     margin-top: 20px;
     margin-bottom: 10px;
@@ -92,17 +96,8 @@ const Body = styled.div`
   p,
   .b--100 {
     font-size: 1.6rem;
-    ${({ theme }) => theme.fontWeight.w400}
+    font-weight: 400;
   }
-`;
-
-const Container = styled.div`
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: 24px;
-  padding-left: 24px;
-  padding-bottom: 15px;
-  max-width: 1540px;
 `;
 
 const ReactModalPortal = styled.div`
@@ -123,7 +118,7 @@ function App(props) {
               isAdmin={props.isAdmin}
             />
           )}
-          <Container>
+          <MaxWidthContainer>
             <Switch>
               <Route path='/movies'>
                 <Movies />
@@ -144,7 +139,7 @@ function App(props) {
                 {!props.isLoggedIn ? <Redirect to='/login' /> : <Home />}
               </Route>
             </Switch>
-          </Container>
+          </MaxWidthContainer>
         </div>
       </Router>
     </Body>

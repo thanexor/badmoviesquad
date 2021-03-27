@@ -10,6 +10,8 @@ import { animated } from 'react-spring';
 
 import Button from 'components/Button';
 import MovieSearchModal from 'components/MovieSearchModal';
+import PointsPill from '../PointsPill';
+import { COLORS } from '../../constants';
 
 const Container = styled.div`
   display: grid;
@@ -32,7 +34,6 @@ const Container = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  /* border: 2px solid ${({ theme }) => theme.primary}; */
   border-radius: 10px;
   flex: 0 0 50%;
   box-sizing: border-box;
@@ -67,19 +68,13 @@ const MovieLink = styled.a`
 const MovieDate = styled.span`
   margin-left: 10px;
   font-size: 70%;
-  color: ${({ theme }) => theme.grey06};
+  color: ${COLORS.gray[600]};
 `;
 
 const PointCost = styled.div`
   align-self: flex-start;
   justify-self: flex-end;
   grid-area: point-cost;
-  font-size: 1.4rem;
-  font-weight: 500;
-  padding: 0.25em 0.5em 0.5em;
-  border-radius: 4px;
-  background-color: ${({ theme }) => theme.purpleSuperdark};
-  color: white;
 `;
 
 const PickedBy = styled.span`
@@ -88,7 +83,7 @@ const PickedBy = styled.span`
   padding: 0.5em 1em;
   border-radius: 100px;
   font-size: 1.6rem;
-  color: ${({ theme }) => theme.pinkHot};
+  color: ${COLORS.pinkHot};
   background-color: #ffffff;
 `;
 
@@ -118,7 +113,9 @@ function Slot(props) {
       <PickedBy>
         Picked by: <strong>{picker.displayName}</strong>
       </PickedBy>
-      <PointCost>{tax + 3} pts</PointCost>
+      <PointCost>
+        <PointsPill>{tax + 3} pts</PointsPill>
+      </PointCost>
       <MovieTitle target='_blank' href={movie.info_url}>
         <MovieLink target='_blank' href={movie.info_url}>
           {movie.title}

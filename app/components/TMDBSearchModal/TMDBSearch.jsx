@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import SearchResultActions from './SearchResultActions';
+import { COLORS } from '../../constants';
 
 const Container = styled.div`
   max-height: 72vh;
@@ -10,7 +11,7 @@ const Container = styled.div`
   h3 {
     font-size: 1.8rem;
     font-weight: normal;
-    color: ${({ theme }) => theme.grey06};
+    color: ${COLORS.gray[600]};
   }
 
   .muted {
@@ -55,7 +56,7 @@ const SearchResult = styled.div`
   transition: background-color 100ms ease;
 
   &:hover {
-    background-color: ${({ theme }) => theme.grey02};
+    background-color: ${COLORS.gray[200]};
   }
 `;
 
@@ -66,15 +67,15 @@ const SearchResultPoster = styled.img`
   font-size: 8px;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: ${({ theme }) => theme.grey07};
-  background: ${({ theme }) => theme.grey02};
+  color: ${COLORS.gray[700]};
+  background: ${COLORS.gray[200]};
 `;
 
 const SearchResultTitle = styled.h4`
   margin: 0 0 1rem;
   font-size: 1.8rem;
   font-weight: bold;
-  color: ${({ theme }) => theme.grey09};
+  color: ${COLORS.gray[900]};
 
   small {
     font-size: 85%;

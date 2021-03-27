@@ -1,9 +1,11 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
+
+import { COLORS } from '../constants';
 
 export default styled.button`
-  background-color: ${({ theme }) => theme.pinkHot};
+  background-color: ${COLORS.pinkHot};
   color: #fff;
-  padding: 1em 1.25em;
+  padding: 14px 20px;
   font-size: 1.8rem;
   font-weight: bold;
   line-height: 1;
@@ -14,6 +16,6 @@ export default styled.button`
 
   &:hover,
   &:focus {
-    background-color: ${({ theme }) => theme.pinkHotter}
+    background-color: ${COLORS.pinkHotter};
   }
-`
+`;

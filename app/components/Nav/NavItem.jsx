@@ -6,10 +6,11 @@ export default styled.li`
   text-align: center;
 
   a {
+    display: block;
     line-height: 1;
-    padding: 0.2em 0.5em 0.5em;
+    padding: 12px 20px 16px;
     background-color: transparent;
-    border-radius: 8px;
+    border-radius: 50px;
     text-decoration: none;
     color: ${COLORS.white};
     font-size: 2rem;
@@ -23,21 +24,11 @@ export default styled.li`
   }
 
   .active {
-    background: ${COLORS.primary};
+    background: ${COLORS.primaryDark};
     background: linear-gradient(
       145deg,
-      ${COLORS.primary} -50%,
-      ${COLORS.pinkHotter} 100%
+      ${COLORS.pinkHotter} -50%,
+      ${COLORS.primary} 100%
     );
-
-    &:hover,
-    &:focus {
-      background: ${COLORS.primaryDark};
-      background: linear-gradient(
-        145deg,
-        ${COLORS.pinkHotter} -50%,
-        ${COLORS.primary} 100%
-      );
-    }
   }
 `;

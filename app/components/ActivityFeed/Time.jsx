@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { COLORS } from '../../constants';
 
 export default styled.span`
-  color: ${({ theme }) => theme.grey04};
+  color: ${COLORS.gray[400]};
   vertical-align: middle;
   display: inline-block;
   margin-top: -4px;

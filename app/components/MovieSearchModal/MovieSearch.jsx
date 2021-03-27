@@ -5,12 +5,7 @@ import HoverableMovieCard from './HoverableMovieCard';
 
 import { shuffle, isLength } from 'lodash';
 
-const Container = styled.div`
-  // display: flex;
-  // align-items: left;
-  // justify-content: left;
-  // flex-direction: row;
-  // flex-basis: 30%;
+const Wrapper = styled.div`
   font-family: sans-serif;
 `;
 
@@ -23,18 +18,12 @@ const SearchBox = styled.input`
   font-weight: normal;
   padding: 1em;
   width: 100%;
-  max-width: 600px;
-
-  &::placeholder {
-    // text-align: center;
-  }
 `;
 
 const Movies = styled.div`
-  display: flex;
-  flex-basis: 25%;
-  flex-wrap: wrap;
-  justify-content: left;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 2em;
 `;
 
 function randomSample(array, size) {
@@ -88,7 +77,7 @@ function MovieSearch(props) {
   }
 
   return (
-    <Container>
+    <Wrapper>
       <SearchBox
         placeholder={'Search'}
         value={searchTerm}
@@ -96,7 +85,7 @@ function MovieSearch(props) {
       />
 
       <Movies>{movieCards}</Movies>
-    </Container>
+    </Wrapper>
   );
 }
 
