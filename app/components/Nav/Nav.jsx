@@ -182,7 +182,7 @@ const SearchButton = styled(Button)`
 
 const propTypes = {
   username: PropTypes.string,
-  points: PropTypes.string,
+  points: PropTypes.number,
   avatarURL: PropTypes.string.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   isAdmin: PropTypes.bool.isRequired,

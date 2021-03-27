@@ -37,6 +37,7 @@ function NightBoard(props) {
 
   const slots = props.activePicks.map((pick) => (
     <Slot
+      // TODO: this key is the borked one
       key={pick.firestore_id}
       pick={pick}
       fetchActivePicks={props.fetchActivePicks}

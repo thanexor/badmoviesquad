@@ -21,7 +21,7 @@ const ProfileImage = styled.img`
 const propTypes = {
   className: PropTypes.string,
   username: PropTypes.string.isRequired,
-  points: PropTypes.string.isRequired,
+  points: PropTypes.number.isRequired,
   avatarURL: PropTypes.string.isRequired,
 };
 

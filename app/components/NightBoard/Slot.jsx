@@ -106,8 +106,6 @@ function Slot(props) {
 
   const { movie, picker, tax } = props.pick;
 
-  console.log(movie);
-
   return (
     <Container className={props.className} poster_path={movie.poster_path}>
       <PickedBy>
