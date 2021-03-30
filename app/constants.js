@@ -29,8 +29,8 @@ export const COLORS = {
   purpleSuperdark: '#12081f',
   purpleSuperdarkTransparent: 'hsla(265, 80%, 8%, 0.5)',
 
-  pinkHot: '#f0407b',
-  pinkHotter: '#d41d5a',
+  pinkHot: 'hsl(340, 85%, 60%)',
+  pinkHotter: 'hsl(340, 76%, 47%)',
   limeGreem: '#c3ff30',
   limeGreemDark: '#95c029',
 };

@@ -33,6 +33,7 @@ function Profile(props) {
         distance={18}
         duration={48}
         delay={[248, 0]}
+        followCursor={true}
       >
         <ProfileImage src={props.avatarURL} />
       </Tooltip>

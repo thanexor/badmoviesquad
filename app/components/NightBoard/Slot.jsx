@@ -5,10 +5,7 @@ import styled from 'styled-components';
 import { outbidPick } from 'services/writes';
 import { recordOutbid } from 'services/activity';
 
-import useBoop from '../../hooks/useBoop';
-import { animated } from 'react-spring';
-
-import Button from 'components/Button';
+import PushButton from '../PushButton';
 import MovieSearchModal from 'components/MovieSearchModal';
 import PointsPill from '../PointsPill';
 import { COLORS } from '../../constants';
@@ -87,9 +84,8 @@ const PickedBy = styled.span`
   background-color: #ffffff;
 `;
 
-const OutbidButton = styled(Button)`
+const OutbidButton = styled(PushButton)`
   grid-area: pick-button;
-  max-width: 100px;
   justify-self: right;
 `;
 
@@ -102,9 +98,13 @@ const propTypes = {
 
 function Slot(props) {
   const [pickerOpen, setPickerOpen] = useState(false);
-  const [style, trigger] = useBoop({ scale: 1.025, timing: 150 });
-
   const { movie, picker, tax } = props.pick;
+
+  const handleOpenPicker = () => {
+    setTimeout(() => {
+      setPickerOpen(true)
+    }, 100);
+  }
 
   return (
     <Container className={props.className} poster_path={movie.poster_path}>
@@ -120,8 +120,8 @@ function Slot(props) {
         </MovieLink>
         <MovieDate>({movie.release_date.substr(0, 4)})</MovieDate>
       </MovieTitle>
-      <OutbidButton onClick={() => setPickerOpen(true)} onMouseEnter={trigger}>
-        <animated.span style={style}>Outbid</animated.span>
+      <OutbidButton onClick={handleOpenPicker}>
+        Outbid
       </OutbidButton>
 
       <MovieSearchModal
