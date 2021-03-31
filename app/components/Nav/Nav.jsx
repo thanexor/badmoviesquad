@@ -11,7 +11,7 @@ import useWindowSize from '../../hooks/useWindowSize';
 import { animated } from 'react-spring';
 
 import TMDBSearchModal from 'components/TMDBSearchModal';
-import Button from 'components/Button';
+import PushButton, { Shadow, Edge, Front } from 'components/PushButton';
 
 import NavList from './NavList';
 import NavItem from './NavItem';
@@ -170,14 +170,25 @@ const SearchContainer = styled.div`
   }
 `;
 
-const SearchButton = styled(Button)`
-  padding: 25.08px 22px;
-  border-radius: 100px;
-  background-color: ${COLORS.limeGreem};
+const SearchButton = styled(PushButton)`
+  &, ${Shadow}, ${Edge}, ${Front} {
+    border-radius: 50%;
+  }
 
-  &:hover,
-  &:focus {
-    background-color: ${COLORS.limeGreemDark};
+  ${Edge} {
+    background: ${COLORS.limeGreemDark};
+    background: linear-gradient(
+      to left,
+      hsl(77, 65%, 40%) 0%,
+      ${COLORS.limeGreemDark} 8%,
+      ${COLORS.limeGreemDark} 92%,
+      hsl(77, 65%, 40%) 100%
+    );
+  }
+
+  ${Front} {
+    padding: 24px;
+    background: ${COLORS.limeGreem};
   }
 `;
 

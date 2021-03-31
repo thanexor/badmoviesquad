@@ -21,13 +21,19 @@ const Pushable = styled.button`
   padding: 0;
   cursor: pointer;
   outline-offset: 4px;
+  transition: filter 600ms;
+
+  &:hover {
+    filter: brightness(90%);
+    transition: filter 250ms;
+  }
 
   &:focus:not(:focus-visible) {
     outline: none;
   }
 `;
 
-const Shadow = styled.span`
+export const Shadow = styled.span`
   position: absolute;
   top: 0;
   left: 0;
@@ -46,7 +52,7 @@ const Shadow = styled.span`
   }
 `;
 
-const Edge = styled.span`
+export const Edge = styled.span`
   position: absolute;
   top: 0;
   left: 0;
@@ -63,7 +69,7 @@ const Edge = styled.span`
   );
 `;
 
-const Front = styled.span`
+export const Front = styled.span`
   position: relative;
   display: block;
   padding: 12px 42px;

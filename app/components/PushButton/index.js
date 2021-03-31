@@ -1,1 +1,1 @@
-export { default } from './PushButton';
+export { default, Shadow, Edge, Front } from './PushButton';
