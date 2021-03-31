@@ -100,8 +100,7 @@ const StyledNavList = styled(NavList)`
   background-color: ${COLORS.purpleDark};
   padding: 3em 5em;
 
-  transform: ${({ openMenu }) =>
-    openMenu ? `translateX(0)` : `translateX(100%)`};
+  transform: ${({ openMenu }) => (openMenu ? `translateX(0)` : `translateX(100%)`)};
   transition: transform 150ms ease-in;
 
   ${({ theme }) => theme.mediaBreakpoint.md} {
@@ -171,7 +170,12 @@ const SearchContainer = styled.div`
 `;
 
 const SearchButton = styled(PushButton)`
-  &, ${Shadow}, ${Edge}, ${Front} {
+  font-size: unset;
+  font-weight: normal;
+  line-height: 0;
+
+  &,
+  ${Shadow}, ${Edge}, ${Front} {
     border-radius: 50%;
   }
 
@@ -190,6 +194,12 @@ const SearchButton = styled(PushButton)`
     padding: 24px;
     background: ${COLORS.limeGreem};
   }
+`;
+
+const SearchImg = styled.img`
+  display: block;
+  width: 24px;
+  height: auto;
 `;
 
 const propTypes = {
@@ -236,30 +246,17 @@ export default function Nav(props) {
               }}
             >
               <NavItem>
-                <NavLink
-                  exact
-                  to='/'
-                  activeClassName='active'
-                  onClick={() => setOpenMenu(false)}
-                >
+                <NavLink exact to='/' activeClassName='active' onClick={() => setOpenMenu(false)}>
                   Home
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink
-                  to='/scores'
-                  activeClassName='active'
-                  onClick={() => setOpenMenu(false)}
-                >
+                <NavLink to='/scores' activeClassName='active' onClick={() => setOpenMenu(false)}>
                   Scores
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink
-                  to='/movies'
-                  activeClassName='active'
-                  onClick={() => setOpenMenu(false)}
-                >
+                <NavLink to='/movies' activeClassName='active' onClick={() => setOpenMenu(false)}>
                   Movies
                 </NavLink>
               </NavItem>
@@ -284,10 +281,7 @@ export default function Nav(props) {
             </StyledUser>
             <MobileOnlyWrapper>
               <Spacer size={15} axis='horizontal' />
-              <HamburgerButton
-                onClick={() => setOpenMenu(true)}
-                onMouseEnter={menuTrigger}
-              >
+              <HamburgerButton onClick={() => setOpenMenu(true)} onMouseEnter={menuTrigger}>
                 <animated.span style={menuStyle}>
                   <Menu />
                 </animated.span>
@@ -307,7 +301,7 @@ export default function Nav(props) {
           }}
         >
           <animated.span style={searchStyle}>
-            <i>&#128269;</i>
+            <SearchImg src='/img/search_win.png' />
           </animated.span>
         </SearchButton>
       </SearchContainer>
