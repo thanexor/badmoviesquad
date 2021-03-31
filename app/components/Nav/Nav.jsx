@@ -20,6 +20,8 @@ import Profile from './Profile';
 import User from './User';
 import Spacer from '../Spacer';
 
+import searchImg from 'static/img/search_win.png';
+
 import { Menu } from 'icon';
 import MaxWidthWrapper from '../MaxWidthWrapper';
 import { COLORS } from '../../constants';
@@ -301,7 +303,7 @@ export default function Nav(props) {
           }}
         >
           <animated.span style={searchStyle}>
-            <SearchImg src='/img/search_win.png' />
+            <SearchImg src={searchImg} />
           </animated.span>
         </SearchButton>
       </SearchContainer>

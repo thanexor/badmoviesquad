@@ -29,6 +29,14 @@ module.exports = {
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
+      },
     ],
   },
   plugins: [
@@ -46,6 +54,7 @@ module.exports = {
       components: path.resolve(__dirname, 'app/components/'),
       containers: path.resolve(__dirname, 'app/containers/'),
       icon: path.resolve(__dirname, 'app/icon/'),
+      static: path.resolve(__dirname, 'static/'),
       reduxState: path.resolve(__dirname, 'app/reduxState/'),
       services: path.resolve(__dirname, 'app/services/'),
     },
