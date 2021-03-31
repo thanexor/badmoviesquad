@@ -11,7 +11,7 @@ export default styled.button`
   line-height: 1;
   border: none;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 12px;
   transition: background-color 100ms linear;
 
   &:hover,

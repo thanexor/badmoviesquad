@@ -29,10 +29,10 @@ export const COLORS = {
   purpleSuperdark: '#12081f',
   purpleSuperdarkTransparent: 'hsla(265, 80%, 8%, 0.5)',
 
-  pinkHot: '#f0407b',
-  pinkHotter: '#d41d5a',
-  limeGreem: '#c3ff30',
-  limeGreemDark: '#95c029',
+  pinkHot: 'hsl(340, 85%, 60%)',
+  pinkHotter: 'hsl(340, 76%, 47%)',
+  limeGreem: 'hsl(77, 100%, 59%)',
+  limeGreemDark: 'hsl(77, 65%, 46%)',
 };
 
 export const WEIGHTS = {

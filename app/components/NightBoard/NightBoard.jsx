@@ -35,10 +35,9 @@ const propTypes = {
 function NightBoard(props) {
   const { title, location } = props.night;
 
-  const slots = props.activePicks.map((pick) => (
+  const slots = props.activePicks.map((pick, index) => (
     <Slot
-      // TODO: this key is the borked one
-      key={pick.firestore_id}
+      key={index}
       pick={pick}
       fetchActivePicks={props.fetchActivePicks}
       refreshActivity={props.refreshActivity}
