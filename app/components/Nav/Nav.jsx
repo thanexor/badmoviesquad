@@ -58,7 +58,7 @@ const Logo = styled.div`
 `;
 
 const LogoNavLink = styled(NavLink)`
-  font-family: ${({ theme }) => theme.fontFamily.creepster};
+  font-family: var(--logo-font);
   color: ${COLORS.limeGreem};
   margin-top: 0;
   margin-bottom: 0;
@@ -214,13 +214,17 @@ const propTypes = {
 
 // template
 export default function Nav(props) {
+  const windowSize = useWindowSize();
+  const [fontFamily, setFontFamily] = useState("'Creepster'");
   const [openMenu, setOpenMenu] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [activity, refreshActivity] = useFetchedData(getActivity, 10);
   const [searchStyle, searchTrigger] = useBoop({ rotation: 20, timing: 150 });
   const [menuStyle, menuTrigger] = useBoop({ x: 1.2, timing: 100 });
   const [logoStyle, logoTrigger] = useBoop({ rotation: 1, timing: 200 });
-  const windowSize = useWindowSize();
+
+  const fonts = ["'Creepster'", "'Metal Mania'",];
+  const random = () => fonts[Math.floor(Math.random() * fonts.length)]
 
   return (
     <>
@@ -234,7 +238,14 @@ export default function Nav(props) {
         >
           <NavContainer>
             <Logo>
-              <LogoNavLink to='/' onMouseEnter={logoTrigger}>
+              <LogoNavLink
+                exact
+                to='/'
+                replace
+                onMouseDown={logoTrigger}
+                onClick={() => setFontFamily(random)}
+                style={{ '--logo-font': `${fontFamily}, cursive` }}
+              >
                 <animated.span style={logoStyle}>
                   {windowSize.width > 1000 ? 'Bad Movie Squad' : 'BMS'}
                 </animated.span>
@@ -248,17 +259,33 @@ export default function Nav(props) {
               }}
             >
               <NavItem>
-                <NavLink exact to='/' activeClassName='active' onClick={() => setOpenMenu(false)}>
+                <NavLink
+                  exact
+                  to='/'
+                  replace
+                  activeClassName='active'
+                  onClick={() => setOpenMenu(false)}
+                >
                   Home
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to='/scores' activeClassName='active' onClick={() => setOpenMenu(false)}>
+                <NavLink
+                  to='/scores'
+                  replace
+                  activeClassName='active'
+                  onClick={() => setOpenMenu(false)}
+                >
                   Scores
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to='/movies' activeClassName='active' onClick={() => setOpenMenu(false)}>
+                <NavLink
+                  to='/movies'
+                  replace
+                  activeClassName='active'
+                  onClick={() => setOpenMenu(false)}
+                >
                   Movies
                 </NavLink>
               </NavItem>
